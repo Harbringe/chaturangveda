@@ -1,0 +1,181 @@
+.cta {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0D1B2A 0%, #152238 30%, #1B2D45 70%, #0D1B2A 100%);
+}
+
+/* Blueprint grid */
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(194, 198, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 198, 212, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+/* Gradient mesh */
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(21, 101, 192, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(169, 199, 255, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.ctaEmoji {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.5;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 16px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.ctaDescription {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--on-primary);
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+
+.ctaBtnPrimary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(21, 101, 192, 0.08), transparent);
+  transition: left 0.5s ease;
+}
+
+.ctaBtnPrimary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+
+.ctaBtnPrimary:hover::before { left: 100%; }
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.ctaBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+}
+
+/* Decorative chess pieces */
+.ctaBgPiece1,
+.ctaBgPiece2,
+.ctaBgPiece3 {
+  position: absolute;
+  font-size: 8rem;
+  opacity: 0.03;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.ctaBgPiece1 {
+  top: 10%; left: 5%;
+  transform: rotate(-15deg);
+  animation: floatPieceCta 8s ease-in-out infinite;
+}
+
+.ctaBgPiece2 {
+  bottom: 10%; right: 8%;
+  transform: rotate(20deg);
+  animation: floatPieceCta 10s ease-in-out infinite 2s;
+}
+
+.ctaBgPiece3 {
+  top: 50%; right: 30%;
+  transform: rotate(10deg);
+  font-size: 6rem;
+  animation: floatPieceCta 12s ease-in-out infinite 4s;
+}
+
+@keyframes floatPieceCta {
+  0%, 100% { transform: translateY(0) rotate(-15deg); }
+  50% { transform: translateY(-12px) rotate(-10deg); }
+}
+
+.ctaNote {
+  margin-top: 24px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 600px) {
+  .ctaBtnPrimary,
+  .ctaBtnSecondary {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

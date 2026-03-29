@@ -1,0 +1,197 @@
+.benefits {
+  padding: var(--section-padding);
+  background: linear-gradient(135deg, #0D1B2A 0%, #152238 40%, #1B2D45 70%, #0D1B2A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blueprint grid */
+.benefits::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(194, 198, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 198, 212, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+/* Gradient mesh */
+.benefits::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(21, 101, 192, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(169, 199, 255, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.benefitsContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Left text */
+.benefitsText h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 20px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.benefitsText h2 span {
+  color: var(--primary-fixed-dim);
+}
+
+.benefitsText p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+/* Tags */
+.benefitsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.benefitTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+
+.tagIcon {
+  color: var(--primary-fixed-dim);
+  display: flex;
+  align-items: center;
+}
+
+.benefitTag:hover {
+  background: rgba(21, 101, 192, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Cards grid */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Glass benefit card */
+.benefitCard {
+  display: flex;
+  gap: 14px;
+  padding: 20px 18px;
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top refraction */
+.benefitCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.benefitCard:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-3px);
+}
+
+.benefitCardIconWrap {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+.benefitCardIcon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.benefitCard:hover .benefitCardIcon {
+  transform: scale(1.1);
+}
+
+.benefitCardContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.benefitCardTitle {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.benefitCardDesc {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.38);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .benefitsContent {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .benefitsText { text-align: center; }
+  .benefitsList { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .benefitsGrid { grid-template-columns: 1fr; }
+}

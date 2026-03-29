@@ -1,0 +1,134 @@
+.banner {
+  padding: 48px 0;
+  background: var(--surface-container-low);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Marquee wrapper */
+.marqueeWrapper {
+  overflow: hidden;
+  padding: 12px 0;
+  position: relative;
+}
+
+.marqueeWrapper::before,
+.marqueeWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+}
+
+.marqueeWrapper::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--surface-container-low), transparent);
+}
+
+.marqueeWrapper::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--surface-container-low), transparent);
+}
+
+.marquee {
+  display: flex;
+  gap: 32px;
+  white-space: nowrap;
+  animation: marqueeScroll 25s linear infinite;
+  width: max-content;
+}
+
+.marqueeReverse {
+  animation-direction: reverse;
+  animation-duration: 30s;
+}
+
+.marqueeWord {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--outline);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Main animated text */
+.mainText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  padding: 16px 24px;
+}
+
+.textLine {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
+}
+
+.textIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  opacity: 0.2;
+  color: var(--primary-container);
+}
+
+.textContent {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Progress dots */
+.progressDots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 0 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--surface-container-highest);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.dotActive {
+  width: 24px;
+  border-radius: 3px;
+  background: var(--primary-container);
+}
+
+.dot:hover {
+  background: var(--outline);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .textContent { font-size: 1.2rem; }
+  .textIcon { font-size: 1.8rem; }
+  .marqueeWord { font-size: 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .textLine { flex-direction: column; gap: 8px; }
+  .textContent { font-size: 1rem; }
+}

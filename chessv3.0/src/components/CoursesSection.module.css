@@ -1,0 +1,246 @@
+.courses {
+  padding: var(--section-padding);
+  background: var(--surface-container-low);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blueprint grid background */
+.courses::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(194, 198, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 198, 212, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+/* Ambient glow */
+.courses::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(21, 101, 192, 0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+  perspective: 1200px;
+}
+
+/* Register custom property for border animation */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Card wrapper for 3D tilt + border trace */
+.courseCardWrap {
+  position: relative;
+  border-radius: var(--border-radius-xl);
+  padding: 2px;
+  background: transparent;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+
+/* Spinning conic gradient border trace */
+.courseCardWrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-xl);
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0%,
+    transparent 25%,
+    rgba(21, 101, 192, 0.1) 30%,
+    var(--primary-container) 35%,
+    var(--secondary-container) 40%,
+    rgba(21, 101, 192, 0.1) 45%,
+    transparent 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: spinBorder 4s linear infinite;
+  z-index: 0;
+}
+
+.courseCardWrap:hover::before { opacity: 1; }
+
+.courseCardWrap:hover {
+  transform: translateY(-8px);
+  filter: drop-shadow(0 8px 32px rgba(21, 101, 192, 0.12));
+}
+
+@keyframes spinBorder {
+  0%   { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* Inner glass card */
+.courseCard {
+  border-radius: calc(var(--border-radius-xl) - 2px);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Course header */
+.courseHeader {
+  padding: 32px 28px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.courseHeader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.courseHeader.beginner {
+  background: linear-gradient(135deg, rgba(214, 227, 255, 0.3) 0%, rgba(169, 199, 255, 0.15) 100%);
+}
+
+.courseHeader.intermediate {
+  background: linear-gradient(135deg, rgba(21, 101, 192, 0.08) 0%, rgba(43, 91, 181, 0.12) 100%);
+}
+
+.courseHeader.advanced {
+  background: linear-gradient(135deg, rgba(0, 77, 153, 0.1) 0%, rgba(21, 101, 192, 0.15) 100%);
+}
+
+.courseLevel {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--surface-container-high);
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary-container);
+  margin-bottom: 14px;
+}
+
+.courseEmoji {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 2rem;
+  color: var(--primary-container);
+}
+
+.courseEmoji svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.courseTitle {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+}
+
+.courseChessIcon {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  font-size: 5rem;
+  opacity: 0.04;
+  pointer-events: none;
+  color: var(--primary);
+}
+
+/* Course body */
+.courseBody {
+  padding: 28px;
+}
+
+.courseTag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--surface-container-high);
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--primary-container);
+  margin-bottom: 18px;
+}
+
+.courseOutcomes {
+  list-style: none;
+  margin-bottom: 28px;
+}
+
+.courseOutcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.checkmark {
+  color: var(--on-primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.courseCTA {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .coursesGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
