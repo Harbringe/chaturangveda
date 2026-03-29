@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p E:/chaturangaveda/chessv3.0/public/images/2024/03)",
+      "Bash(mkdir -p E:/chaturangaveda/chessv3.0/public/images/2024/08)",
+      "Bash(mkdir -p E:/chaturangaveda/chessv3.0/public/images/2025/01)",
+      "Bash(mkdir -p E:/chaturangaveda/chessv3.0/public/images/2025/02)",
+      "Bash(cp E:/chaturangaveda/assets/2024/03/* E:/chaturangaveda/chessv3.0/public/images/2024/03/)",
+      "Bash(cp \"E:/chaturangaveda/assets/2024/03/\"* \"E:/chaturangaveda/chessv3.0/public/images/2024/03/\")",
+      "Bash(cp \"E:/chaturangaveda/assets/2024/08/\"* \"E:/chaturangaveda/chessv3.0/public/images/2024/08/\")",
+      "Bash(cp \"E:/chaturangaveda/assets/2025/01/\"* \"E:/chaturangaveda/chessv3.0/public/images/2025/01/\")",
+      "Bash(cp \"E:/chaturangaveda/assets/2025/02/\"* \"E:/chaturangaveda/chessv3.0/public/images/2025/02/\")",
+      "Bash(npm run:*)",
+      "Bash(./node_modules/.bin/next build:*)",
+      "Bash(npm --version)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

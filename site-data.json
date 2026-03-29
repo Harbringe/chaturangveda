@@ -1,0 +1,629 @@
+{
+  "site": {
+    "name": "Chaturangveda",
+    "tagline": "New Era In Teaching Chess ♟",
+    "title": "Chaturangveda – Online Chess Coaching For Kids",
+    "description": "World's #1 Online Chess Coaching For Kids. FIDE-rated expert coaches. Trial class available. Join 100+ students.",
+    "phone": "+91 75691 94709",
+    "whatsapp": "https://wa.me/+917569194709",
+    "location": "Hyderabad, India",
+    "serviceArea": "Online – available across India"
+  },
+
+  "navigation": {
+    "links": [
+      { "label": "Services", "href": "/services" },
+      { "label": "Coaches", "href": "/coaches" },
+      { "label": "Curriculum", "href": "/curriculum" },
+      { "label": "Blog", "href": "/blogs" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "ctas": [
+      { "label": "Become a Coach", "href": "/become-a-coach" },
+      { "label": "Book Free Trial", "href": "/book-free-trial" }
+    ]
+  },
+
+  "pages": {
+    "home": {
+      "hero": {
+        "badge": "Free Trial Available · No Credit Card",
+        "heading": "Master Chess. Master Life.",
+        "subheading": "Expert chess coaching for kids by FIDE-rated coaches. From your child's first move to tournament glory — all online, all India.",
+        "ctas": [
+          { "label": "Book Free Trial", "href": "/book-free-trial", "style": "primary" },
+          { "label": "Chat on WhatsApp", "href": "https://wa.me/+917569194709", "style": "ghost" }
+        ],
+        "trustSignals": [
+          "100+ students trained",
+          "FIDE-rated coaches",
+          "45-min free session"
+        ],
+        "socialProof": "Joined by 100+ students across India"
+      },
+
+      "stats": [
+        { "value": "100+", "label": "Students Trained" },
+        { "value": "10+",  "label": "Years Experience" },
+        { "value": "3",    "label": "FIDE-Rated Coaches" },
+        { "value": "50+",  "label": "Tournament Wins" }
+      ],
+
+      "services": {
+        "sectionTag": "Programs",
+        "heading": "Chess Classes For Every Level",
+        "subheading": "From your child's very first move to tournament-ready — we have the perfect program.",
+        "items": [
+          {
+            "icon": "🎯",
+            "title": "Free Trial Class",
+            "description": "Full 45-min session at zero cost. Level assessment + personalised plan — before you spend a rupee.",
+            "badge": "FREE",
+            "href": "/book-free-trial"
+          },
+          {
+            "icon": "👥",
+            "title": "Group Classes",
+            "description": "Max 5 students per batch. Focused coaching + healthy peer competition. Perfect for most learners.",
+            "badge": "POPULAR",
+            "href": "/services"
+          },
+          {
+            "icon": "⚡",
+            "title": "Private 1-on-1",
+            "description": "Undivided coach attention, custom curriculum, flexible scheduling for tournament-focused students.",
+            "badge": "PREMIUM",
+            "href": "/services"
+          }
+        ],
+        "cta": { "label": "Start with a Free Trial", "href": "/book-free-trial" }
+      },
+
+      "whyChess": {
+        "sectionTag": "Why Chess?",
+        "heading": "More Than a Game. A Life Skill.",
+        "subheading": "Chess teaches children how to think — not just on the board, but in every challenge life throws at them. The skills built here last decades.",
+        "floatingCard": {
+          "title": "Academic Impact",
+          "body": "Students show 30% improvement in math after just 3 months."
+        },
+        "benefits": [
+          {
+            "title": "Critical Thinking",
+            "description": "Multi-step planning skills that carry directly into academics and real-world decisions."
+          },
+          {
+            "title": "Laser Focus",
+            "description": "Chess concentration exercises improve attention span in school and everyday life."
+          },
+          {
+            "title": "Fast Memory",
+            "description": "Pattern recognition and opening theory train both short and long-term memory."
+          },
+          {
+            "title": "Resilience",
+            "description": "Winning and losing gracefully builds character and the mindset for lifelong success."
+          },
+          {
+            "title": "Better Grades",
+            "description": "Students show measurable improvement in math and logical reasoning after 3 months."
+          },
+          {
+            "title": "True Sportsmanship",
+            "description": "Respect for opponents and fair play — values that define great humans."
+          }
+        ]
+      },
+
+      "coaches": {
+        "sectionTag": "The Team",
+        "heading": "World-Class Chess Coaches",
+        "subheading": "Decades of combined experience, FIDE ratings, and genuine passion for teaching.",
+        "cta": { "label": "Meet All Coaches", "href": "/coaches" }
+      },
+
+      "studentChampions": {
+        "sectionTag": "Student Success",
+        "heading": "Real Students. Real Results.",
+        "students": [
+          { "name": "Samanvith", "image": "/images/2025/01/Samanvith-e1738320920340.png" },
+          { "name": "Ekaansh",   "image": "/images/2025/01/Ekaansh-Sharma-e1738320995620.png" },
+          { "name": "ANISH",     "image": "/images/2025/01/ANISH-e1738320951137.png" },
+          { "name": "Advaith",   "image": "/images/2025/01/Advaith-e1738323429688.jpg" },
+          { "name": "Saikamal",  "image": "/images/2025/01/Saikamal-e1738323539994.jpg" },
+          { "name": "Srinika",   "image": "/images/2025/01/Srinika.png" }
+        ],
+        "winnersBanner": {
+          "tag": "Tournament Champions",
+          "heading": "50+ Wins at District, State & National Level",
+          "image": "/images/2025/01/winners.jpg",
+          "cta": { "label": "Read Stories", "href": "/blogs" }
+        },
+        "cta": { "label": "Read Their Stories", "href": "/blogs" }
+      },
+
+      "cta": {
+        "badge": "100% Free · Zero Obligation",
+        "heading": "Start Your Child's Chess Journey Today",
+        "subheading": "Book a free 45-minute trial. Our FIDE-rated coaches will assess your child and create a personalised plan.",
+        "buttons": [
+          { "label": "Book Free Trial", "href": "/book-free-trial", "style": "primary" },
+          { "label": "WhatsApp Us", "href": "https://wa.me/+917569194709", "style": "ghost" }
+        ]
+      }
+    },
+
+    "services": {
+      "hero": {
+        "tag": "Programs",
+        "heading": "Chess Classes For Every Level",
+        "subheading": "From your child's very first move to tournament-ready play — we have a program designed to meet them exactly where they are."
+      },
+      "programs": [
+        {
+          "title": "Free Trial Class",
+          "subtitle": "Zero cost · Zero commitment",
+          "description": "Not sure if chess is right for your child? Our experts will run a full 45-minute session completely free. We assess their current level, introduce the fundamentals, and create a personalised learning plan — before you spend a single rupee.",
+          "image": "/images/2024/03/Downloader.la-65fe7f398ff44.jpg",
+          "badge": "FREE",
+          "features": [
+            "Full 45-minute session",
+            "FIDE-rated coach assessment",
+            "Personalised feedback report",
+            "No credit card required",
+            "Instant WhatsApp confirmation"
+          ]
+        },
+        {
+          "title": "Group Chess Classes",
+          "subtitle": "Max 5 students per batch",
+          "description": "Small-group coaching strikes the perfect balance between focused instruction and the energy of peer learning. With never more than 5 students, every child gets meaningful time with their coach while competing with and learning from their peers.",
+          "image": "/images/2024/08/adorable-siblings-lying-ground-playing-chess-with-each-other.webp",
+          "badge": "POPULAR",
+          "features": [
+            "Maximum 5 students per batch",
+            "2–3 sessions per week",
+            "Opening theory & tactical puzzles",
+            "Peer games and live analysis",
+            "Monthly progress review"
+          ]
+        },
+        {
+          "title": "Private 1-on-1 Classes",
+          "subtitle": "Fully personalised coaching",
+          "description": "For students who want rapid progress or have specific tournament goals, private sessions give them undivided coach attention. Every session is built around your child's unique strengths, weaknesses, and ambitions.",
+          "image": "/images/2024/08/kids-playing-around-calm-cosy-spaces.webp",
+          "badge": "PREMIUM",
+          "features": [
+            "100% 1-on-1 with expert coach",
+            "Completely custom curriculum",
+            "Flexible scheduling",
+            "Tournament preparation",
+            "Deep grandmaster game analysis"
+          ]
+        }
+      ],
+      "cta": {
+        "heading": "Not Sure Which Plan Is Right?",
+        "subheading": "Start with a free trial and our coaches will recommend the perfect program for your child.",
+        "button": { "label": "Book Free Trial", "href": "/book-free-trial" }
+      }
+    },
+
+    "coaches": {
+      "hero": {
+        "tag": "The Team",
+        "heading": "World-Class Chess Coaches",
+        "subheading": "Decades of combined experience, FIDE ratings, and a genuine passion for teaching."
+      },
+      "coaches": [
+        {
+          "name": "Manoj Reddy Maram",
+          "title": "Head Coach & Founder",
+          "experience": "10+ Years",
+          "badge": "FIDE Rated",
+          "image": "/images/2025/02/ManojReddyMaram.jpg",
+          "bio": "A FIDE-rated international player who has dedicated over a decade to mastering and teaching chess. With 100+ students trained from beginner to tournament level, Manoj brings deep expertise in opening theory, endgame mastery, and psychological preparation.",
+          "specialties": ["Opening Theory", "Endgame Mastery", "Tournament Prep", "Tactics"],
+          "achievements": [
+            "FIDE-Rated International Player",
+            "Trained 100+ students",
+            "10+ years of coaching"
+          ]
+        },
+        {
+          "name": "Uttham Naresh Patti",
+          "title": "Senior Coach",
+          "experience": "10+ Years",
+          "badge": "National Level",
+          "image": "/images/2025/02/1697257716831.jpg",
+          "bio": "A two-time national-level player with 5+ years of dedicated coaching experience. Uttham specialises in tactical play and building the competitive mindset required to succeed at tournaments.",
+          "specialties": ["Tactical Play", "Middlegame Strategy", "National Prep", "Youth Coaching"],
+          "achievements": [
+            "Two-time National-Level Player",
+            "5+ years coaching",
+            "Tournament preparation specialist"
+          ]
+        },
+        {
+          "name": "Rajdip",
+          "title": "Coach",
+          "experience": "5+ Years",
+          "badge": "State Level",
+          "image": "/images/2025/02/resume.png",
+          "bio": "Brings an energetic and accessible approach to chess coaching, having trained 30+ students to impressive state-level results. Known for making complex ideas fun — Rajdip has a special talent for engaging young learners.",
+          "specialties": ["Beginner Curriculum", "State-Level Prep", "Fun Learning", "Youth Development"],
+          "achievements": [
+            "Trained 30+ students",
+            "State-level wins",
+            "Youth coaching specialist"
+          ]
+        }
+      ],
+      "joinTeamCta": {
+        "heading": "Are You a Chess Expert?",
+        "subheading": "We're always looking for passionate coaches to join our growing team.",
+        "button": { "label": "Become a Coach", "href": "/become-a-coach" }
+      }
+    },
+
+    "curriculum": {
+      "hero": {
+        "tag": "Curriculum & Schedule",
+        "heading": "Structured Path From Beginner to Champion",
+        "subheading": "Designed by FIDE-rated coaches to take students from their first move all the way to tournament play — at their own pace."
+      },
+      "levels": [
+        {
+          "num": "01",
+          "title": "Beginner",
+          "duration": "3 Months",
+          "topics": [
+            "Rules & how pieces move",
+            "Basic checkmates",
+            "Opening principles",
+            "Simple tactics (forks, pins)",
+            "Pawn structure basics"
+          ],
+          "goal": "Play a complete game confidently and spot basic tactics."
+        },
+        {
+          "num": "02",
+          "title": "Intermediate",
+          "duration": "4 Months",
+          "topics": [
+            "Opening theory",
+            "Tactical motifs (skewers, discovered attacks)",
+            "Basic endgames",
+            "Middlegame strategy",
+            "Game analysis"
+          ],
+          "goal": "Win club tournaments and analyse your own games."
+        },
+        {
+          "num": "03",
+          "title": "Advanced",
+          "duration": "6 Months",
+          "topics": [
+            "Deep opening preparation",
+            "Complex tactical combinations",
+            "Full endgame theory",
+            "Positional & pawn play",
+            "Tournament psychology"
+          ],
+          "goal": "Compete at state and national level tournaments."
+        }
+      ],
+      "schedule": [
+        { "day": "Monday",    "time": "5:00 – 6:00 PM",     "batch": "Beginner Group A" },
+        { "day": "Tuesday",   "time": "5:00 – 6:00 PM",     "batch": "Intermediate Group A" },
+        { "day": "Wednesday", "time": "4:00 – 5:00 PM",     "batch": "Beginner Group B" },
+        { "day": "Wednesday", "time": "6:00 – 7:00 PM",     "batch": "Advanced Group" },
+        { "day": "Thursday",  "time": "5:00 – 6:00 PM",     "batch": "Intermediate Group B" },
+        { "day": "Saturday",  "time": "10:00 – 11:00 AM",   "batch": "Weekend Batch (Beginner)" },
+        { "day": "Saturday",  "time": "11:30 AM – 1:00 PM", "batch": "Weekend Batch (Advanced)" },
+        { "day": "Sunday",    "time": "10:00 – 11:30 AM",   "batch": "Private Sessions (All levels)" }
+      ],
+      "scheduleNote": "Sessions include recording. Private sessions are fully flexible.",
+      "cta": {
+        "heading": "Ready to Start?",
+        "subheading": "Our coaches will assess your child's level and place them in the perfect batch.",
+        "button": { "label": "Book Free Trial", "href": "/book-free-trial" }
+      }
+    },
+
+    "contact": {
+      "hero": {
+        "tag": "Contact",
+        "heading": "We'd Love to Hear From You",
+        "subheading": "Questions? Want to book a trial? Reach out via WhatsApp for the fastest reply."
+      },
+      "methods": [
+        {
+          "title": "WhatsApp",
+          "description": "Usually responds within minutes",
+          "value": "+91 75691 94709",
+          "href": "https://wa.me/+917569194709",
+          "cta": "Chat Now →"
+        },
+        {
+          "title": "Phone",
+          "description": "Mon–Sat, 9 AM – 7 PM IST",
+          "value": "+91 75691 94709",
+          "href": "tel:+917569194709",
+          "cta": "Call Us →"
+        },
+        {
+          "title": "Location",
+          "description": "Online — available nationwide",
+          "value": "Hyderabad, India",
+          "cta": "Online Classes"
+        }
+      ],
+      "businessHours": [
+        { "day": "Monday – Friday", "hours": "9:00 AM – 7:00 PM IST" },
+        { "day": "Saturday",        "hours": "9:00 AM – 5:00 PM IST" },
+        { "day": "Sunday",          "hours": "Private sessions only" },
+        { "day": "WhatsApp",        "hours": "24/7 (replies in business hours)" }
+      ],
+      "faqs": [
+        {
+          "question": "What age group do you teach?",
+          "answer": "Children from age 5 and above. Our curriculum adapts to each age group."
+        },
+        {
+          "question": "Are classes online or in-person?",
+          "answer": "All classes are conducted online via Zoom, accessible anywhere in India."
+        },
+        {
+          "question": "How long is each class?",
+          "answer": "Standard classes run 45–60 minutes. Private sessions can be extended as needed."
+        },
+        {
+          "question": "Do I need any special equipment?",
+          "answer": "Just a device with stable internet. A physical chess board is helpful but not required."
+        },
+        {
+          "question": "What happens in the free trial?",
+          "answer": "A full 45-minute session — level assessment, fundamentals, and personalised feedback. Completely free."
+        },
+        {
+          "question": "Can adults join?",
+          "answer": "Absolutely. While we specialise in kids, adult learners are very welcome. Contact us to discuss."
+        }
+      ],
+      "cta": {
+        "heading": "Ready to Start?",
+        "subheading": "Book a free trial and discover what Chaturangveda can do for your child.",
+        "button": { "label": "Book Free Trial", "href": "/book-free-trial" }
+      }
+    },
+
+    "bookFreeTrial": {
+      "hero": {
+        "tag": "100% Free · No Credit Card",
+        "heading": "Book Your Free Trial Class",
+        "subheading": "Fill in your details and we'll confirm your slot via WhatsApp within a few hours."
+      },
+      "whatsIncluded": [
+        "Full 45-minute session with a FIDE-rated coach",
+        "Level assessment and personalised feedback",
+        "No credit card or payment required",
+        "Instant WhatsApp confirmation",
+        "Zero obligation to continue"
+      ],
+      "form": {
+        "heading": "Your Details",
+        "fields": [
+          { "name": "parentName",    "label": "Parent / Guardian Name", "type": "text",   "placeholder": "Your name",                         "required": true },
+          { "name": "childName",     "label": "Child's Name",            "type": "text",   "placeholder": "Child's name",                      "required": true },
+          { "name": "childAge",      "label": "Child's Age",             "type": "number", "placeholder": "e.g. 8",                            "required": true },
+          { "name": "phone",         "label": "WhatsApp Number",         "type": "tel",    "placeholder": "+91 98765 43210",                   "required": true },
+          {
+            "name": "level",
+            "label": "Current Level",
+            "type": "select",
+            "options": [
+              "Complete Beginner — never played",
+              "Casual — knows the rules",
+              "Intermediate — plays regularly",
+              "Tournament Player — competed before"
+            ]
+          },
+          { "name": "preferredTime", "label": "Preferred Time",          "type": "text",   "placeholder": "e.g. Weekday evenings, Saturday mornings…" },
+          { "name": "message",       "label": "Anything else?",          "type": "textarea","placeholder": "Questions or special requirements…" }
+        ],
+        "submitLabel": "Book Free Trial via WhatsApp",
+        "submitNote": "Opens WhatsApp with your details pre-filled."
+      },
+      "successState": {
+        "heading": "Request Sent!",
+        "body": "WhatsApp is opening with your details. Our team will confirm your slot shortly."
+      }
+    },
+
+    "becomeACoach": {
+      "hero": {
+        "tag": "Join Our Team",
+        "heading": "Become a Chaturangveda Coach",
+        "subheading": "Are you a skilled chess player with a passion for teaching? Join our team and help the next generation of champions grow."
+      },
+      "perks": [
+        {
+          "title": "Competitive Pay",
+          "description": "Attractive hourly rates with performance bonuses for student results."
+        },
+        {
+          "title": "Flexible Hours",
+          "description": "Choose your availability — morning, evening, or weekend batches."
+        },
+        {
+          "title": "Grow With Us",
+          "description": "Early coaches become senior coaches as the platform scales."
+        }
+      ],
+      "requirements": [
+        "Strong chess background (FIDE rating preferred)",
+        "Passion for teaching and working with children",
+        "Reliable internet connection and quiet space",
+        "Ability to commit to a consistent weekly schedule",
+        "Strong communication in English / Telugu / Hindi"
+      ],
+      "requirementsNote": "FIDE rating is preferred but not mandatory. Coaching ability and enthusiasm matter most.",
+      "form": {
+        "heading": "Apply Now",
+        "fields": [
+          { "name": "name",         "label": "Full Name",              "type": "text",   "placeholder": "Your full name",              "required": true },
+          { "name": "phone",        "label": "Phone / WhatsApp",       "type": "tel",    "placeholder": "+91 98765 43210",             "required": true },
+          { "name": "email",        "label": "Email",                  "type": "email",  "placeholder": "you@email.com" },
+          {
+            "name": "experience",
+            "label": "Years of Experience",
+            "type": "select",
+            "required": true,
+            "options": ["1–2 years", "3–5 years", "5–10 years", "10+ years"]
+          },
+          { "name": "rating",       "label": "FIDE Rating (if any)",   "type": "text",   "placeholder": "e.g. 1800" },
+          { "name": "availability", "label": "Availability",           "type": "text",   "placeholder": "e.g. Weekday evenings, Saturdays…" },
+          { "name": "message",      "label": "About you",              "type": "textarea","placeholder": "Your chess background, achievements, teaching style…" }
+        ],
+        "submitLabel": "Submit via WhatsApp"
+      },
+      "successState": {
+        "heading": "Application Sent!",
+        "body": "WhatsApp is opening with your details. We'll review and get back to you soon."
+      }
+    },
+
+    "blog": {
+      "hero": {
+        "tag": "Blog",
+        "heading": "Chess Stories & Insights",
+        "subheading": "Student success stories, coaching tips, and everything chess from the Chaturangveda team."
+      },
+      "categories": ["All", "Student Stories", "Education", "Coaching", "Tips & Tricks"],
+      "posts": [
+        {
+          "slug": "ekaansh-sharma-rising-star",
+          "title": "Ekaansh Sharma: A Rising Star in the World of Chess",
+          "excerpt": "From his very first chess lesson at Chaturangveda to competing at state-level tournaments, Ekaansh's journey is an inspiring story of dedication, strategy, and growth.",
+          "image": "/images/2025/01/Ekaansh-Sharma-e1738320995620.png",
+          "date": "Feb 27, 2025",
+          "readTime": "5 min",
+          "category": "Student Stories",
+          "featured": true,
+          "fullContent": {
+            "title": "Ekaansh Sharma: A Rising Star in the World of Chess",
+            "date": "February 27, 2025",
+            "readTime": "5 min read",
+            "category": "Student Stories",
+            "body": [
+              "Ekaansh Sharma joined Chaturangveda at age 7 with no prior chess experience. In less than a year, he had competed — and won — at the state level.",
+              "What makes Ekaansh's journey remarkable isn't just the trophies. It's the transformation. His parents describe a child who struggled with focus in school, but who sat completely still, eyes locked on the board, the moment a chess session began.",
+              "\"Chess gave him a reason to think slowly,\" said his mother. \"He used to rush through everything. Now he plans.\"",
+              {
+                "heading": "From the First Move to the Tournament Stage",
+                "body": "Ekaansh started with our Beginner curriculum, learning the rules, piece movements, and basic tactics. Within three months, he had moved to the Intermediate level — unusually fast progress that caught the attention of his coach, Manoj Reddy Maram.\n\n\"He had an intuitive feel for the board that I rarely see in beginners,\" Manoj recalls. \"He was thinking ahead naturally. We just had to give that instinct structure.\"\n\nBy month six, Ekaansh was studying real grandmaster games and preparing for his first tournament."
+              },
+              {
+                "heading": "Tournament Day",
+                "body": "Ekaansh competed in the Telangana State Under-9 Championship in early 2025. He finished in the top three — a stunning result for someone who had started from scratch less than a year earlier.\n\n\"I was nervous before every game,\" Ekaansh admitted. \"But then I sat down and it felt like normal practice. Just me and the board.\""
+              },
+              {
+                "heading": "What's Next",
+                "body": "Ekaansh is now training for national-level competitions. His goal: an international FIDE rating by the time he turns 10.\n\nStories like his are exactly why Chaturangveda exists — to show that with the right coaching, every child has untapped potential waiting to be unlocked."
+              }
+            ],
+            "postCta": {
+              "heading": "Inspired by this story?",
+              "subheading": "Book a free trial for your child today.",
+              "button": { "label": "Book Free Trial", "href": "/book-free-trial" }
+            }
+          }
+        },
+        {
+          "slug": "benefits-of-chess-for-kids",
+          "title": "Why Chess is the Best Brain Training for Kids",
+          "excerpt": "Research consistently shows that chess dramatically improves critical thinking, focus, and academic performance in children. Here's the science behind it.",
+          "image": "/images/2024/08/young-kid-playing-chess.webp",
+          "date": "Jan 15, 2025",
+          "readTime": "4 min",
+          "category": "Education"
+        },
+        {
+          "slug": "tournament-preparation-guide",
+          "title": "How We Prepare Students for Tournaments",
+          "excerpt": "Behind every student success story is months of structured preparation. Our coaches break down the process they use to get students tournament-ready.",
+          "image": "/images/2025/01/winners.jpg",
+          "date": "Dec 10, 2024",
+          "readTime": "6 min",
+          "category": "Coaching"
+        },
+        {
+          "slug": "samanvith-state-champion",
+          "title": "Samanvith Wins State Championship — Our Youngest Champion Yet",
+          "excerpt": "At just 9 years old, Samanvith secured the state championship title after 6 months of training. We sat down with him and his parents to hear the full story.",
+          "image": "/images/2025/01/Samanvith-e1738320920340.png",
+          "date": "Nov 5, 2024",
+          "readTime": "4 min",
+          "category": "Student Stories"
+        },
+        {
+          "slug": "opening-principles-for-beginners",
+          "title": "The 3 Golden Rules of Chess Openings Every Beginner Must Know",
+          "excerpt": "Control the center, develop your pieces, castle early. Mastering these three principles will transform your child's game.",
+          "image": "/images/2024/03/how-to-play-chess.webp",
+          "date": "Oct 22, 2024",
+          "readTime": "5 min",
+          "category": "Tips & Tricks"
+        },
+        {
+          "slug": "group-vs-private-classes",
+          "title": "Group Classes vs Private Coaching: Which Is Right For Your Child?",
+          "excerpt": "Both formats have unique advantages. We break down the pros and cons of each to help you make the best decision.",
+          "image": "/images/2024/08/adorable-siblings-lying-ground-playing-chess-with-each-other.webp",
+          "date": "Sep 3, 2024",
+          "readTime": "3 min",
+          "category": "Coaching"
+        }
+      ]
+    }
+  },
+
+  "footer": {
+    "brandDescription": "Expert online chess coaching for children across India by FIDE-rated coaches.",
+    "quickLinks": [
+      { "label": "Home",       "href": "/" },
+      { "label": "Services",   "href": "/services" },
+      { "label": "Coaches",    "href": "/coaches" },
+      { "label": "Curriculum", "href": "/curriculum" },
+      { "label": "Blog",       "href": "/blogs" }
+    ],
+    "programLinks": [
+      { "label": "Free Trial Class", "href": "/book-free-trial" },
+      { "label": "Group Classes",    "href": "/services" },
+      { "label": "Private 1-on-1",   "href": "/services" },
+      { "label": "Become a Coach",   "href": "/become-a-coach" },
+      { "label": "Contact Us",       "href": "/contact" }
+    ],
+    "copyright": "© Chaturangveda. All rights reserved.",
+    "tagline": "New Era In Teaching Chess ♟"
+  },
+
+  "marquee": [
+    "50+ Tournament Champions",
+    "Hyderabad",
+    "FIDE-Rated Coaches",
+    "Chennai",
+    "100+ Students Trained",
+    "Bengaluru",
+    "Online Across India",
+    "Mumbai",
+    "State & National Winners",
+    "Delhi",
+    "Free Trial · No Credit Card",
+    "Kolkata",
+    "3 FIDE-Rated Coaches",
+    "Pune"
+  ]
+}
