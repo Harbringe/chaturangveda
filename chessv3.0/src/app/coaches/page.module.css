@@ -239,9 +239,27 @@
   .coachCard {
     grid-template-columns: 1fr;
     padding: 32px;
+    gap: 32px;
   }
   .coachImageWrap {
-    max-width: 280px;
+    width: 220px;
+    height: 293px; /* maintains 3/4 ratio */
+    max-width: 100%;
     margin: 0 auto;
+    aspect-ratio: 3/4;
+  }
+}
+
+@media (max-width: 480px) {
+  .coachCard {
+    padding: 20px;
+    gap: 24px;
+  }
+  .coachImageWrap {
+    width: 160px;
+    height: 213px;
+  }
+  .coachName {
+    font-size: 1.4rem;
   }
 }

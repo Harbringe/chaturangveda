@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import {
-  FaClock, FaChartBar, FaCreditCard, FaBan,
+  FaClock, FaChartBar, FaBan,
   FaUser, FaChild, FaBirthdayCake, FaMobileAlt,
   FaEnvelope, FaChessKnight, FaWhatsapp,
 } from 'react-icons/fa';
@@ -13,7 +13,6 @@ import styles from './page.module.css';
 const whatsIncluded = [
   { icon: <FaClock />, text: 'Full 45-minute session with a FIDE-rated coach' },
   { icon: <FaChartBar />, text: 'Level assessment and personalised feedback report' },
-  { icon: <FaCreditCard />, text: 'No credit card or payment required' },
   { icon: <FaWhatsapp />, text: 'Instant WhatsApp confirmation of your slot' },
   { icon: <FaBan />, text: 'Zero obligation to continue after the trial' },
 ];
@@ -115,7 +114,7 @@ export default function BookFreeTrialPage() {
 
       <section className={styles.hero}>
         <div className={styles.heroChess}>♟</div>
-        <div className={styles.heroTag}>100% Free · No Credit Card</div>
+        <div className={styles.heroTag}>100% Free · Zero Obligation</div>
         <h1 className={styles.heroTitle}>Book Your Free Trial Class</h1>
         <p className={styles.heroSub}>
           Fill in your details and we&apos;ll confirm your slot via WhatsApp within a few hours.

@@ -37,8 +37,8 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
 const stats = [
   { icon: <FaGraduationCap />, number: 100, suffix: '+', label: 'Students Trained' },
   { icon: <FaChalkboardTeacher />, number: 10, suffix: '+', label: 'Years Experience' },
-  { icon: <FaGlobeAmericas />, number: 3, suffix: '', label: 'FIDE-Rated Coaches' },
-  { icon: <FaStar />, number: 50, suffix: '+', label: 'Tournament Wins' },
+  { icon: <FaGlobeAmericas />, number: 5, suffix: '', label: 'Expert Coaches' },
+  { icon: <FaStar />, number: 150, suffix: '+', label: 'Tournament Wins' },
 ];
 
 export default function StatsSection() {

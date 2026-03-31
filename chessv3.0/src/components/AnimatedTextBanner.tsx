@@ -14,11 +14,12 @@ const textLines = [
 ];
 
 const marqueeWords = [
-  '50+ Tournament Champions', '♟', 'Hyderabad', '♞', 'FIDE-Rated Coaches', '♝',
+  '150+ Tournament Champions', '♟', 'Hyderabad', '♞', '5 Expert Coaches', '♝',
   'Chennai', '♜', '100+ Students Trained', '♛', 'Bengaluru', '♚',
-  'Online Across India', '♟', 'Mumbai', '♞', 'State & National Winners', '♝',
-  'Delhi', '♜', 'Free Trial · No Credit Card', '♛', 'Kolkata', '♚',
-  '3 FIDE-Rated Coaches', '♟', 'Pune', '♞',
+  'New York', '♟', 'Mumbai', '♞', 'State & National Winners', '♝',
+  'London', '♜', 'Toronto', '♛', 'Kolkata', '♚',
+  'Online Worldwide', '♟', 'Pune', '♞', 'Los Angeles', '♝',
+  'Dubai', '♜', 'Delhi', '♛', 'Singapore', '♚',
 ];
 
 export default function AnimatedTextBanner() {

@@ -66,21 +66,32 @@
 .floatingPiece {
   position: absolute;
   font-size: 2.5rem;
-  opacity: 0.06;
+  opacity: 0.12;
   color: var(--primary-container);
   animation: floatPiece 8s ease-in-out infinite;
 }
 
-.piece1 { top: 8%; left: 65%; animation-delay: 0s; font-size: 3rem; }
-.piece2 { top: 15%; right: 10%; animation-delay: 1.2s; font-size: 2rem; }
-.piece3 { top: 60%; left: 55%; animation-delay: 0.8s; font-size: 2.8rem; }
-.piece4 { top: 75%; right: 20%; animation-delay: 2s; font-size: 2.2rem; }
-.piece5 { top: 35%; left: 70%; animation-delay: 1.5s; font-size: 1.8rem; }
-.piece6 { top: 85%; left: 45%; animation-delay: 0.3s; font-size: 2rem; }
-.piece7 { top: 20%; left: 80%; animation-delay: 2.5s; font-size: 2.5rem; }
-.piece8 { top: 50%; right: 5%; animation-delay: 1s; font-size: 3.5rem; opacity: 0.04; }
-.piece9 { top: 90%; right: 35%; animation-delay: 1.8s; font-size: 2rem; }
-.piece10 { top: 5%; left: 50%; animation-delay: 0.6s; font-size: 1.5rem; }
+/* Original 10 — repositioned & resized for variety */
+.piece1  { top: 6%;  left: 62%;  animation-delay: 0s;    font-size: 4.5rem; opacity: 0.1; }
+.piece2  { top: 12%; right: 8%;  animation-delay: 1.2s;  font-size: 2.2rem; }
+.piece3  { top: 58%; left: 52%;  animation-delay: 0.8s;  font-size: 3.2rem; opacity: 0.09; }
+.piece4  { top: 78%; right: 18%; animation-delay: 2s;    font-size: 2.6rem; }
+.piece5  { top: 32%; left: 68%;  animation-delay: 1.5s;  font-size: 1.6rem; }
+.piece6  { top: 88%; left: 42%;  animation-delay: 0.3s;  font-size: 2.4rem; }
+.piece7  { top: 22%; left: 78%;  animation-delay: 2.5s;  font-size: 3rem;   }
+.piece8  { top: 48%; right: 4%;  animation-delay: 1s;    font-size: 5rem;   opacity: 0.07; }
+.piece9  { top: 92%; right: 32%; animation-delay: 1.8s;  font-size: 2rem;   }
+.piece10 { top: 4%;  left: 48%;  animation-delay: 0.6s;  font-size: 1.8rem; }
+
+/* New 8 pieces — spread across left side & gaps */
+.piece11 { top: 40%; left: 5%;   animation-delay: 0.4s;  font-size: 3.5rem; opacity: 0.09; }
+.piece12 { top: 70%; left: 20%;  animation-delay: 2.2s;  font-size: 2rem;   }
+.piece13 { top: 15%; left: 30%;  animation-delay: 1.7s;  font-size: 1.4rem; opacity: 0.1; }
+.piece14 { top: 55%; right: 28%; animation-delay: 3s;    font-size: 4rem;   opacity: 0.08; }
+.piece15 { top: 82%; left: 8%;   animation-delay: 0.9s;  font-size: 2.8rem; }
+.piece16 { top: 25%; left: 42%;  animation-delay: 3.5s;  font-size: 1.2rem; opacity: 0.1; }
+.piece17 { top: 95%; right: 10%; animation-delay: 1.3s;  font-size: 2.2rem; }
+.piece18 { top: 3%;  right: 28%; animation-delay: 2.8s;  font-size: 3rem;   opacity: 0.09; }
 
 @keyframes floatPiece {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -109,12 +120,22 @@
   50% { opacity: 1; transform: scale(1.5); }
 }
 
+/* Two-column hero layout */
+.heroLayout {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 100%;
+  padding: 0 6%;
+  gap: 56px;
+}
+
 /* Hero content */
 .heroContent {
   position: relative;
   z-index: 10;
-  max-width: 650px;
-  padding-left: 5%;
 }
 
 .badge {
@@ -313,6 +334,220 @@
   50% { transform: scale(1.15); opacity: 0.6; }
 }
 
+/* ── Hero right visual panel ─────────────────────────────── */
+.heroVisual {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Achievement toast */
+.toastCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+  align-self: flex-start;
+}
+
+.toastTrophy { font-size: 1.5rem; flex-shrink: 0; }
+.toastBody   { flex: 1; }
+
+.toastTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.toastSub {
+  font-size: 0.72rem;
+  color: var(--on-surface-variant);
+  margin-top: 2px;
+}
+
+.toastNew {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: #EF4444;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* Coach panel */
+.coachPanel {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.07), 0 4px 16px rgba(21,101,192,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.coachPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.coachPanelTitle {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.01em;
+}
+
+.coachPanelLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-container);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.coachPanelLink:hover { opacity: 0.7; }
+
+/* Individual coach row */
+.coachRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.coachRow:hover { background: var(--surface-container-high); }
+
+.coachAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(21,101,192,0.2);
+  border: 2px solid var(--outline-variant);
+}
+
+.coachRowInfo { flex: 1; min-width: 0; }
+
+.coachRowName {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.coachRowRole {
+  font-size: 0.72rem;
+  color: var(--primary-container);
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.coachRowTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.coachRowTag {
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-variant);
+}
+
+/* Stats strip */
+.statsStrip {
+  display: flex;
+  align-items: stretch;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.stripItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  position: relative;
+  gap: 3px;
+}
+
+.stripVal {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary-container);
+  letter-spacing: -0.02em;
+}
+
+.stripLabel {
+  font-size: 0.63rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stripDivider {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--outline-variant);
+}
+
+/* Country flags row */
+.flagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.flagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.flagImg {
+  border-radius: 2px;
+  display: block;
+  flex-shrink: 0;
+}
+
 /* Responsive */
 @media (max-width: 968px) {
   .hero {
@@ -320,22 +555,25 @@
     justify-content: center;
     text-align: center;
   }
+  .heroLayout {
+    grid-template-columns: 1fr;
+    padding: 120px 6% 40px;
+    gap: 40px;
+  }
   .heroContent {
-    padding: 120px 24px 40px;
-    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   .heroCTAs { justify-content: center; }
-  .heroKnight { display: none; }
+  .toastCard { align-self: center; }
   .chessGrid {
     right: -30%; top: 60%; opacity: 0.06;
     transform: translateY(-50%) perspective(800px) rotateX(40deg) rotateZ(-15deg);
   }
   .rotatingTextContainer { justify-content: center; }
   .scrollIndicator { display: none; }
-  .floatingPiece { opacity: 0.03; }
+  .floatingPiece { opacity: 0.09; }
 }
 
 @media (max-width: 480px) {

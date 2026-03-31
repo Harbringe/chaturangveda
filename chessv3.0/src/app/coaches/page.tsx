@@ -52,6 +52,34 @@ const coaches = [
       'Youth coaching specialist',
     ],
   },
+  {
+    name: 'Coach 4',
+    title: 'Online Chess Specialist',
+    experience: '6+ Years',
+    badge: 'International',
+    image: '/images/2025/02/ManojReddyMaram.jpg',
+    bio: 'Specialises in online chess pedagogy with students across USA, UK and Canada. Brings a structured, data-driven approach to student improvement, tracking every game and identifying patterns that hold players back from reaching their next level.',
+    specialties: ['Online Coaching', 'Opening Preparation', 'Game Analysis', 'International Students'],
+    achievements: [
+      'Coached students in 4+ countries',
+      'Specialised online pedagogy',
+      'Tournament preparation expert',
+    ],
+  },
+  {
+    name: 'Coach 5',
+    title: 'Junior Development Coach',
+    experience: '5+ Years',
+    badge: 'Youth Specialist',
+    image: '/images/2025/02/1697257716831.jpg',
+    bio: 'Dedicated to nurturing chess talent in young learners aged 5–12. Uses game-based learning and storytelling to make chess concepts click for even the youngest students. Has developed the academy\'s foundational curriculum for beginners.',
+    specialties: ['Ages 5–12', 'Foundational Chess', 'Game-Based Learning', 'Beginner Curriculum'],
+    achievements: [
+      'Curriculum designer for beginners',
+      'Trained 40+ young students',
+      'Child-first coaching methodology',
+    ],
+  },
 ];
 
 export default function CoachesPage() {

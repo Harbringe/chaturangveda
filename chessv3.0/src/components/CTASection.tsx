@@ -51,7 +51,7 @@ export default function CTASection() {
         </div>
 
         <p className={styles.ctaNote}>
-          100% Free · Zero Obligation · No Credit Card Required
+          100% Free · Zero Obligation
         </p>
       </motion.div>
     </section>

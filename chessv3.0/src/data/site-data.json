@@ -27,7 +27,7 @@
   "pages": {
     "home": {
       "hero": {
-        "badge": "Free Trial Available · No Credit Card",
+        "badge": "Free Trial Available",
         "heading": "Master Chess. Master Life.",
         "subheading": "Expert chess coaching for kids by FIDE-rated coaches. From your child's first move to tournament glory — all online, all India.",
         "ctas": [
@@ -45,8 +45,8 @@
       "stats": [
         { "value": "100+", "label": "Students Trained" },
         { "value": "10+",  "label": "Years Experience" },
-        { "value": "3",    "label": "FIDE-Rated Coaches" },
-        { "value": "50+",  "label": "Tournament Wins" }
+        { "value": "5",    "label": "Expert Coaches" },
+        { "value": "150+", "label": "Tournament Wins" }
       ],
 
       "services": {
@@ -135,7 +135,7 @@
         ],
         "winnersBanner": {
           "tag": "Tournament Champions",
-          "heading": "50+ Wins at District, State & National Level",
+          "heading": "150+ Wins at District, State & National Level",
           "image": "/images/2025/01/winners.jpg",
           "cta": { "label": "Read Stories", "href": "/blogs" }
         },
@@ -170,7 +170,6 @@
             "Full 45-minute session",
             "FIDE-rated coach assessment",
             "Personalised feedback report",
-            "No credit card required",
             "Instant WhatsApp confirmation"
           ]
         },
@@ -401,14 +400,13 @@
 
     "bookFreeTrial": {
       "hero": {
-        "tag": "100% Free · No Credit Card",
+        "tag": "100% Free · Zero Obligation",
         "heading": "Book Your Free Trial Class",
         "subheading": "Fill in your details and we'll confirm your slot via WhatsApp within a few hours."
       },
       "whatsIncluded": [
         "Full 45-minute session with a FIDE-rated coach",
         "Level assessment and personalised feedback",
-        "No credit card or payment required",
         "Instant WhatsApp confirmation",
         "Zero obligation to continue"
       ],
@@ -621,9 +619,9 @@
     "Mumbai",
     "State & National Winners",
     "Delhi",
-    "Free Trial · No Credit Card",
+    "Free Trial Available",
     "Kolkata",
-    "3 FIDE-Rated Coaches",
+    "5 Expert Coaches",
     "Pune"
   ]
 }

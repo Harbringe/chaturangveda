@@ -16,7 +16,6 @@ const courses = [
       'Full 45-minute session',
       'FIDE-rated coach assessment',
       'Personalised feedback report',
-      'No credit card required',
       'Instant WhatsApp confirmation',
     ],
     chessIcon: '♙',
