@@ -136,10 +136,28 @@
   display: block;
 }
 
+@media (min-width: 1600px) {
+  .testimonialsContainer { max-width: 1400px; }
+}
+
 @media (max-width: 968px) {
+  .testimonialsSlider { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
   .testimonialsSlider {
     grid-template-columns: 1fr;
     max-width: 520px;
     margin: 0 auto;
   }
+  .testimonialsContainer { padding: 0 16px; }
+}
+
+@media (max-width: 480px) {
+  .testimonialCard { padding: 24px 18px; }
+}
+
+@media (max-width: 320px) {
+  .testimonialsContainer { padding: 0 12px; }
+  .testimonialCard { padding: 20px 14px; }
 }

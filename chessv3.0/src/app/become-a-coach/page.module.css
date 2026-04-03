@@ -515,17 +515,36 @@
 .successBtn { min-width: 160px; justify-content: center; }
 
 /* ── Responsive ── */
+@media (min-width: 1600px) {
+  .mainContent { max-width: 1200px; grid-template-columns: 400px 1fr; }
+}
+
 @media (max-width: 960px) {
   .mainContent {
     grid-template-columns: 1fr;
     gap: 40px;
-    max-width: 600px;
+    max-width: 720px;
   }
-  .infoPanel { position: static; }
-  .perksGrid { grid-template-columns: 1fr; }
+  .infoPanel { position: static; top: auto; }
+  .perksGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
   .formCard { padding: 28px 20px; }
   .fieldRow { grid-template-columns: 1fr; }
+  .perksGrid { grid-template-columns: 1fr; }
+  .hero { padding: 120px 16px 60px; }
+  .infoPanel { padding: 28px 24px; }
+}
+
+@media (max-width: 480px) {
+  .formCard { padding: 20px 16px; }
+  .perkCard { padding: 24px 20px; }
+  .successTitle { font-size: 1.6rem; }
+}
+
+@media (max-width: 320px) {
+  .formCard { padding: 16px 12px; }
+  .infoPanel { padding: 20px 16px; }
+  .hero { padding: 100px 12px 48px; }
 }

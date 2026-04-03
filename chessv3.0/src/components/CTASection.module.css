@@ -170,7 +170,13 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
+@media (min-width: 1600px) {
+  .ctaContent { max-width: 1400px; }
+}
+
 @media (max-width: 600px) {
+  .cta { padding: 80px 0; }
+  .ctaContent { padding: 0 16px; }
   .ctaBtnPrimary,
   .ctaBtnSecondary {
     padding: 14px 28px;
@@ -178,4 +184,15 @@
     width: 100%;
     justify-content: center;
   }
+}
+
+@media (max-width: 480px) {
+  .cta { padding: 64px 0; }
+  .ctaTitle { font-size: clamp(1.6rem, 5vw, 2rem); }
+  .ctaDescription { font-size: 0.95rem; }
+}
+
+@media (max-width: 320px) {
+  .ctaContent { padding: 0 12px; }
+  .ctaBtnPrimary, .ctaBtnSecondary { padding: 12px 20px; font-size: 0.85rem; }
 }

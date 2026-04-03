@@ -238,9 +238,31 @@
 }
 
 /* Responsive */
+@media (min-width: 1600px) {
+  .coursesGrid { max-width: 1400px; }
+}
+
+/* Tablet: 2 columns */
 @media (max-width: 968px) {
   .coursesGrid {
-    grid-template-columns: 1fr;
-    max-width: 480px;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
   }
+}
+
+/* Large mobile: 1 column, no arbitrary max-width */
+@media (max-width: 640px) {
+  .coursesGrid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  .courseHeader { padding: 24px 20px 20px; }
+  .courseBody { padding: 20px; }
+  .courseTitle { font-size: 1.2rem; }
+}
+
+@media (max-width: 320px) {
+  .courseHeader { padding: 18px 14px 14px; }
+  .courseBody { padding: 14px; }
 }

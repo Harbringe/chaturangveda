@@ -76,6 +76,7 @@
   border-radius: 8px;
   letter-spacing: -0.01em;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .navLink:hover {
@@ -104,6 +105,7 @@
   padding: 9px 20px;
   font-size: 0.82rem;
   border-radius: 10px;
+  white-space: nowrap;
 }
 
 .mobileMenuBtn {
@@ -166,10 +168,49 @@
 
 .closeBtn:hover { background: var(--surface-container-high); }
 
-@media (max-width: 768px) {
+/* Switch to mobile menu at 900px so mid-size tablets don't get cramped */
+/* Compress navbar at intermediate widths to prevent overflow */
+@media (max-width: 1200px) {
+  .navLink { padding: 8px 9px; font-size: 0.82rem; }
+  .navCTA { padding: 8px 14px; }
+  .navContent { padding: 0 16px; }
+}
+
+@media (max-width: 1050px) {
+  .navLink { padding: 7px 6px; font-size: 0.77rem; }
+  .lmsBtn { padding: 6px 10px; font-size: 0.75rem; }
+  .navCTA { padding: 7px 11px; font-size: 0.77rem; }
+  .logoSubtitle { display: none; }
+}
+
+@media (max-width: 968px) {
   .navLinks { display: none; }
   .mobileMenuBtn { display: flex; }
   .navCTA { display: none; }
+  .lmsBtn { display: none; }
+}
+
+@media (max-width: 480px) {
+  .navContent { padding: 0 16px; }
+  .logoTitle { font-size: 1.1rem; }
+  .logoSubtitle { display: none; }
+  .logoImage { width: 36px; height: 36px; }
+}
+
+@media (max-width: 320px) {
+  .navContent { padding: 0 12px; }
+  .logoTitle { font-size: 1rem; }
+}
+
+/* Large screens — cap nav width */
+@media (min-width: 1600px) {
+  .navContent { max-width: 1400px; }
+}
+
+/* Prevent dropdown overflow on narrow viewports */
+@media (max-width: 360px) {
+  .dropdown { min-width: 220px; left: 0; transform: none; }
+  .dropdown::before { left: 24px; transform: rotate(45deg); }
 }
 
 .navLinkActive {
@@ -282,9 +323,9 @@
 .lmsBtn {
   display: inline-flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: 10px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--primary-container);
   border: 1.5px solid var(--primary-container);

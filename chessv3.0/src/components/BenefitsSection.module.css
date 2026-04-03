@@ -183,6 +183,10 @@
 }
 
 /* Responsive */
+@media (min-width: 1600px) {
+  .benefitsContent { max-width: 1400px; }
+}
+
 @media (max-width: 968px) {
   .benefitsContent {
     grid-template-columns: 1fr;
@@ -194,4 +198,15 @@
 
 @media (max-width: 600px) {
   .benefitsGrid { grid-template-columns: 1fr; }
+  .benefitsContent { padding: 0 16px; }
+}
+
+@media (max-width: 480px) {
+  .benefitCard { padding: 16px 14px; }
+  .benefitsText h2 { font-size: clamp(1.6rem, 5vw, 2rem); }
+}
+
+@media (max-width: 320px) {
+  .benefitsContent { padding: 0 12px; }
+  .benefitCard { padding: 14px 12px; }
 }

@@ -188,11 +188,25 @@
 .featureCard:hover .cardLine { transform: scaleX(1); }
 
 /* Responsive */
+@media (min-width: 1600px) {
+  .featuresGrid { max-width: 1400px; }
+}
+
 @media (max-width: 968px) {
   .featuresGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
-  .featuresGrid { grid-template-columns: 1fr; }
+  .featuresGrid { grid-template-columns: 1fr; padding: 0 16px; }
   .featureCard { padding: 28px 20px; }
+}
+
+@media (max-width: 480px) {
+  .featureCard { padding: 24px 18px; }
+  .featureIcon { width: 40px; height: 40px; }
+}
+
+@media (max-width: 320px) {
+  .featuresGrid { padding: 0 12px; }
+  .featureCard { padding: 20px 14px; }
 }

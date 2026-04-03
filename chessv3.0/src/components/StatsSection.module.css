@@ -102,23 +102,32 @@
   font-weight: 500;
 }
 
+/* Use clamp for numbers so they scale at all sizes */
+.statNumber { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+
+@media (min-width: 1600px) {
+  .statsGrid { max-width: 1400px; }
+  .statCard { padding: 48px 32px; }
+}
+
+@media (max-width: 900px) {
+  .statsGrid { gap: 16px; }
+}
+
 @media (max-width: 768px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 14px;
   }
-
-  .statCard {
-    padding: 24px 16px;
-  }
-
-  .statNumber {
-    font-size: 2rem;
-  }
+  .statCard { padding: 24px 16px; }
 }
 
 @media (max-width: 480px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .statCard { padding: 20px 12px; }
+  .statIcon { width: 44px; height: 44px; font-size: 1.4rem; }
+}
+
+@media (max-width: 320px) {
+  .statsGrid { grid-template-columns: 1fr; }
 }

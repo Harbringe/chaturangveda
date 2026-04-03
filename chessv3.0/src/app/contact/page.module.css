@@ -266,6 +266,31 @@
   line-height: 1.7;
 }
 
+@media (min-width: 1600px) {
+  .methodsSection, .hoursSection, .faqSection { max-width: 1400px; }
+  .hoursSection { max-width: 800px; }
+  .faqSection { max-width: 900px; }
+}
+
 @media (max-width: 900px) {
+  .methodsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
   .methodsGrid { grid-template-columns: 1fr; }
+  .hero { padding: 120px 16px 60px; }
+  .methodsSection { padding: 60px 16px 0; }
+  .hoursSection, .faqSection { padding-left: 16px; padding-right: 16px; }
+  .ctaSection { padding: 72px 16px; }
+}
+
+@media (max-width: 480px) {
+  .methodCard { padding: 28px 20px; }
+  .sectionTitle { margin-bottom: 32px; }
+}
+
+@media (max-width: 320px) {
+  .methodCard { padding: 20px 14px; }
+  .hero { padding: 90px 12px 40px; }
+  .hoursTable th, .hoursTable td { padding: 10px 12px; font-size: 0.8rem; }
 }
