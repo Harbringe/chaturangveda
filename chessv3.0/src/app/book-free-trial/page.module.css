@@ -250,6 +250,62 @@
   font-size: 0.78rem;
 }
 
+/* Phone input with country code selector */
+.phoneWrap {
+  display: flex;
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background: var(--surface-container);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phoneWrap:focus-within {
+  border-color: var(--primary-container);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+  background: var(--surface-container-lowest);
+}
+
+.phoneWrapError {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+}
+
+.countryCodeSelect {
+  padding: 11px 28px 11px 12px;
+  border: none;
+  border-right: 1.5px solid var(--outline-variant);
+  background: var(--surface-container-high);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  cursor: pointer;
+  outline: none;
+  min-width: 88px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  flex-shrink: 0;
+}
+
+.phoneInput {
+  flex: 1;
+  padding: 11px 16px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  color: var(--on-surface);
+  outline: none;
+  min-width: 0;
+}
+
+.phoneInput::placeholder { color: var(--outline); }
+
 /* Input wrapper with icon */
 .inputWrap, .selectWrap {
   position: relative;
@@ -300,6 +356,121 @@
   border-color: var(--primary-container);
   box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
   background: var(--surface-container-lowest);
+}
+
+/* ── Custom Dropdown ── */
+.customDropdown {
+  position: relative;
+}
+
+.dropdownTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--surface-container);
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  color: var(--on-surface);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.dropdownTrigger:focus,
+.dropdownTriggerOpen {
+  border-color: var(--primary-container);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+  background: var(--surface-container-lowest);
+  outline: none;
+}
+
+.dropdownTriggerIcon {
+  color: var(--outline);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownTriggerValue {
+  flex: 1;
+  color: var(--on-surface);
+}
+
+.dropdownChevron {
+  font-size: 0.75rem;
+  color: var(--outline);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.dropdownChevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface-container-lowest);
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-lg);
+  list-style: none;
+  z-index: 200;
+  overflow: hidden;
+  animation: dropIn 0.15s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.dropdownOption:last-child {
+  border-bottom: none;
+}
+
+.dropdownOption:hover {
+  background: var(--surface-container);
+}
+
+.dropdownOptionActive {
+  background: var(--primary-fixed);
+  color: var(--primary-container);
+  font-weight: 600;
+}
+
+.dropdownOptionActive:hover {
+  background: var(--primary-fixed-dim);
+}
+
+.dropdownOptionText {
+  flex: 1;
+}
+
+.dropdownOptionCheck {
+  font-size: 0.75rem;
+  color: var(--primary-container);
+  flex-shrink: 0;
 }
 
 .inputError {

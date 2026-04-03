@@ -60,8 +60,8 @@ export default function BenefitsSection() {
             The Power of Chess
           </motion.span>
           <h2>
-            Chess Builds <span>Champions</span> <br />
-            In Life, Not Just On the Board
+            Student <span>Achievements</span> <br />
+            In Chess, Academics &amp; Life
           </h2>
           <p>
             At Chaturangveda, we believe chess is more than a game — it&apos;s a powerful

@@ -1,0 +1,650 @@
+/* ─── Page Shell ─── */
+.page {
+  min-height: 100vh;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Hero ─── */
+.hero {
+  background: linear-gradient(160deg, #003780 0%, #1565C0 60%, #1976D2 100%);
+  color: #fff;
+  text-align: center;
+  padding: clamp(100px, 13vh, 150px) 6% clamp(48px, 6vw, 80px);
+}
+
+.heroTag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  padding: 6px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.heroSub {
+  font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+  opacity: 0.85;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ─── Config Bar ─── */
+.configBar {
+  background: var(--surface-container-lowest);
+  border-bottom: 1px solid var(--outline-variant);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.configInner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.configGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.configLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--outline);
+  white-space: nowrap;
+}
+
+.toggleGroup {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.toggleBtn {
+  padding: 7px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--outline-variant);
+  background: var(--surface-container-low);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.toggleBtn:hover {
+  border-color: var(--primary-container);
+  color: var(--primary-container);
+  background: var(--primary-fixed);
+}
+
+.toggleActive {
+  background: var(--primary-container) !important;
+  border-color: var(--primary-container) !important;
+  color: #fff !important;
+}
+
+/* ─── Courses Section ─── */
+.coursesSection {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 64px) 24px;
+  width: 100%;
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ─── Course Card ─── */
+.courseCard {
+  background: var(--surface-container-lowest);
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.courseCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--primary-fixed-dim);
+}
+
+.courseCardElite {
+  background: linear-gradient(160deg, #fff8f0 0%, #fff3e0 100%);
+  border-color: #e65100;
+}
+
+.courseCardElite:hover {
+  border-color: #bf360c;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cardBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 2px;
+}
+
+.cardSubtitle {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+
+.cardOutcome {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  line-height: 1.65;
+  padding: 14px;
+  background: var(--surface-container-low);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--primary-container);
+}
+
+.topicsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.topicItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.topicCheck {
+  color: #2e7d32;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+/* ─── Pricing Block ─── */
+.cardPricing {
+  background: var(--surface-container);
+  border-radius: var(--border-radius-sm);
+  padding: 16px;
+  margin-top: auto;
+}
+
+.priceMain {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.priceAmount {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary-container);
+}
+
+.pricePeriod {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+
+.priceMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--outline);
+}
+
+.pricePerSession {
+  font-weight: 600;
+}
+
+/* ─── Enroll Button ─── */
+.enrollBtn {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  letter-spacing: 0.02em;
+}
+
+.enrollBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ─── Note Strip ─── */
+.noteStrip {
+  background: var(--primary-fixed);
+  border-top: 1px solid var(--primary-fixed-dim);
+}
+
+.noteInner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13.5px;
+  color: var(--primary);
+}
+
+.noteIcon {
+  font-size: 16px;
+}
+
+.noteSep {
+  opacity: 0.5;
+}
+
+.noteLink {
+  color: var(--primary-container);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ─── Modal Overlay ─── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal {
+  background: var(--surface-container-lowest);
+  border-radius: var(--border-radius-xl);
+  padding: clamp(24px, 4vw, 40px);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+  animation: modalIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: background var(--transition-fast);
+}
+
+.modalClose:hover {
+  background: var(--outline-variant);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-right: 36px;
+}
+
+.modalIcon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.modalTitle {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 4px;
+}
+
+.modalMeta {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+
+.modalPriceLine {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: var(--primary-fixed);
+  border-radius: var(--border-radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+
+.modalPrice {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-container);
+}
+
+.modalPriceNote {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+
+/* ─── Modal Form ─── */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modalLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.req {
+  color: #c62828;
+  margin-left: 2px;
+}
+
+.modalInputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.modalInputIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--outline);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 11px 16px 11px 42px;
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--on-surface);
+  background: var(--surface);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.modalInput:focus {
+  border-color: var(--primary-container);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+.modalInputErr {
+  border-color: #c62828 !important;
+}
+
+.errMsg {
+  font-size: 12px;
+  color: #c62828;
+}
+
+.errBanner {
+  background: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: var(--border-radius-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #c62828;
+}
+
+.payBtn {
+  width: 100%;
+  padding: 15px 24px;
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: opacity var(--transition-fast);
+  margin-top: 4px;
+}
+
+.payBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.payBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.modalFootNote {
+  font-size: 12px;
+  color: var(--outline);
+  text-align: center;
+}
+
+/* ─── Success State ─── */
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+.successIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2e7d32, #43a047);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.successText {
+  font-size: 14.5px;
+  color: var(--on-surface-variant);
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.successBtn {
+  padding: 12px 36px;
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity var(--transition-fast);
+}
+
+.successBtn:hover {
+  opacity: 0.9;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1100px) {
+  .coursesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .configInner {
+    gap: 16px;
+    padding: 12px 16px;
+  }
+
+  .configGroup {
+    gap: 8px;
+    width: 100%;
+  }
+
+  .toggleGroup {
+    width: 100%;
+  }
+
+  .toggleBtn {
+    flex: 1;
+    text-align: center;
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .coursesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .noteInner {
+    font-size: 12.5px;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .modal {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleBtn {
+    padding: 7px 8px;
+    font-size: 11.5px;
+  }
+
+  .priceAmount {
+    font-size: 1.5rem;
+  }
+
+  .modalPrice {
+    font-size: 1.6rem;
+  }
+}

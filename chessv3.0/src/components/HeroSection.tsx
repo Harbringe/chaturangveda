@@ -15,9 +15,9 @@ const rotatingPhrases = [
 ];
 
 const stats = [
-  { value: "100+", label: "Students Trained" },
+  { value: "2000+", label: "Students Trained" },
   { value: "10+", label: "Years Experience" },
-  { value: "5", label: "Expert Coaches" },
+  { value: "10", label: "FIDE-Rated Coaches" },
   { value: "150+", label: "Tournament Wins" },
 ];
 
@@ -312,8 +312,8 @@ export default function HeroSection() {
           <div className={styles.statsStrip}>
             {[
               { val: "150+", label: "Tournament Wins" },
-              { val: "100+", label: "Students" },
-              { val: "5", label: "Coaches" },
+              { val: "2000+", label: "Students" },
+              { val: "10", label: "Coaches" },
               { val: "6+", label: "Countries" },
             ].map((s, i, arr) => (
               <div key={s.label} className={styles.stripItem}>

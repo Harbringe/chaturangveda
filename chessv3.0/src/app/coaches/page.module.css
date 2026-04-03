@@ -253,36 +253,35 @@
   .coachName { font-size: 1.5rem; }
 }
 
-/* Mobile */
+/* Mobile — full-width image on top, info below */
 @media (max-width: 768px) {
-  .coachCard { grid-template-columns: 1fr; padding: 28px; gap: 20px; }
+  .coachCard {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
   .coachImageWrap {
-    width: 160px;
-    aspect-ratio: 1/1;
+    width: 100%;
+    aspect-ratio: 3/2;
     height: auto;
     max-width: 100%;
-    margin: 0 auto;
-    border-radius: 50%;
+    margin: 0;
+    border-radius: 0;
   }
-  .coachBadge { bottom: 0; left: 50%; transform: translateX(-50%); }
-}
-
-@media (max-width: 600px) {
-  .coachCard { padding: 20px; gap: 16px; }
-  .coachImageWrap { width: 140px; }
-  .coachName { font-size: clamp(1.2rem, 5vw, 1.5rem); }
-  .coachBio { font-size: 0.9rem; }
-  .specialties { gap: 6px; }
+  .coachInfo { padding: 24px 20px; }
+  .coachBadge { bottom: 12px; left: 12px; transform: none; }
+  .coachName { font-size: clamp(1.3rem, 5vw, 1.6rem); }
+  .coachBio { font-size: 0.92rem; }
   .hero { padding: 120px 16px 60px; }
 }
 
 @media (max-width: 480px) {
-  .coachCard { padding: 16px; }
-  .coachImageWrap { width: 120px; }
-  .coachName { font-size: 1.2rem; }
+  .coachInfo { padding: 20px 16px; }
+  .coachName { font-size: 1.25rem; }
+  .specialties { gap: 6px; }
 }
 
 @media (max-width: 320px) {
-  .coachImageWrap { width: 100px; }
-  .coachCard { padding: 12px; }
+  .coachInfo { padding: 16px 12px; }
 }

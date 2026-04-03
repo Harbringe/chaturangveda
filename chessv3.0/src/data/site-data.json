@@ -7,7 +7,7 @@
     "phone": "+91 75691 94709",
     "whatsapp": "https://wa.me/+917569194709",
     "location": "Hyderabad, India",
-    "serviceArea": "Online – available across India"
+    "serviceArea": "Online – available worldwide"
   },
 
   "navigation": {
@@ -39,14 +39,14 @@
           "FIDE-rated coaches",
           "45-min free session"
         ],
-        "socialProof": "Joined by 100+ students across India"
+        "socialProof": "Joined by 2000+ students worldwide"
       },
 
       "stats": [
-        { "value": "100+", "label": "Students Trained" },
-        { "value": "10+",  "label": "Years Experience" },
-        { "value": "5",    "label": "Expert Coaches" },
-        { "value": "150+", "label": "Tournament Wins" }
+        { "value": "2000+", "label": "Students Trained" },
+        { "value": "10+",   "label": "Years Experience" },
+        { "value": "10",    "label": "FIDE-Rated Coaches" },
+        { "value": "150+",  "label": "Tournament Wins" }
       ],
 
       "services": {
@@ -422,7 +422,7 @@
             "label": "Current Level",
             "type": "select",
             "options": [
-              "Complete Beginner — never played",
+              "Absolute Beginner — never played",
               "Casual — knows the rules",
               "Intermediate — plays regularly",
               "Tournament Player — competed before"

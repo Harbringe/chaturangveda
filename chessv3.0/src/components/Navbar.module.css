@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
   padding: 16px 0;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -152,21 +152,17 @@
   padding: 12px 24px;
 }
 
-.closeBtn {
-  position: absolute;
-  top: 20px; right: 24px;
-  font-size: 1.5rem;
-  color: var(--on-surface);
-  background: var(--surface-container);
-  border: none;
-  cursor: pointer;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s ease;
+/* Hamburger → X animation */
+.mobileMenuBtnOpen span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
 }
-
-.closeBtn:hover { background: var(--surface-container-high); }
+.mobileMenuBtnOpen span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.mobileMenuBtnOpen span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
 
 /* Switch to mobile menu at 900px so mid-size tablets don't get cramped */
 /* Compress navbar at intermediate widths to prevent overflow */
@@ -291,15 +287,16 @@
 }
 
 .dropdownIcon {
-  font-size: 1.3rem;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface-container-high);
+  background: var(--primary-fixed);
   border-radius: 8px;
   flex-shrink: 0;
+  color: var(--primary-container);
+  font-size: 1rem;
 }
 
 .dropdownText {
@@ -339,15 +336,3 @@
   background: rgba(21, 101, 192, 0.06);
 }
 
-/* Mobile sub-links for service items */
-.mobileSubLink {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--on-surface-variant);
-  padding: 8px 24px;
-  text-decoration: none;
-}
-
-.mobileSubLink:hover {
-  color: var(--primary-container);
-}

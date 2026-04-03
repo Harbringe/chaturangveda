@@ -57,6 +57,7 @@
   background: transparent;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   transform-style: preserve-3d;
+  height: 100%;
 }
 
 /* Spinning conic gradient border trace */
@@ -105,6 +106,9 @@
   position: relative;
   z-index: 1;
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Course header */
@@ -182,6 +186,9 @@
 /* Course body */
 .courseBody {
   padding: 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .courseTag {
@@ -201,6 +208,7 @@
 .courseOutcomes {
   list-style: none;
   margin-bottom: 28px;
+  flex: 1;
 }
 
 .courseOutcomes li {

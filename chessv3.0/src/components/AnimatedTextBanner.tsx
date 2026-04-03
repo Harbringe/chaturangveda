@@ -14,8 +14,8 @@ const textLines = [
 ];
 
 const marqueeWords = [
-  '150+ Tournament Champions', '♟', 'Hyderabad', '♞', '5 Expert Coaches', '♝',
-  'Chennai', '♜', '100+ Students Trained', '♛', 'Bengaluru', '♚',
+  '150+ Tournament Champions', '♟', 'Hyderabad', '♞', '10 FIDE-Rated Coaches', '♝',
+  'Chennai', '♜', '2000+ Students Trained', '♛', 'Bengaluru', '♚',
   'New York', '♟', 'Mumbai', '♞', 'State & National Winners', '♝',
   'London', '♜', 'Toronto', '♛', 'Kolkata', '♚',
   'Online Worldwide', '♟', 'Pune', '♞', 'Los Angeles', '♝',

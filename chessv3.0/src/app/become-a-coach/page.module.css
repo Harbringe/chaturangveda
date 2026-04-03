@@ -305,6 +305,62 @@
   font-size: 0.78rem;
 }
 
+/* Phone input with country code */
+.phoneWrap {
+  display: flex;
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background: var(--surface-container);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phoneWrap:focus-within {
+  border-color: var(--primary-container);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+  background: var(--surface-container-lowest);
+}
+
+.phoneWrapError {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+}
+
+.countryCodeSelect {
+  padding: 11px 26px 11px 12px;
+  border: none;
+  border-right: 1.5px solid var(--outline-variant);
+  background: var(--surface-container-high);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  cursor: pointer;
+  outline: none;
+  min-width: 88px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  flex-shrink: 0;
+}
+
+.phoneInput {
+  flex: 1;
+  padding: 11px 16px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  color: var(--on-surface);
+  outline: none;
+  min-width: 0;
+}
+
+.phoneInput::placeholder { color: var(--outline); }
+
 .inputWrap, .selectWrap {
   position: relative;
   display: flex;

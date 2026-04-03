@@ -152,6 +152,7 @@ export default function CoursesSection() {
           <motion.div
             key={course.level}
             variants={cardVariants}
+            style={{ height: '100%' }}
           >
             <TiltCard className={styles.courseCardWrap}>
               <div className={styles.courseCard}>

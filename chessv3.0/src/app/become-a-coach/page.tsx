@@ -3,12 +3,29 @@
 import { useState } from 'react';
 import {
   FaMoneyBillWave, FaClock, FaChartLine,
-  FaUser, FaMobileAlt, FaEnvelope, FaCalendarAlt,
+  FaUser, FaEnvelope, FaCalendarAlt,
   FaChessKnight, FaWhatsapp,
 } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
+
+const countryCodes = [
+  { code: 'IN', dial: '+91',  label: 'IN +91'  },
+  { code: 'US', dial: '+1',   label: 'US +1'   },
+  { code: 'GB', dial: '+44',  label: 'GB +44'  },
+  { code: 'CA', dial: '+1',   label: 'CA +1'   },
+  { code: 'AE', dial: '+971', label: 'AE +971' },
+  { code: 'SG', dial: '+65',  label: 'SG +65'  },
+  { code: 'AU', dial: '+61',  label: 'AU +61'  },
+  { code: 'NZ', dial: '+64',  label: 'NZ +64'  },
+  { code: 'ZA', dial: '+27',  label: 'ZA +27'  },
+  { code: 'MY', dial: '+60',  label: 'MY +60'  },
+  { code: 'PK', dial: '+92',  label: 'PK +92'  },
+  { code: 'BD', dial: '+880', label: 'BD +880' },
+  { code: 'LK', dial: '+94',  label: 'LK +94'  },
+  { code: 'NP', dial: '+977', label: 'NP +977' },
+];
 
 const perks = [
   { icon: <FaMoneyBillWave />, title: 'Competitive Pay', description: 'Attractive hourly rates with performance bonuses for student results.' },
@@ -31,6 +48,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 export default function BecomeACoachPage() {
   const [form, setForm] = useState({
     name: '',
+    countryCode: '+91',
     phone: '',
     email: '',
     experience: experienceOptions[0],
@@ -45,7 +63,9 @@ export default function BecomeACoachPage() {
     const e: Record<string, string> = {};
     if (!form.name.trim()) e.name = 'Please enter your full name.';
     if (!form.phone.trim()) e.phone = 'Please enter your phone number.';
-    else if (!/^[+\d\s\-()]{7,}$/.test(form.phone)) e.phone = 'Enter a valid phone number.';
+    else if (!/^\d{4,15}$/.test(form.phone.replace(/[\s\-()]/g, ''))) e.phone = 'Enter a valid phone number.';
+    if (!form.email.trim()) e.email = 'Please enter your email address.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email address.';
     return e;
   };
 
@@ -56,11 +76,11 @@ export default function BecomeACoachPage() {
   };
 
   const buildWhatsAppUrl = () => {
-    const text = `Hi Chaturangveda! I'd like to apply as a coach.\n\nFull Name: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email || 'Not provided'}\nExperience: ${form.experience}\nFIDE Rating: ${form.rating || 'Not rated'}\nAvailability: ${form.availability || 'Flexible'}${form.message ? `\nAbout Me: ${form.message}` : ''}\n\nPlease review my application. Thank you!`;
+    const text = `Hi Chaturangveda! I'd like to apply as a coach.\n\nFull Name: ${form.name}\nPhone: ${form.countryCode}${form.phone}\nEmail: ${form.email || 'Not provided'}\nExperience: ${form.experience}\nFIDE Rating: ${form.rating || 'Not rated'}\nAvailability: ${form.availability || 'Flexible'}${form.message ? `\nAbout Me: ${form.message}` : ''}\n\nPlease review my application. Thank you!`;
     return `https://wa.me/+917569194709?text=${encodeURIComponent(text)}`;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
@@ -153,7 +173,7 @@ export default function BecomeACoachPage() {
           </p>
           <div className={styles.infoDivider} />
           <div className={styles.infoStats}>
-            <div className={styles.infoStat}><span className={styles.infoStatNum}>100+</span><span className={styles.infoStatLabel}>Students to coach</span></div>
+            <div className={styles.infoStat}><span className={styles.infoStatNum}>2000+</span><span className={styles.infoStatLabel}>Students to coach</span></div>
             <div className={styles.infoStat}><span className={styles.infoStatNum}>Flexible</span><span className={styles.infoStatLabel}>Your own schedule</span></div>
             <div className={styles.infoStat}><span className={styles.infoStatNum}>Online</span><span className={styles.infoStatLabel}>Work from anywhere</span></div>
           </div>
@@ -172,7 +192,7 @@ export default function BecomeACoachPage() {
                   Full Name <span className={styles.required}>*</span>
                 </label>
                 <div className={styles.inputWrap}>
-                  <span className={styles.inputIcon}>👤</span>
+                  <span className={styles.inputIcon}><FaUser /></span>
                   <input
                     id="name" name="name" type="text"
                     className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
@@ -187,12 +207,22 @@ export default function BecomeACoachPage() {
                 <label className={styles.label} htmlFor="phone">
                   Phone / WhatsApp <span className={styles.required}>*</span>
                 </label>
-                <div className={styles.inputWrap}>
-                  <span className={styles.inputIcon}>📱</span>
+                <div className={`${styles.phoneWrap} ${errors.phone ? styles.phoneWrapError : ''}`}>
+                  <select
+                    name="countryCode"
+                    className={styles.countryCodeSelect}
+                    value={form.countryCode}
+                    onChange={handleChange}
+                    aria-label="Country code"
+                  >
+                    {countryCodes.map((c) => (
+                      <option key={c.code} value={c.dial}>{c.label}</option>
+                    ))}
+                  </select>
                   <input
                     id="phone" name="phone" type="tel"
-                    className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
-                    placeholder="+91 98765 43210"
+                    className={styles.phoneInput}
+                    placeholder="98765 43210"
                     value={form.phone} onChange={handleChange}
                   />
                 </div>
@@ -203,17 +233,18 @@ export default function BecomeACoachPage() {
             <div className={styles.fieldRow}>
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="email">
-                  Email <span className={styles.optional}>(for confirmation)</span>
+                  Email <span className={styles.required}>*</span>
                 </label>
                 <div className={styles.inputWrap}>
                   <span className={styles.inputIcon}><FaEnvelope /></span>
                   <input
                     id="email" name="email" type="email"
-                    className={styles.input}
+                    className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
                     placeholder="you@email.com"
                     value={form.email} onChange={handleChange}
                   />
                 </div>
+                {errors.email && <span className={styles.error}>{errors.email}</span>}
               </div>
 
               <div className={styles.field}>
@@ -221,7 +252,7 @@ export default function BecomeACoachPage() {
                   Years of Experience <span className={styles.required}>*</span>
                 </label>
                 <div className={styles.selectWrap}>
-                  <span className={styles.inputIcon}>📅</span>
+                  <span className={styles.inputIcon}><FaCalendarAlt /></span>
                   <select id="experience" name="experience" className={styles.select} value={form.experience} onChange={handleChange}>
                     {experienceOptions.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
@@ -249,7 +280,7 @@ export default function BecomeACoachPage() {
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="availability">Availability</label>
                 <div className={styles.inputWrap}>
-                  <span className={styles.inputIcon}>🕐</span>
+                  <span className={styles.inputIcon}><FaClock /></span>
                   <input
                     id="availability" name="availability" type="text"
                     className={styles.input}
@@ -291,7 +322,7 @@ export default function BecomeACoachPage() {
             <div className={styles.orDivider}><span>or</span></div>
 
             <a href={buildWhatsAppUrl()} target="_blank" rel="noopener noreferrer" className={styles.waBtn}>
-              <span>💬</span> Apply directly via WhatsApp
+              <FaWhatsapp /> Apply directly via WhatsApp
             </a>
           </form>
         </div>

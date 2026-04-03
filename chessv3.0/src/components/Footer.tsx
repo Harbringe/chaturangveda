@@ -48,7 +48,7 @@ export default function Footer() {
               </div>
             </div>
             <p className={styles.footerDescription}>
-              Expert online chess coaching for children across India by FIDE-rated coaches.
+              Expert online chess coaching for children worldwide — India, USA, UK, Canada, UAE and beyond — by FIDE-rated coaches.
             </p>
             <div className={styles.footerSocials}>
               <a href="https://wa.me/+917569194709" className={styles.socialLink} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
@@ -98,7 +98,7 @@ export default function Footer() {
                 </a>
               </li>
               <li><span>Hyderabad, India</span></li>
-              <li><span>Online · Available Across India</span></li>
+              <li><span>Online · Available Worldwide</span></li>
             </ul>
           </div>
         </div>

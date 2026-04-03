@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FaBullseye, FaUsers, FaBolt } from 'react-icons/fa';
 import styles from './Navbar.module.css';
 
 const serviceDropdownItems = [
-  { icon: '🎯', label: 'Free Trial Class', desc: 'Full 45-min session, zero cost', href: '/services#free-trial' },
-  { icon: '👥', label: 'Group Classes', desc: 'Max 5 students per batch', href: '/services#group' },
-  { icon: '⚡', label: 'Private 1-on-1', desc: 'Fully personalised coaching', href: '/services#private' },
+  { icon: <FaBullseye />, label: 'Free Trial Class', desc: 'Full 45-min session, zero cost', href: '/services#free-trial' },
+  { icon: <FaUsers />, label: 'Group Classes', desc: 'Max 5 students per batch', href: '/services#group' },
+  { icon: <FaBolt />, label: 'Private 1-on-1', desc: 'Fully personalised coaching', href: '/services#private' },
 ];
 
 const LMS_URL = 'https://lms.chaturangaveda.com'; // TODO: replace with actual LMS URL
@@ -103,38 +104,25 @@ export default function Navbar() {
             </li>
           </ul>
 
-          <button className={styles.mobileMenuBtn} onClick={() => setMobileOpen(true)} aria-label="Open menu">
+          <button
+            className={`${styles.mobileMenuBtn} ${mobileOpen ? styles.mobileMenuBtnOpen : ''}`}
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          >
             <span /><span /><span />
           </button>
         </div>
       </nav>
 
       <div className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ''}`}>
-        <button className={styles.closeBtn} onClick={() => setMobileOpen(false)}>✕</button>
-        <Link
-          href="/services"
-          className={`${styles.navLink} ${pathname === '/services' ? styles.navLinkActive : ''}`}
-          onClick={() => setMobileOpen(false)}
-        >
+        <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.navLinkActive : ''}`} onClick={() => setMobileOpen(false)}>
+          Home
+        </Link>
+        <Link href="/services" className={`${styles.navLink} ${pathname === '/services' ? styles.navLinkActive : ''}`} onClick={() => setMobileOpen(false)}>
           Services
         </Link>
-        {serviceDropdownItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={styles.mobileSubLink}
-            onClick={() => setMobileOpen(false)}
-          >
-            {item.icon} {item.label}
-          </Link>
-        ))}
         {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`${styles.navLink} ${pathname === link.href ? styles.navLinkActive : ''}`}
-            onClick={() => setMobileOpen(false)}
-          >
+          <Link key={link.href} href={link.href} className={`${styles.navLink} ${pathname === link.href ? styles.navLinkActive : ''}`} onClick={() => setMobileOpen(false)}>
             {link.label}
           </Link>
         ))}
