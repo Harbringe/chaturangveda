@@ -1,0 +1,50 @@
+# Vercel Speed Insights Installation Report
+
+## Summary
+Successfully installed and configured Vercel Speed Insights for the Chaturangveda Next.js project following the latest official documentation from Vercel.
+
+## Changes Implemented
+
+### 1. Package Installation
+- **File**: `package.json`
+- **Change**: Added `@vercel/speed-insights` dependency
+- **Command Used**: `npm install @vercel/speed-insights`
+- **Lock File**: Updated `package-lock.json` with new dependency tree
+
+### 2. Speed Insights Integration
+- **File**: `src/app/layout.tsx`
+- **Changes Made**:
+  - Added import statement: `import { SpeedInsights } from "@vercel/speed-insights/next";`
+  - Added `<SpeedInsights />` component at the end of the `<body>` tag in the root layout
+  
+### Implementation Details
+The integration follows the official Next.js App Router pattern (v13.5+):
+- Used the framework-specific import from `@vercel/speed-insights/next`
+- Placed the component in the root layout to ensure Speed Insights tracking on all pages
+- Component is rendered after `{children}` to avoid interfering with page content
+
+## Verification Steps Completed
+
+✅ **Build Verification**: Successfully ran `npm run build` - project builds without errors
+✅ **Type Checking**: TypeScript compilation passed without issues
+✅ **Linter**: Ran `npm run lint` - no new errors introduced by these changes
+✅ **Dependencies**: Lock file updated correctly with 409 new packages
+
+## Files Modified
+1. `chessv3.0/package.json` - Added @vercel/speed-insights dependency
+2. `chessv3.0/package-lock.json` - Updated with new dependency tree
+3. `chessv3.0/src/app/layout.tsx` - Added SpeedInsights component
+
+## Next Steps for Deployment
+To start collecting Speed Insights data:
+1. Enable Speed Insights in your Vercel dashboard (Project Settings → Speed Insights)
+2. Deploy the application to Vercel
+3. After deployment, Speed Insights will automatically start tracking web vitals
+4. View performance metrics in the Vercel dashboard
+
+## Technical Notes
+- The Speed Insights component is lightweight and automatically tracks Core Web Vitals
+- Data collection only begins after enabling Speed Insights in the Vercel dashboard
+- The component uses the `/_vercel/speed-insights/*` route for data reporting
+- No additional configuration required for basic usage
+- Compatible with Next.js 16.2.1 (current project version)
