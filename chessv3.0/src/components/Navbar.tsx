@@ -132,7 +132,7 @@ export default function Navbar() {
         <a href={LMS_URL} target="_blank" rel="noopener noreferrer" className={styles.lmsBtn} onClick={() => setMobileOpen(false)}>
           Student Login
         </a>
-        <Link href="/book-free-trial" className="btn-primary" onClick={() => setMobileOpen(false)}>
+        <Link href="/book-free-trial" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
           Book Free Trial
         </Link>
       </div>
