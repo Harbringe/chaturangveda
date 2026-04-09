@@ -20,7 +20,15 @@ export async function encrypt(payload: SessionPayload): Promise<string> {
 export async function decrypt(token: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(token, SECRET, { algorithms: ['HS256'] });
-    return payload as unknown as SessionPayload;
+    if (
+      typeof payload === 'object' &&
+      payload !== null &&
+      typeof (payload as Record<string, unknown>).isAdmin === 'boolean' &&
+      typeof (payload as Record<string, unknown>).expiresAt === 'string'
+    ) {
+      return payload as unknown as SessionPayload;
+    }
+    return null;
   } catch {
     return null;
   }
