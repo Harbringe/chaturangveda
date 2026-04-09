@@ -4,6 +4,9 @@ let pool: Pool | null = null;
 
 export function getDb(): Pool {
   if (!pool) {
+    if (!process.env.DB_CONN) {
+      throw new Error('DB_CONN environment variable is not set. Check .env.local.');
+    }
     pool = new Pool({
       connectionString: process.env.DB_CONN,
       ssl: { rejectUnauthorized: false },
