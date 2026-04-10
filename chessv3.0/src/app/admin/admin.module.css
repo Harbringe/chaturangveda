@@ -1,0 +1,261 @@
+/* Shared admin panel styles */
+.adminWrap {
+  min-height: 100vh;
+  background: #0f1117;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.adminNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #1a1f2e;
+  border-bottom: 1px solid #2d3748;
+}
+
+.adminNavBrand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #63b3ed;
+  text-decoration: none;
+}
+
+.adminNavLink {
+  color: #a0aec0;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.adminNavLink:hover {
+  color: #e2e8f0;
+}
+
+.adminMain {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.loginCard {
+  max-width: 400px;
+  margin: 8rem auto 0;
+  background: #1a1f2e;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.loginTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #e2e8f0;
+}
+
+.loginSubtitle {
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 0 0 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #a0aec0;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background: #0f1117;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #63b3ed;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, opacity 0.2s;
+  text-decoration: none;
+}
+
+.btnPrimary {
+  background: #3182ce;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+}
+
+.btnPrimary:hover {
+  background: #2b6cb0;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnDanger {
+  background: #c53030;
+  color: #fff;
+}
+
+.btnDanger:hover {
+  background: #9b2c2c;
+}
+
+.btnSecondary {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.btnSecondary:hover {
+  background: #4a5568;
+}
+
+.error {
+  color: #fc8181;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1f2e;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2d3748;
+}
+
+.table th,
+.table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.table th {
+  background: #252c3d;
+  color: #a0aec0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.table tr:not(:last-child) td {
+  border-bottom: 1px solid #2d3748;
+}
+
+.table td {
+  color: #e2e8f0;
+}
+
+.tableActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgeGreen {
+  background: #1a4731;
+  color: #68d391;
+}
+
+.badgeGray {
+  background: #2d3748;
+  color: #a0aec0;
+}
+
+.form {
+  background: #1a1f2e;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background: #0f1117;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+  transition: border-color 0.2s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #63b3ed;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #a0aec0;
+  cursor: pointer;
+}
