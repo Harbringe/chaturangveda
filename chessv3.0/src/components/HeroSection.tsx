@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./HeroSection.module.css";
 
@@ -28,29 +29,39 @@ const countries = [
   { code: "ca", name: "Canada" },
   { code: "ae", name: "UAE" },
   { code: "sg", name: "Singapore" },
+  { code: "au", name: "Australia" },
+  { code: "nz", name: "New Zealand" },
+  { code: "nl", name: "Netherlands" },
 ];
 
-const heroCoaches = [
+const studentAchievements = [
   {
-    name: "Manoj Reddy Maram",
-    role: "Head Coach · FIDE-Rated",
-    image: "/images/2025/02/ManojReddyMaram.jpg",
-    objectPosition: "center 44%",
-    tags: ["Opening Theory", "Endgame", "Tournament Prep"],
+    name: "Srinika",
+    achievement: "National School Games Silver",
+    detail: "U11 National Silver · Karnataka",
+    image: "/images/achievements/national_winner_silver.png",
+    badge: "🥈 National",
   },
   {
-    name: "Uttham Naresh Patti",
-    role: "Senior Coach · National Level",
-    image: "/images/2025/02/1697257716831.jpg",
-    objectPosition: "center top",
-    tags: ["Tactical Play", "Middlegame", "National Prep"],
+    name: "Samanvith",
+    achievement: "State Championship Winner",
+    detail: "Youngest champion · Age 9",
+    image: "/images/2025/01/Samanvith-e1738320920340.png",
+    badge: "🏆 State",
   },
   {
-    name: "Rajdip",
-    role: "Coach · State Level",
-    image: "/images/2025/02/resume.png",
-    objectPosition: "center top",
-    tags: ["Beginner Curriculum", "Youth", "Fun Learning"],
+    name: "Ekaansh Sharma",
+    achievement: "Telangana State Under-9",
+    detail: "Top 3 finish · 8 months training",
+    image: "/images/2025/01/Ekaansh-Sharma-e1738320995620.png",
+    badge: "🥇 Top 3",
+  },
+  {
+    name: "Anish",
+    achievement: "District Level Gold",
+    detail: "Rapid improvement · 6 months",
+    image: "/images/2025/01/ANISH-e1738320951137.png",
+    badge: "🥇 District",
   },
 ];
 
@@ -183,7 +194,7 @@ export default function HeroSection() {
           >
             Expert chess coaching for kids by FIDE-rated coaches. From your
             child&apos;s first move to tournament glory — online classes for
-            students across India, USA, UK, Canada and beyond.
+            students across India, USA, UK, Australia, UAE, Netherlands and beyond.
           </motion.p>
 
           <motion.div
@@ -245,7 +256,7 @@ export default function HeroSection() {
           >
             <motion.span
               className={styles.toastTrophy}
-              animate={{ rotate: [0, -12, 12, -12, 0] }}
+              animate={{ rotate: [0, -12, 12, -12, 0], scale: [1, 1.1, 1, 1.1, 1] }}
               transition={{
                 duration: 1.5,
                 delay: 2.5,
@@ -253,29 +264,29 @@ export default function HeroSection() {
                 repeatDelay: 6,
               }}
             >
-              🏆
+              🥈
             </motion.span>
             <div className={styles.toastBody}>
-              <div className={styles.toastTitle}>Tournament Win!</div>
+              <div className={styles.toastTitle}>National Achievement!</div>
               <div className={styles.toastSub}>
-                Samanvith · State Level Championship
+                Srinika · U11 National School Games Silver
               </div>
             </div>
             <span className={styles.toastNew}>NEW</span>
           </motion.div>
 
-          {/* Coach cards panel */}
+          {/* Student Achievements panel */}
           <div className={styles.coachPanel}>
             <div className={styles.coachPanelHeader}>
-              <span className={styles.coachPanelTitle}>Meet Your Coaches</span>
-              <a href="/coaches" className={styles.coachPanelLink}>
-                View All →
-              </a>
+              <span className={styles.coachPanelTitle}>Student Achievements</span>
+              <Link href="/blogs" className={styles.coachPanelLink}>
+                Read Stories →
+              </Link>
             </div>
 
-            {heroCoaches.map((coach, i) => (
+            {studentAchievements.map((s, i) => (
               <motion.div
-                key={coach.name}
+                key={s.name}
                 className={styles.coachRow}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -283,25 +294,19 @@ export default function HeroSection() {
               >
                 <div className={styles.coachAvatar}>
                   <Image
-                    src={coach.image}
-                    alt={coach.name}
+                    src={s.image}
+                    alt={s.name}
                     fill
-                    style={{
-                      objectFit: "cover",
-                      objectPosition: coach.objectPosition,
-                    }}
+                    style={{ objectFit: "cover", objectPosition: "center top" }}
                     sizes="40px"
                   />
                 </div>
                 <div className={styles.coachRowInfo}>
-                  <div className={styles.coachRowName}>{coach.name}</div>
-                  <div className={styles.coachRowRole}>{coach.role}</div>
+                  <div className={styles.coachRowName}>{s.name}</div>
+                  <div className={styles.coachRowRole}>{s.achievement}</div>
                   <div className={styles.coachRowTags}>
-                    {coach.tags.map((tag) => (
-                      <span key={tag} className={styles.coachRowTag}>
-                        {tag}
-                      </span>
-                    ))}
+                    <span className={styles.coachRowTag}>{s.badge}</span>
+                    <span className={styles.coachRowTag}>{s.detail}</span>
                   </div>
                 </div>
               </motion.div>
@@ -314,7 +319,7 @@ export default function HeroSection() {
               { val: "150+", label: "Tournament Wins" },
               { val: "2000+", label: "Students" },
               { val: "10", label: "Coaches" },
-              { val: "6+", label: "Countries" },
+              { val: "9+", label: "Countries" },
             ].map((s, i, arr) => (
               <div key={s.label} className={styles.stripItem}>
                 <span className={styles.stripVal}>{s.val}</span>
