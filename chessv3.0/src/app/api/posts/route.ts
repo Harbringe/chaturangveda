@@ -13,7 +13,10 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const password = req.headers.get('x-admin-password');
-  const adminPassword = process.env.ADMIN_PASSWORD || 'chess2024';
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 });
+  }
   if (password !== adminPassword) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

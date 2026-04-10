@@ -168,13 +168,15 @@ export default async function BlogPostPage({ params }: Params) {
       </section>
 
       <div className={styles.featuredImage}>
-        <Image
-          src={post.image}
-          alt={post.title}
-          fill
-          style={{ objectFit: 'cover', objectPosition: post.imagePosition || 'center' }}
-          priority
-        />
+        {post.image && (
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            style={{ objectFit: 'cover', objectPosition: post.imagePosition || 'center' }}
+            priority
+          />
+        )}
       </div>
 
       <article className={styles.article}>

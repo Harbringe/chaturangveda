@@ -4,8 +4,9 @@ import { getDb, rowToPost } from '@/lib/db';
 type Params = { params: Promise<{ slug: string }> };
 
 function checkAuth(req: NextRequest): boolean {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) return false;
   const password = req.headers.get('x-admin-password');
-  const adminPassword = process.env.ADMIN_PASSWORD || 'chess2024';
   return password === adminPassword;
 }
 
