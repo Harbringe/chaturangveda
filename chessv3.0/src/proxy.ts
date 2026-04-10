@@ -6,7 +6,7 @@ const SECRET = new TextEncoder().encode(
   process.env.SESSION_SECRET ?? 'fallback-dev-secret-32-chars-min!!'
 );
 
-export async function proxy(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Only guard /admin routes
