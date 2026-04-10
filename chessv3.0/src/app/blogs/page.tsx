@@ -148,13 +148,15 @@ export default function BlogsPage() {
         {!loading && !error && featured && (
           <Link href={`/blogs/${featured.slug}`} className={styles.featured}>
             <div className={styles.featuredImageWrap}>
-              <Image
-                src={featured.image}
-                alt={featured.title}
-                fill
-                style={{ objectFit: 'cover', objectPosition: 'top' }}
-                sizes="(max-width: 900px) 100vw, 50vw"
-              />
+              {featured.image && (
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'top' }}
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                />
+              )}
             </div>
             <div className={styles.featuredInfo}>
               <span className={styles.featuredLabel}>Featured</span>
@@ -190,14 +192,16 @@ export default function BlogsPage() {
             {rest.map((post) => (
               <Link key={post.slug} href={`/blogs/${post.slug}`} className={styles.postCard}>
                 <div className={styles.postImageWrap}>
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.postImage}
-                  />
+                  {post.image && (
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.postImage}
+                    />
+                  )}
                 </div>
                 <div className={styles.postBody}>
                   <span className={styles.postCategory}>{post.category}</span>
