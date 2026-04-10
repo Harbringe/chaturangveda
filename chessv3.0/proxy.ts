@@ -21,8 +21,16 @@ export async function proxy(req: NextRequest) {
   }
 
   try {
-    await jwtVerify(token, SECRET, { algorithms: ['HS256'] });
-    return NextResponse.next();
+    const { payload } = await jwtVerify(token, SECRET, { algorithms: ['HS256'] });
+    if (
+      typeof payload === 'object' &&
+      payload !== null &&
+      typeof (payload as Record<string, unknown>).isAdmin === 'boolean' &&
+      typeof (payload as Record<string, unknown>).expiresAt === 'string'
+    ) {
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(new URL('/admin/login', req.url));
   } catch {
     return NextResponse.redirect(new URL('/admin/login', req.url));
   }
