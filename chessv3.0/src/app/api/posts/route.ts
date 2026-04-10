@@ -1,39 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFile, writeFile } from 'fs/promises';
-import path from 'path';
+import { getDb, rowToPost } from '@/lib/db';
 
-const postsPath = path.join(process.cwd(), 'src', 'data', 'posts.json');
-
-async function getPosts() {
-  const raw = await readFile(postsPath, 'utf-8');
-  return JSON.parse(raw);
-}
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const data = await getPosts();
-  return NextResponse.json(data);
+  const db = getDb();
+  const { rows } = await db.query(
+    'SELECT * FROM posts ORDER BY date DESC NULLS LAST'
+  );
+  return NextResponse.json({ posts: rows.map(rowToPost) });
 }
 
 export async function POST(req: NextRequest) {
   const password = req.headers.get('x-admin-password');
   const adminPassword = process.env.ADMIN_PASSWORD || 'chess2024';
-  if (password !== adminPassword) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (password !== adminPassword) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   const body = await req.json();
-  const data = await getPosts();
 
   // Generate slug from title if not provided
-  if (!body.slug) {
-    body.slug = body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-  }
+  let slug: string = body.slug ||
+    body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-  // Check duplicate slug
-  if (data.posts.find((p: { slug: string }) => p.slug === body.slug)) {
-    body.slug = body.slug + '-' + Date.now();
-  }
+  const db = getDb();
 
-  body.date = body.date || new Date().toISOString().split('T')[0];
-  data.posts.unshift(body);
-  await writeFile(postsPath, JSON.stringify(data, null, 2));
-  return NextResponse.json({ ok: true, slug: body.slug });
+  // Check slug uniqueness
+  const existing = await db.query('SELECT id FROM posts WHERE slug = $1', [slug]);
+  if (existing.rows.length > 0) slug = `${slug}-${Date.now()}`;
+
+  const date = body.date || new Date().toISOString().split('T')[0];
+  const tags = Array.isArray(body.tags)
+    ? body.tags
+    : typeof body.tags === 'string'
+    ? body.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
+    : null;
+
+  const { rows } = await db.query(
+    `INSERT INTO posts
+       (slug, title, excerpt, content, author, author_image, date, image,
+        category, tags, read_time, featured, published)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+     RETURNING *`,
+    [
+      slug,
+      body.title,
+      body.excerpt ?? null,
+      body.content ?? null,
+      body.author ?? null,
+      body.authorImage ?? null,
+      date,
+      body.image ?? null,
+      body.category ?? null,
+      tags,
+      body.readTime ?? null,
+      body.featured ?? false,
+      body.published ?? true,
+    ]
+  );
+
+  return NextResponse.json({ ok: true, slug: rows[0].slug });
 }
