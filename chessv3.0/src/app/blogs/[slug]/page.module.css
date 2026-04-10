@@ -116,6 +116,131 @@
   margin-bottom: 24px;
 }
 
+/* Author strip in hero */
+.heroAuthor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.heroAuthorAvatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface-container-high);
+}
+
+.heroAuthorName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Article body rich text */
+.articleBody h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 32px 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.articleBody ul,
+.articleBody ol {
+  padding-left: 24px;
+  margin-bottom: 24px;
+}
+
+.articleBody li {
+  font-size: 1.05rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.articleBody blockquote {
+  border-left: 3px solid var(--primary-container);
+  padding: 4px 20px;
+  margin: 32px 0;
+  font-style: italic;
+  color: var(--on-surface-variant);
+}
+
+.articleBody a {
+  color: var(--primary-container);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.articleBody strong {
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.articleBody em {
+  font-style: italic;
+}
+
+.articleBody hr {
+  border: none;
+  border-top: 1px solid var(--outline-variant);
+  margin: 40px 0;
+}
+
+.articleBody img {
+  max-width: 100%;
+  border-radius: var(--border-radius-lg);
+  margin: 24px 0;
+}
+
+/* Post nav */
+.postNav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--outline-variant);
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: inherit;
+  max-width: 45%;
+}
+
+.navLinkRight {
+  align-items: flex-end;
+}
+
+.navDir {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--outline);
+}
+
+.navTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  line-height: 1.4;
+  transition: color 0.18s;
+}
+
+.navLink:hover .navTitle {
+  color: var(--primary-container);
+}
+
 /* Coming soon */
 .comingSoon {
   max-width: 760px;

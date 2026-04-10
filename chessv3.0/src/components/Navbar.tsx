@@ -13,7 +13,8 @@ const serviceDropdownItems = [
   { icon: <FaBolt />, label: 'Private 1-on-1', desc: 'Fully personalised coaching', href: '/services#private' },
 ];
 
-const LMS_URL = 'https://lms.chaturangaveda.com'; // TODO: replace with actual LMS URL
+const LMS_URL = 'https://chaturangveda.wise.live';
+const BOOK_URL = 'https://chaturangveda.wise.live/book/consultation';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -98,9 +99,9 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <Link href="/book-free-trial" className={`btn-primary ${styles.navCTA}`}>
+              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className={`btn-primary ${styles.navCTA}`}>
                 Book Free Trial
-              </Link>
+              </a>
             </li>
           </ul>
 
@@ -132,9 +133,9 @@ export default function Navbar() {
         <a href={LMS_URL} target="_blank" rel="noopener noreferrer" className={styles.lmsBtn} onClick={() => setMobileOpen(false)}>
           Student Login
         </a>
-        <Link href="/book-free-trial" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
           Book Free Trial
-        </Link>
+        </a>
       </div>
     </>
   );

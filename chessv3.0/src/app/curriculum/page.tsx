@@ -13,6 +13,7 @@ const countryCodes = [
   { code: 'SG', dial: '+65',  label: 'SG +65'  },
   { code: 'AU', dial: '+61',  label: 'AU +61'  },
   { code: 'NZ', dial: '+64',  label: 'NZ +64'  },
+  { code: 'NL', dial: '+31',  label: 'NL +31'  },
   { code: 'ZA', dial: '+27',  label: 'ZA +27'  },
   { code: 'MY', dial: '+60',  label: 'MY +60'  },
   { code: 'PK', dial: '+92',  label: 'PK +92'  },
@@ -116,7 +117,7 @@ const levels = [
 ];
 
 type ClassType = 'individual' | 'group';
-type SessionsPerWeek = 2 | 3 | 4;
+type SessionsPerWeek = 2 | 3;
 
 interface EnrollForm {
   name: string;
@@ -148,8 +149,9 @@ function sessionCount(level: typeof levels[0], spw: SessionsPerWeek) {
 }
 
 export default function CurriculumPage() {
-  const [classType, setClassType] = useState<ClassType>('individual');
-  const [sessionsPerWeek, setSessionsPerWeek] = useState<SessionsPerWeek>(2);
+  const [classType, setClassType] = useState<ClassType | null>(null);
+  const [sessionsPerWeek, setSessionsPerWeek] = useState<SessionsPerWeek | null>(null);
+  const priceConfigured = classType !== null && sessionsPerWeek !== null;
   const [selectedLevel, setSelectedLevel] = useState<typeof levels[0] | null>(null);
   const [form, setForm] = useState<EnrollForm>({ name: '', email: '', countryCode: '+91', phone: '' });
   const [errors, setErrors] = useState<Partial<EnrollForm>>({});
@@ -201,7 +203,7 @@ export default function CurriculumPage() {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
-    if (!selectedLevel) return;
+    if (!selectedLevel || !classType || !sessionsPerWeek) return;
 
     setModalStatus('loading');
 
@@ -295,41 +297,44 @@ export default function CurriculumPage() {
         </p>
       </section>
 
-      {/* ─── Sticky config bar ─── */}
-      <div className={styles.configBar}>
-        <div className={styles.configInner}>
-          <div className={styles.configGroup}>
-            <span className={styles.configLabel}>Class Type</span>
-            <div className={styles.toggleGroup}>
-              <button
-                className={`${styles.toggleBtn} ${classType === 'individual' ? styles.toggleActive : ''}`}
-                onClick={() => setClassType('individual')}
-              >
-                Individual (1-on-1)
-              </button>
-              <button
-                className={`${styles.toggleBtn} ${classType === 'group' ? styles.toggleActive : ''}`}
-                onClick={() => setClassType('group')}
-              >
-                Group (4–6 Students)
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.configGroup}>
-            <span className={styles.configLabel}>Sessions / Week</span>
-            <div className={styles.toggleGroup}>
-              {([2, 3, 4] as SessionsPerWeek[]).map((n) => (
-                <button
-                  key={n}
-                  className={`${styles.toggleBtn} ${sessionsPerWeek === n ? styles.toggleActive : ''}`}
-                  onClick={() => setSessionsPerWeek(n)}
+      {/* ─── Pricing Calculator ─── */}
+      <div className={styles.pricingCalc}>
+        <div className={styles.pricingCalcInner}>
+          <div className={styles.pricingCalcHeading}>Configure Your Plan</div>
+          <p className={styles.pricingCalcSub}>Choose your class type and session frequency to see pricing on each level below.</p>
+          <div className={styles.pricingCalcDropdowns}>
+            <div className={styles.calcField}>
+              <label className={styles.calcLabel}>Class Type</label>
+              <div className={styles.calcSelectWrap}>
+                <select
+                  className={styles.calcSelect}
+                  value={classType || ''}
+                  onChange={(e) => setClassType((e.target.value as ClassType) || null)}
                 >
-                  {n}× / week
-                </button>
-              ))}
+                  <option value="">Select type…</option>
+                  <option value="individual">Individual (1-on-1)</option>
+                  <option value="group">Group (4–6 Students)</option>
+                </select>
+              </div>
+            </div>
+            <div className={styles.calcField}>
+              <label className={styles.calcLabel}>Sessions / Week</label>
+              <div className={styles.calcSelectWrap}>
+                <select
+                  className={styles.calcSelect}
+                  value={sessionsPerWeek || ''}
+                  onChange={(e) => setSessionsPerWeek(e.target.value ? (Number(e.target.value) as SessionsPerWeek) : null)}
+                >
+                  <option value="">Select frequency…</option>
+                  <option value="2">2× per week</option>
+                  <option value="3">3× per week</option>
+                </select>
+              </div>
             </div>
           </div>
+          {!priceConfigured && (
+            <p className={styles.calcHint}>↓ Pricing will appear on each level card once you make your selection</p>
+          )}
         </div>
       </div>
 
@@ -344,9 +349,8 @@ export default function CurriculumPage() {
 
         <div className={styles.levelsGrid}>
           {levels.map((level) => {
-            const price = computePrice(level, classType, sessionsPerWeek);
-            const sessions = sessionCount(level, sessionsPerWeek);
-            const perSession = Math.round(price / sessions);
+            const price = priceConfigured ? computePrice(level, classType!, sessionsPerWeek!) : null;
+            const sessions = priceConfigured ? sessionCount(level, sessionsPerWeek!) : level.monthsDuration * 4 * 2;
             return (
               <div key={level.num} className={styles.levelCard}>
                 <div className={styles.levelHeader}>
@@ -374,22 +378,29 @@ export default function CurriculumPage() {
                   {level.outcome}
                 </div>
 
-                <div className={styles.cardPricing}>
-                  <div className={styles.priceRow}>
-                    <span className={styles.priceAmount}>{formatINR(price)}</span>
-                    <span className={styles.pricePeriod}>for {level.monthsDuration} months</span>
+                {priceConfigured && price !== null ? (
+                  <div className={styles.cardPricing}>
+                    <div className={styles.priceRow}>
+                      <span className={styles.priceAmount}>{formatINR(price)}</span>
+                      <span className={styles.pricePeriod}>for {level.monthsDuration} months</span>
+                    </div>
+                    <div className={styles.priceMeta}>
+                      <span>{sessions} sessions · {sessionsPerWeek}×/week</span>
+                      <span className={styles.pricePerSession}>{formatINR(Math.round(price / sessions))}/session</span>
+                    </div>
                   </div>
-                  <div className={styles.priceMeta}>
-                    <span>{sessions} sessions · {sessionsPerWeek}×/week</span>
-                    <span className={styles.pricePerSession}>{formatINR(perSession)}/session</span>
+                ) : (
+                  <div className={styles.pricePlaceholder}>
+                    Select your plan above to see pricing
                   </div>
-                </div>
+                )}
 
                 <button
                   className={styles.enrollBtn}
                   onClick={() => setSelectedLevel(level)}
+                  disabled={!priceConfigured}
                 >
-                  Enroll in {level.title} →
+                  {priceConfigured ? `Enroll in ${level.title} →` : 'Configure plan to enroll'}
                 </button>
               </div>
             );
@@ -402,12 +413,15 @@ export default function CurriculumPage() {
         <div className={styles.sectionLabel}>Availability</div>
         <h2 className={styles.sectionTitle}>Flexible Scheduling — Your Timezone, Your Time</h2>
         <p className={styles.scheduleTimezoneNote}>
-          We are available in <strong>all US timezones</strong> — Eastern, Central, Mountain, and Pacific —
-          as well as India (IST), UK (GMT/BST), UAE, Canada, Singapore, and beyond.
+          We serve students across <strong>all US timezones</strong> — Eastern, Central, Mountain, and Pacific —
+          as well as India (IST), UK, UAE, Canada, Singapore, Australia, New Zealand, Netherlands, and beyond.
           Reach out and we&apos;ll find a batch that fits your schedule perfectly.
         </p>
         <div className={styles.timezoneChips}>
-          {['IST · India', 'EST · US East', 'CST · US Central', 'MST · US Mountain', 'PST · US West', 'GMT · UK', 'UAE · Gulf', 'SGT · Singapore'].map((tz) => (
+          {[
+            'IST · India', 'EST · US East', 'CST · US Central', 'MST · US Mountain', 'PST · US West',
+            'GMT · UK', 'UAE · Gulf', 'SGT · Singapore', 'AEST · Australia', 'NZST · New Zealand', 'CET · Netherlands',
+          ].map((tz) => (
             <span key={tz} className={styles.timezoneChip}>{tz}</span>
           ))}
         </div>
@@ -423,9 +437,9 @@ export default function CurriculumPage() {
           <p className={styles.ctaSub}>
             Book a free 45-minute trial class. Our coaches will assess your level and recommend the right course for you.
           </p>
-          <Link href="/book-free-trial" className="btn-primary">
+          <a href="https://chaturangveda.wise.live/book/consultation" target="_blank" rel="noopener noreferrer" className="btn-primary">
             Book Free Trial
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -458,7 +472,7 @@ export default function CurriculumPage() {
                     <p className={styles.modalMeta}>
                       {classType === 'individual' ? 'Individual · 1-on-1' : 'Group · 4–6 Students'}
                       &nbsp;·&nbsp; {sessionsPerWeek}× per week
-                      &nbsp;·&nbsp; {selectedLevel.monthsDuration} months
+                      &nbsp;·&nbsp; {selectedLevel.monthsDuration} month{selectedLevel.monthsDuration > 1 ? 's' : ''}
                     </p>
                   </div>
                 </div>

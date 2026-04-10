@@ -2,11 +2,30 @@ import Link from 'next/link';
 import { FaWhatsapp, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd';
 import styles from './page.module.css';
 
+const SITE_URL_CONTACT = process.env.NEXT_PUBLIC_SITE_URL || 'https://chaturangveda.in';
+
 export const metadata = {
-  title: 'Contact Us | Chaturangveda',
-  description: 'Get in touch with Chaturangveda. Book a free trial or ask us anything via WhatsApp, phone, or the contact form.',
+  title: 'Contact Us — WhatsApp, Phone & FAQ',
+  description: 'Contact Chaturangveda chess academy. Reach us via WhatsApp (+91 75691 94709), phone, or browse FAQs. Mon–Sat 9 AM–7 PM IST. Book a free trial today.',
+  keywords: [
+    'contact Chaturangveda',
+    'chess coaching contact',
+    'chess academy phone number India',
+    'chess class enquiry',
+    'WhatsApp chess coaching',
+  ],
+  alternates: {
+    canonical: `${SITE_URL_CONTACT}/contact`,
+  },
+  openGraph: {
+    title: 'Contact Chaturangveda — Chess Coaching Enquiries',
+    description: 'Reach us via WhatsApp or phone. Mon–Sat 9 AM–7 PM IST. Usually responds within minutes.',
+    url: `${SITE_URL_CONTACT}/contact`,
+    type: 'website',
+  },
 };
 
 const methods = [
@@ -49,7 +68,7 @@ const faqs = [
   },
   {
     question: 'Are classes online or in-person?',
-    answer: 'All classes are conducted online via Zoom, accessible anywhere in India.',
+    answer: 'All classes are conducted online via Zoom, accessible worldwide — India, USA, UK, Australia, UAE, New Zealand, Netherlands, and more.',
   },
   {
     question: 'How long is each class?',
@@ -69,9 +88,77 @@ const faqs = [
   },
 ];
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['EducationalOrganization', 'LocalBusiness'],
+  '@id': `${SITE_URL_CONTACT}/#organization`,
+  name: 'Chaturangveda',
+  alternateName: 'Chaturangveda Chess Academy',
+  url: SITE_URL_CONTACT,
+  logo: `${SITE_URL_CONTACT}/logo.png`,
+  image: `${SITE_URL_CONTACT}/og-image.jpg`,
+  description: 'Expert online chess coaching for kids by FIDE-rated coaches. Students across India, USA, UK, UAE, Australia and more.',
+  telephone: '+91-75691-94709',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hyderabad',
+    addressRegion: 'Telangana',
+    addressCountry: 'IN',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '17.3850',
+    longitude: '78.4867',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'India' },
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'Country', name: 'United Kingdom' },
+    { '@type': 'Country', name: 'United Arab Emirates' },
+    { '@type': 'Country', name: 'Australia' },
+    { '@type': 'Country', name: 'Singapore' },
+    { '@type': 'Country', name: 'New Zealand' },
+    { '@type': 'Country', name: 'Netherlands' },
+    { '@type': 'Country', name: 'Canada' },
+  ],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '19:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '09:00',
+      closes: '17:00',
+    },
+  ],
+  sameAs: ['https://wa.me/917569194709'],
+  priceRange: '₹₹',
+  currenciesAccepted: 'INR',
+  paymentAccepted: 'Cash, Credit Card, Razorpay',
+};
+
 export default function ContactPage() {
   return (
     <div className={styles.page}>
+      <JsonLd data={localBusinessSchema} />
+      <JsonLd data={faqSchema} />
       <Navbar />
 
       <section className={styles.hero}>

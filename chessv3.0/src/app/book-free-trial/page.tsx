@@ -2,36 +2,49 @@
 
 import { useState, useRef, useEffect } from 'react';
 import {
-  FaClock, FaChartBar, FaBan,
-  FaUser, FaChild, FaBirthdayCake,
-  FaEnvelope, FaChessKnight, FaWhatsapp, FaChevronDown, FaCheck,
+  FaClock, FaChartBar, FaBan, FaChessKnight,
+  FaUser, FaChild, FaBirthdayCake, FaEnvelope,
+  FaWhatsapp, FaChevronDown, FaCheck,
 } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
-const countryCodes = [
-  { code: 'IN', dial: '+91', label: 'IN +91' },
-  { code: 'US', dial: '+1',  label: 'US +1'  },
-  { code: 'GB', dial: '+44', label: 'GB +44' },
-  { code: 'CA', dial: '+1',  label: 'CA +1'  },
-  { code: 'AE', dial: '+971',label: 'AE +971'},
-  { code: 'SG', dial: '+65', label: 'SG +65' },
-  { code: 'AU', dial: '+61', label: 'AU +61' },
-  { code: 'NZ', dial: '+64', label: 'NZ +64' },
-  { code: 'ZA', dial: '+27', label: 'ZA +27' },
-  { code: 'MY', dial: '+60', label: 'MY +60' },
-  { code: 'PK', dial: '+92', label: 'PK +92' },
-  { code: 'BD', dial: '+880',label: 'BD +880'},
-  { code: 'LK', dial: '+94', label: 'LK +94' },
-  { code: 'NP', dial: '+977',label: 'NP +977'},
-];
+const BOOKING_BASE = 'https://chaturangveda.wise.live/book/consultation';
 
-const whatsIncluded = [
-  { icon: <FaClock />, text: 'Full 45-minute session with a FIDE-rated coach' },
-  { icon: <FaChartBar />, text: 'Level assessment and personalised feedback report' },
-  { icon: <FaWhatsapp />, text: 'Instant WhatsApp confirmation of your slot' },
-  { icon: <FaBan />, text: 'Zero obligation to continue after the trial' },
+// Wise.live (Zoho Bookings) pre-fill param names
+// Multiple aliases sent simultaneously — whichever the platform reads will work
+function buildBookingUrl(name: string, email: string, phone: string, country: string) {
+  const p = new URLSearchParams({
+    // Zoho Bookings standard
+    customer_name:  name,
+    customer_email: email,
+    customer_phone: phone,
+    customer_country: country,
+    // Aliases some Wise.live versions use
+    name,
+    email,
+    phone,
+  });
+  return `${BOOKING_BASE}?${p.toString()}`;
+}
+
+const countryCodes = [
+  { code: 'IN',  dial: '+91',  label: 'IN +91'  },
+  { code: 'US',  dial: '+1',   label: 'US +1'   },
+  { code: 'GB',  dial: '+44',  label: 'GB +44'  },
+  { code: 'CA',  dial: '+1',   label: 'CA +1'   },
+  { code: 'AE',  dial: '+971', label: 'AE +971' },
+  { code: 'SG',  dial: '+65',  label: 'SG +65'  },
+  { code: 'AU',  dial: '+61',  label: 'AU +61'  },
+  { code: 'NZ',  dial: '+64',  label: 'NZ +64'  },
+  { code: 'NL',  dial: '+31',  label: 'NL +31'  },
+  { code: 'ZA',  dial: '+27',  label: 'ZA +27'  },
+  { code: 'MY',  dial: '+60',  label: 'MY +60'  },
+  { code: 'PK',  dial: '+92',  label: 'PK +92'  },
+  { code: 'BD',  dial: '+880', label: 'BD +880' },
+  { code: 'LK',  dial: '+94',  label: 'LK +94'  },
+  { code: 'NP',  dial: '+977', label: 'NP +977' },
 ];
 
 const levelOptions = [
@@ -41,25 +54,38 @@ const levelOptions = [
   'Tournament Player — competed before',
 ];
 
-type Status = 'idle' | 'loading' | 'success' | 'error';
+interface Form {
+  parentName: string;
+  childName: string;
+  childAge: string;
+  email: string;
+  countryCode: string;
+  phone: string;
+  level: string;
+  preferredTime: string;
+  message: string;
+}
+type Errors = Partial<Record<keyof Form, string>>;
 
-export default function BookFreeTrialPage() {
-  const [form, setForm] = useState({
+const WHATSAPP_NUMBER = '917569194709';
+
+export default function BookFreeTrial() {
+  const [form, setForm] = useState<Form>({
     parentName: '',
     childName: '',
     childAge: '',
+    email: '',
     countryCode: '+91',
     phone: '',
-    email: '',
-    level: levelOptions[0],
+    level: '',
     preferredTime: '',
     message: '',
   });
-  const [status, setStatus] = useState<Status>('idle');
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errors>({});
   const [levelOpen, setLevelOpen] = useState(false);
   const levelRef = useRef<HTMLDivElement>(null);
 
+  // Close level dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (levelRef.current && !levelRef.current.contains(e.target as Node)) {
@@ -70,99 +96,90 @@ export default function BookFreeTrialPage() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const validate = () => {
-    const e: Record<string, string> = {};
-    if (!form.parentName.trim()) e.parentName = 'Please enter your name.';
-    if (!form.childName.trim()) e.childName = "Please enter your child's name.";
-    if (!form.childAge || Number(form.childAge) < 3 || Number(form.childAge) > 18) e.childAge = 'Enter a valid age (3–18).';
-    if (!form.phone.trim()) e.phone = 'Please enter a WhatsApp number.';
-    else if (!/^\d{4,15}$/.test(form.phone.replace(/[\s\-()]/g, ''))) e.phone = 'Enter a valid phone number.';
-    if (!form.email.trim()) e.email = 'Please enter your email address.';
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    if (errors[name as keyof Form]) {
+      setErrors((p) => { const n = { ...p }; delete n[name as keyof Form]; return n; });
+    }
+  };
+
+  const selectLevel = (opt: string) => {
+    setForm((p) => ({ ...p, level: opt }));
+    setErrors((p) => { const n = { ...p }; delete n.level; return n; });
+    setLevelOpen(false);
+  };
+
+  const validate = (): Errors => {
+    const e: Errors = {};
+    if (!form.parentName.trim())  e.parentName  = 'Please enter your name.';
+    if (!form.childName.trim())   e.childName   = "Please enter your child's name.";
+    if (!form.childAge.trim())    e.childAge    = "Please enter your child's age.";
+    if (!form.email.trim())       e.email       = 'Please enter your email.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email address.';
+    if (!form.phone.trim())       e.phone       = 'Please enter your phone number.';
+    else if (!/^\d{4,15}$/.test(form.phone.replace(/[\s\-()]/g, ''))) e.phone = 'Enter a valid phone number.';
     return e;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => { const n = { ...prev }; delete n[name]; return n; });
-  };
-
-  const buildWhatsAppUrl = () => {
-    const fullPhone = `${form.countryCode}${form.phone}`;
-    const text = `Hi Chaturangveda! I'd like to book a FREE TRIAL class.\n\nParent/Guardian: ${form.parentName}\nChild's Name: ${form.childName}\nChild's Age: ${form.childAge}\nPhone: ${fullPhone}\nEmail: ${form.email}\nLevel: ${form.level}\nPreferred Time: ${form.preferredTime || 'Flexible'}${form.message ? `\nMessage: ${form.message}` : ''}\n\nPlease confirm my free trial slot. Thank you!`;
-    return `https://wa.me/+917569194709?text=${encodeURIComponent(text)}`;
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
 
-    setStatus('loading');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, phone: `${form.countryCode}${form.phone}` }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed');
-      setStatus('success');
-      window.open(buildWhatsAppUrl(), '_blank');
-    } catch {
-      setStatus('error');
-    }
+    const fullPhone = `${form.countryCode}${form.phone.replace(/[\s\-()]/g, '')}`;
+
+    // Derive country label from selected dial code
+    const countryEntry = countryCodes.find((c) => c.dial === form.countryCode);
+    const country = countryEntry ? countryEntry.code : '';
+
+    window.open(buildBookingUrl(form.parentName.trim(), form.email.trim(), fullPhone, country), '_blank');
   };
 
-  if (status === 'success') {
-    return (
-      <div className={styles.page}>
-        <Navbar />
-        <div className={styles.successPage}>
-          <div className={styles.successCard}>
-            <div className={styles.successIcon}>✓</div>
-            <h1 className={styles.successTitle}>Request Sent!</h1>
-            <p className={styles.successText}>
-              WhatsApp has opened with your details. Our team will confirm your slot within a few hours.
-              {form.email && <> A confirmation has also been sent to <strong>{form.email}</strong>.</>}
-            </p>
-            <div className={styles.successActions}>
-              <a href="https://wa.me/+917569194709" target="_blank" rel="noopener noreferrer" className={`btn-primary ${styles.successBtn}`}>
-                Open WhatsApp
-              </a>
-              <a href="/" className={`btn-secondary ${styles.successBtn}`}>Back to Home</a>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  // WhatsApp fallback
+  const handleWhatsApp = () => {
+    const lines = [
+      `*New Free Trial Request*`,
+      `Parent: ${form.parentName || '—'}`,
+      `Child: ${form.childName || '—'}, Age: ${form.childAge || '—'}`,
+      `Email: ${form.email || '—'}`,
+      `Phone: ${form.countryCode} ${form.phone || '—'}`,
+      `Level: ${form.level || '—'}`,
+      `Preferred Time: ${form.preferredTime || '—'}`,
+      form.message ? `Message: ${form.message}` : '',
+    ].filter(Boolean).join('\n');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`, '_blank');
+  };
+
+  const included = [
+    { icon: <FaClock />,    text: 'Full 45-minute session with a FIDE-rated coach' },
+    { icon: <FaChartBar />, text: 'Level assessment and personalised feedback report' },
+    { icon: <FaChessKnight />, text: 'Custom learning plan built for your child' },
+    { icon: <FaBan />,      text: 'Zero cost · Zero obligation to continue' },
+  ];
 
   return (
     <div className={styles.page}>
       <Navbar />
 
       <section className={styles.hero}>
-        <div className={styles.heroChess}>♟</div>
         <div className={styles.heroTag}>100% Free · Zero Obligation</div>
         <h1 className={styles.heroTitle}>Book Your Free Trial Class</h1>
         <p className={styles.heroSub}>
-          Fill in your details and we&apos;ll confirm your slot via WhatsApp within a few hours.
+          Fill in your details below and we&apos;ll confirm your slot via WhatsApp within a few hours.
         </p>
       </section>
 
       <div className={styles.mainContent}>
-        {/* Left panel */}
-        <div className={styles.included}>
+        {/* ── Left info panel ── */}
+        <aside className={styles.included}>
           <div className={styles.includedHeader}>
             <span className={styles.includedBadge}>FREE</span>
-            <div className={styles.includedTitle}>What&apos;s Included</div>
+            <span className={styles.includedTitle}>What&apos;s included</span>
           </div>
           <ul className={styles.includedList}>
-            {whatsIncluded.map((item) => (
-              <li key={item.text} className={styles.includedItem}>
+            {included.map((item, i) => (
+              <li key={i} className={styles.includedItem}>
                 <span className={styles.includedIcon}>{item.icon}</span>
                 <span>{item.text}</span>
               </li>
@@ -171,18 +188,25 @@ export default function BookFreeTrialPage() {
           <div className={styles.includedDivider} />
           <div className={styles.includedQuote}>
             <span className={styles.quoteMarks}>&ldquo;</span>
-            <p>Start with a free trial and our coaches will recommend the perfect program for your child.</p>
+            <p>
+              My son went from not knowing the rules to winning his first school
+              tournament in just 6 months. The coaches are phenomenal!
+            </p>
           </div>
-        </div>
+        </aside>
 
-        {/* Form */}
+        {/* ── Form card ── */}
         <div className={styles.formCard}>
           <div className={styles.formHeader}>
             <h2 className={styles.formTitle}>Your Details</h2>
-            <p className={styles.formSub}>Takes about 2 minutes to fill</p>
+            <p className={styles.formSub}>
+              Takes less than a minute. Our team will reach out to confirm your slot.
+            </p>
           </div>
 
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
+
+            {/* Parent name + Child name */}
             <div className={styles.fieldRow}>
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="parentName">
@@ -217,6 +241,7 @@ export default function BookFreeTrialPage() {
               </div>
             </div>
 
+            {/* Child age + Email */}
             <div className={styles.fieldRow}>
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="childAge">
@@ -226,8 +251,9 @@ export default function BookFreeTrialPage() {
                   <span className={styles.inputIcon}><FaBirthdayCake /></span>
                   <input
                     id="childAge" name="childAge" type="number"
+                    min="4" max="20"
                     className={`${styles.input} ${errors.childAge ? styles.inputError : ''}`}
-                    placeholder="e.g. 8" min={3} max={18}
+                    placeholder="e.g. 8"
                     value={form.childAge} onChange={handleChange}
                   />
                 </div>
@@ -235,74 +261,73 @@ export default function BookFreeTrialPage() {
               </div>
 
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="phone">
-                  WhatsApp Number <span className={styles.required}>*</span>
+                <label className={styles.label} htmlFor="email">
+                  Email <span className={styles.required}>*</span>
                 </label>
-                <div className={`${styles.phoneWrap} ${errors.phone ? styles.phoneWrapError : ''}`}>
-                  <select
-                    name="countryCode"
-                    className={styles.countryCodeSelect}
-                    value={form.countryCode}
-                    onChange={handleChange}
-                    aria-label="Country code"
-                  >
-                    {countryCodes.map((c) => (
-                      <option key={c.code} value={c.dial}>{c.label}</option>
-                    ))}
-                  </select>
+                <div className={styles.inputWrap}>
+                  <span className={styles.inputIcon}><FaEnvelope /></span>
                   <input
-                    id="phone" name="phone" type="tel"
-                    className={styles.phoneInput}
-                    placeholder="98765 43210"
-                    value={form.phone} onChange={handleChange}
+                    id="email" name="email" type="email"
+                    className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+                    placeholder="your@email.com"
+                    value={form.email} onChange={handleChange}
                   />
                 </div>
-                {errors.phone && <span className={styles.error}>{errors.phone}</span>}
+                {errors.email && <span className={styles.error}>{errors.email}</span>}
               </div>
             </div>
 
+            {/* Phone */}
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="email">
-                Email <span className={styles.required}>*</span>
+              <label className={styles.label} htmlFor="phone">
+                WhatsApp Number <span className={styles.required}>*</span>
               </label>
-              <div className={styles.inputWrap}>
-                <span className={styles.inputIcon}><FaEnvelope /></span>
+              <div className={`${styles.phoneWrap} ${errors.phone ? styles.phoneWrapError : ''}`}>
+                <select
+                  name="countryCode"
+                  className={styles.countryCodeSelect}
+                  value={form.countryCode}
+                  onChange={handleChange}
+                  aria-label="Country code"
+                >
+                  {countryCodes.map((c) => (
+                    <option key={c.code} value={c.dial}>{c.label}</option>
+                  ))}
+                </select>
                 <input
-                  id="email" name="email" type="email"
-                  className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-                  placeholder="you@email.com"
-                  value={form.email} onChange={handleChange}
+                  id="phone" name="phone" type="tel"
+                  className={styles.phoneInput}
+                  placeholder="98765 43210"
+                  value={form.phone} onChange={handleChange}
                 />
               </div>
-              {errors.email && <span className={styles.error}>{errors.email}</span>}
+              {errors.phone && <span className={styles.error}>{errors.phone}</span>}
             </div>
 
+            {/* Current Level — custom dropdown */}
             <div className={styles.field}>
-              <label className={styles.label}>Current Level</label>
-              <div ref={levelRef} className={styles.customDropdown}>
+              <label className={styles.label}>
+                Current Level <span className={styles.optional}>(optional)</span>
+              </label>
+              <div className={styles.customDropdown} ref={levelRef}>
                 <button
                   type="button"
                   className={`${styles.dropdownTrigger} ${levelOpen ? styles.dropdownTriggerOpen : ''}`}
                   onClick={() => setLevelOpen((o) => !o)}
-                  aria-haspopup="listbox"
-                  aria-expanded={levelOpen}
                 >
                   <span className={styles.dropdownTriggerIcon}><FaChessKnight /></span>
-                  <span className={styles.dropdownTriggerValue}>{form.level}</span>
+                  <span className={`${styles.dropdownTriggerValue} ${!form.level ? styles.dropdownPlaceholder : ''}`}>
+                    {form.level || 'Select current level…'}
+                  </span>
                   <FaChevronDown className={`${styles.dropdownChevron} ${levelOpen ? styles.dropdownChevronOpen : ''}`} />
                 </button>
                 {levelOpen && (
-                  <ul className={styles.dropdownMenu} role="listbox">
+                  <ul className={styles.dropdownMenu}>
                     {levelOptions.map((opt) => (
                       <li
                         key={opt}
-                        role="option"
-                        aria-selected={form.level === opt}
                         className={`${styles.dropdownOption} ${form.level === opt ? styles.dropdownOptionActive : ''}`}
-                        onClick={() => {
-                          setForm((prev) => ({ ...prev, level: opt }));
-                          setLevelOpen(false);
-                        }}
+                        onClick={() => selectLevel(opt)}
                       >
                         <span className={styles.dropdownOptionText}>{opt}</span>
                         {form.level === opt && <FaCheck className={styles.dropdownOptionCheck} />}
@@ -313,8 +338,11 @@ export default function BookFreeTrialPage() {
               </div>
             </div>
 
+            {/* Preferred time */}
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="preferredTime">Preferred Time</label>
+              <label className={styles.label} htmlFor="preferredTime">
+                Preferred Time <span className={styles.optional}>(optional)</span>
+              </label>
               <div className={styles.inputWrap}>
                 <span className={styles.inputIcon}><FaClock /></span>
                 <input
@@ -326,44 +354,30 @@ export default function BookFreeTrialPage() {
               </div>
             </div>
 
+            {/* Message */}
             <div className={styles.field}>
               <label className={styles.label} htmlFor="message">
-                Anything else?
-                <span className={styles.charCount}>{form.message.length}/300</span>
+                Anything else? <span className={styles.optional}>(optional)</span>
               </label>
               <textarea
                 id="message" name="message"
                 className={styles.textarea}
-                placeholder="Questions, special requirements, or anything you'd like us to know…"
-                maxLength={300}
+                placeholder="Questions or special requirements…"
                 value={form.message} onChange={handleChange}
               />
             </div>
 
-            {status === 'error' && (
-              <div className={styles.errorBanner}>
-                Something went wrong. Please try WhatsApp directly or refresh and try again.
-              </div>
-            )}
-
-            <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
-              {status === 'loading' ? (
-                <><span className={styles.spinner} /> Sending…</>
-              ) : (
-                <>Book Free Trial →</>
-              )}
+            <button type="submit" className={styles.submitBtn}>
+              Open Booking Calendar →
             </button>
 
-            <div className={styles.orDivider}><span>or</span></div>
+            <div className={styles.orDivider}>or</div>
 
-            <a
-              href={buildWhatsAppUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.waBtn}
-            >
-              <FaWhatsapp /> Book directly via WhatsApp
-            </a>
+            <button type="button" className={styles.waBtn} onClick={handleWhatsApp}>
+              <FaWhatsapp style={{ color: '#25D366', fontSize: '1.1rem' }} />
+              Message us on WhatsApp instead
+            </button>
+
           </form>
         </div>
       </div>

@@ -1,23 +1,22 @@
-.stats {
-  padding: 80px 0;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 50%, #FFFFFF 100%);
+.howItWorks {
+  padding: 100px 0;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-container-low) 50%, var(--surface) 100%);
   position: relative;
   overflow: hidden;
 }
 
-/* Decorative mesh */
-.stats::before {
+.howItWorks::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(66, 165, 245, 0.06) 0%, transparent 60%);
+  background-image:
+    linear-gradient(rgba(194, 198, 212, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 198, 212, 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
   pointer-events: none;
 }
 
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+.inner {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 24px;
@@ -25,21 +24,69 @@
   z-index: 1;
 }
 
-.statCard {
+.header {
   text-align: center;
-  padding: 40px 24px;
-  border-radius: var(--border-radius);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border: 1px solid rgba(21, 101, 192, 0.06);
-  box-shadow: 0 4px 20px rgba(21, 101, 192, 0.06);
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  position: relative;
-  overflow: hidden;
+  margin-bottom: 64px;
 }
 
-.statCard::before {
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary-container);
+  margin-bottom: 14px;
+  padding: 5px 14px;
+  background: var(--surface-container-high);
+  border-radius: 9999px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.sub {
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Steps */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  position: relative;
+}
+
+.stepCard {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--border-radius-xl);
+  padding: 40px 32px 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.stepCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.stepCard::after {
   content: '';
   position: absolute;
   top: 0;
@@ -48,86 +95,117 @@
   height: 3px;
   background: var(--gradient-primary);
   transform: scaleX(0);
-  transition: transform var(--transition-medium);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.statCard:hover {
-  transform: translateY(-8px);
-  border-color: rgba(21, 101, 192, 0.12);
-  box-shadow: 0 16px 48px rgba(21, 101, 192, 0.12), 0 0 20px rgba(66, 165, 245, 0.06);
-}
-
-.statCard:hover::before {
+.stepCard:hover::after {
   transform: scaleX(1);
 }
 
-.statIcon {
-  font-size: 1.8rem;
-  margin-bottom: 16px;
+.stepTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stepNum {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--outline-variant);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stepIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(21, 101, 192, 0.08);
+  border: 1px solid rgba(21, 101, 192, 0.1);
+  color: var(--primary-container);
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: rgba(21, 101, 192, 0.06);
-  border: 1px solid rgba(21, 101, 192, 0.08);
-  color: var(--primary-blue);
-  margin-left: auto;
-  margin-right: auto;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.statCard:hover .statIcon {
-  background: rgba(21, 101, 192, 0.12);
-  box-shadow: 0 4px 16px rgba(21, 101, 192, 0.15);
-  transform: scale(1.05);
+.stepCard:hover .stepIcon {
+  background: rgba(21, 101, 192, 0.14);
+  transform: scale(1.08);
 }
 
-.statNumber {
+.stepTitle {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
-  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
 }
 
-.statLabel {
-  font-size: 0.95rem;
-  color: var(--dark-gray);
-  font-weight: 500;
+.stepDesc {
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+  line-height: 1.7;
+  margin-bottom: 20px;
 }
 
-/* Use clamp for numbers so they scale at all sizes */
-.statNumber { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+.stepAccent {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--primary-container);
+  background: rgba(21, 101, 192, 0.07);
+  border-radius: 9999px;
+  padding: 4px 12px;
+}
+
+/* Connector line between cards (desktop) */
+.connector {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.connectorLine {
+  display: none; /* handled via card layout */
+}
 
 @media (min-width: 1600px) {
-  .statsGrid { max-width: 1400px; }
-  .statCard { padding: 48px 32px; }
+  .inner { max-width: 1400px; }
 }
 
 @media (max-width: 900px) {
-  .statsGrid { gap: 16px; }
+  .stepsGrid { gap: 18px; }
+  .stepCard { padding: 28px 22px; }
 }
 
 @media (max-width: 768px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+  .howItWorks { padding: 72px 0; }
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
   }
-  .statCard { padding: 24px 16px; }
+  .stepCard { padding: 28px 24px; }
+  .stepNum { font-size: 2.5rem; }
+  .header { margin-bottom: 44px; }
 }
 
 @media (max-width: 480px) {
-  .statsGrid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .statCard { padding: 20px 12px; }
-  .statIcon { width: 44px; height: 44px; font-size: 1.4rem; }
-}
-
-@media (max-width: 320px) {
-  .statsGrid { grid-template-columns: 1fr; }
+  .stepsGrid { gap: 14px; }
+  .stepCard { padding: 24px 18px; }
+  .stepIcon { width: 44px; height: 44px; font-size: 1.2rem; }
 }

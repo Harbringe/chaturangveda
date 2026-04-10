@@ -20,6 +20,7 @@ const marqueeWords = [
   'London', '♜', 'Toronto', '♛', 'Kolkata', '♚',
   'Online Worldwide', '♟', 'Pune', '♞', 'Los Angeles', '♝',
   'Dubai', '♜', 'Delhi', '♛', 'Singapore', '♚',
+  'Amsterdam', '♟', 'Auckland', '♞', 'Sydney', '♝',
 ];
 
 export default function AnimatedTextBanner() {

@@ -231,72 +231,118 @@
   color: var(--outline);
 }
 
-/* ─── Config Bar ─── */
-.configBar {
+/* ─── Pricing Calculator ─── */
+.pricingCalc {
   background: var(--surface-container-lowest);
+  border-top: 1px solid var(--outline-variant);
   border-bottom: 1px solid var(--outline-variant);
-  position: sticky;
-  top: 62px;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
+  padding: 36px 24px;
 }
 
-.configInner {
-  max-width: var(--container-width);
+.pricingCalcInner {
+  max-width: 680px;
   margin: 0 auto;
-  padding: 14px 24px;
+  text-align: center;
+}
+
+.pricingCalcHeading {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 6px;
+}
+
+.pricingCalcSub {
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.pricingCalcDropdowns {
   display: flex;
-  align-items: center;
-  gap: 32px;
+  gap: 16px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-.configGroup {
+.calcField {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+  flex: 1;
+  max-width: 280px;
+  text-align: left;
 }
 
-.configLabel {
+.calcLabel {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--outline);
-  white-space: nowrap;
 }
 
-.toggleGroup {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+.calcSelectWrap {
+  position: relative;
 }
 
-.toggleBtn {
-  padding: 6px 14px;
-  border-radius: 100px;
+.calcSelectWrap::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--outline);
+  pointer-events: none;
+}
+
+.calcSelect {
+  width: 100%;
+  padding: 11px 36px 11px 14px;
   border: 1.5px solid var(--outline-variant);
-  background: var(--surface-container-low);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--on-surface-variant);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  white-space: nowrap;
+  border-radius: var(--border-radius-sm);
+  background: var(--surface);
   font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--on-surface);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.toggleBtn:hover {
+.calcSelect:focus {
   border-color: var(--primary-container);
-  color: var(--primary-container);
-  background: var(--primary-fixed);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
 }
 
-.toggleActive {
-  background: var(--primary-container) !important;
-  border-color: var(--primary-container) !important;
-  color: #fff !important;
+.calcHint {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--outline);
+  font-style: italic;
+}
+
+/* ─── Price Placeholder ─── */
+.pricePlaceholder {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--surface-container);
+  border-radius: var(--border-radius-sm);
+  border: 1.5px dashed var(--outline-variant);
+  font-size: 0.85rem;
+  color: var(--outline);
+  text-align: center;
+  font-style: italic;
 }
 
 /* ─── Card additions ─── */
@@ -775,21 +821,9 @@
 }
 
 @media (max-width: 768px) {
-  .configInner {
-    gap: 12px;
-    padding: 10px 16px;
-  }
-  .configGroup {
-    gap: 8px;
-    width: 100%;
-  }
-  .toggleGroup { width: 100%; }
-  .toggleBtn {
-    flex: 1;
-    text-align: center;
-    font-size: 11.5px;
-    padding: 6px 8px;
-  }
+  .pricingCalc { padding: 24px 16px; }
+  .pricingCalcDropdowns { gap: 12px; }
+  .calcField { min-width: 0; max-width: 100%; }
 }
 
 @media (max-width: 700px) {
