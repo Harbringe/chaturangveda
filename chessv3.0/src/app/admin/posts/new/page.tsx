@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from '../../admin.module.css';
+import ImageUpload from '../../ImageUpload';
 
 const CATEGORIES = ['Student Stories', 'Education', 'Coaching', 'Tips & Tricks', 'News'];
 
@@ -119,10 +120,7 @@ export default function NewPostPage() {
               <label className={styles.label}>Author</label>
               <input className={styles.input} value={form.author} onChange={(e) => set('author', e.target.value)} />
             </div>
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Author Image Path</label>
-              <input className={styles.input} value={form.authorImage} onChange={(e) => set('authorImage', e.target.value)} placeholder="/images/..." />
-            </div>
+            <ImageUpload label="Author Image" value={form.authorImage} onChange={(url) => set('authorImage', url)} />
           </div>
 
           <div className={styles.formRow}>
@@ -137,10 +135,7 @@ export default function NewPostPage() {
           </div>
 
           <div className={styles.formRow}>
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Cover Image Path</label>
-              <input className={styles.input} value={form.image} onChange={(e) => set('image', e.target.value)} placeholder="/images/..." />
-            </div>
+            <ImageUpload label="Cover Image" value={form.image} onChange={(url) => set('image', url)} />
             <div className={styles.formGroup}>
               <label className={styles.label}>Category</label>
               <select className={styles.input} value={form.category} onChange={(e) => set('category', e.target.value)}>
