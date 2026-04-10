@@ -23,9 +23,12 @@ type Post = {
 
 const categories = ['All', 'Student Stories', 'Education', 'Coaching', 'Tips & Tricks', 'News'];
 
-function formatDate(dateStr: string): string {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+function formatDate(dateStr: string | undefined): string {
+  if (!dateStr) return '';
+  // Parse as local date to avoid UTC midnight → previous day in negative-offset zones
+  const [y, m, d] = dateStr.split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 function SkeletonFeatured() {
