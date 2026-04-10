@@ -72,7 +72,7 @@ export default function EditPostForm({ post }: { post: Post }) {
   return (
     <div className={styles.adminWrap}>
       <nav className={styles.adminNav}>
-        <Link href="/admin" className={styles.adminNavBrand}>♟ Chaturangveda Admin</Link>
+        <Link href="/admin" className={styles.adminNavBrand}>♟ Chaturangaveda Admin</Link>
         <Link href="/admin" className={styles.adminNavLink}>← Back to posts</Link>
       </nav>
 

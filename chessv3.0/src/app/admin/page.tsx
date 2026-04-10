@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getDb, rowToPost, Post } from '@/lib/db';
 import styles from './admin.module.css';
 import DeleteButton from './DeleteButton';
+import LogoutButton from './LogoutButton';
 
 async function getPosts(): Promise<Post[]> {
   const db = getDb();
@@ -20,7 +21,7 @@ export default async function AdminDashboard() {
   return (
     <div className={styles.adminWrap}>
       <nav className={styles.adminNav}>
-        <Link href="/admin" className={styles.adminNavBrand}>♟ Chaturangveda Admin</Link>
+        <Link href="/admin" className={styles.adminNavBrand}>♟ Chaturangaveda Admin</Link>
         <LogoutButton />
       </nav>
 
@@ -73,12 +74,3 @@ export default async function AdminDashboard() {
   );
 }
 
-function LogoutButton() {
-  return (
-    <form action="/api/admin/logout" method="POST">
-      <button type="submit" className={`${styles.btn} ${styles.btnSecondary}`}>
-        Log out
-      </button>
-    </form>
-  );
-}

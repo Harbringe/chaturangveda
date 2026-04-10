@@ -7,29 +7,40 @@ import styles from './admin.module.css';
 export default function DeleteButton({ slug }: { slug: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   async function handleDelete() {
     if (!confirm(`Delete "${slug}"? This cannot be undone.`)) return;
-    setLoading(true);
     const adminPassword = prompt('Enter admin password to confirm:');
-    if (!adminPassword) { setLoading(false); return; }
+    if (!adminPassword) return;
 
-    await fetch(`/api/posts/${slug}`, {
+    setLoading(true);
+    setError('');
+
+    const res = await fetch(`/api/posts/${slug}`, {
       method: 'DELETE',
       headers: { 'x-admin-password': adminPassword },
     });
 
-    router.refresh();
+    if (res.ok) {
+      router.refresh();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || 'Delete failed. Check your password.');
+    }
     setLoading(false);
   }
 
   return (
-    <button
-      onClick={handleDelete}
-      disabled={loading}
-      className={`${styles.btn} ${styles.btnDanger}`}
-    >
-      {loading ? '…' : 'Delete'}
-    </button>
+    <span>
+      <button
+        onClick={handleDelete}
+        disabled={loading}
+        className={`${styles.btn} ${styles.btnDanger}`}
+      >
+        {loading ? '…' : 'Delete'}
+      </button>
+      {error && <span style={{ color: '#fc8181', fontSize: '0.8rem', marginLeft: '0.5rem' }}>{error}</span>}
+    </span>
   );
 }

@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
     <div className={styles.adminWrap}>
       <div className={styles.loginCard}>
         <h1 className={styles.loginTitle}>Admin Login</h1>
-        <p className={styles.loginSubtitle}>Chaturangveda blog management</p>
+        <p className={styles.loginSubtitle}>Chaturangaveda blog management</p>
 
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
