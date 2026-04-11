@@ -21,6 +21,8 @@ type Post = {
   published: boolean;
 };
 
+const PAGE_SIZE = 6;
+
 const categories = ['All', 'Student Stories', 'Education', 'Coaching', 'Tips & Tricks', 'News'];
 
 function formatDate(dateStr: string | undefined): string {
@@ -66,13 +68,16 @@ export default function BlogsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [total, setTotal] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
-    fetch('/api/posts')
+    fetch(`/api/posts?limit=${PAGE_SIZE}&offset=0`)
       .then((r) => r.json())
       .then((data) => {
         const published = (data.posts as Post[]).filter((p) => p.published !== false);
         setPosts(published);
+        setTotal(data.total ?? published.length);
         setLoading(false);
       })
       .catch(() => {
@@ -80,6 +85,18 @@ export default function BlogsPage() {
         setLoading(false);
       });
   }, []);
+
+  async function loadMore() {
+    setLoadingMore(true);
+    try {
+      const res = await fetch(`/api/posts?limit=${PAGE_SIZE}&offset=${posts.length}`);
+      const data = await res.json();
+      const newPosts = (data.posts as Post[]).filter((p) => p.published !== false);
+      setPosts((prev) => [...prev, ...newPosts]);
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   const filtered = activeCategory === 'All' ? posts : posts.filter((p) => p.category === activeCategory);
   const featured = filtered.find((p) => p.featured);
@@ -230,6 +247,18 @@ export default function BlogsPage() {
                 </div>
               </Link>
             ))}
+          </div>
+        )}
+
+        {!loading && posts.length < total && (
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className={styles.loadMoreBtn}
+            >
+              {loadingMore ? 'Loading…' : 'Load more posts'}
+            </button>
           </div>
         )}
       </div>

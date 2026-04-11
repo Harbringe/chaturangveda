@@ -410,3 +410,17 @@
   .pageHeader { padding-top: 100px; }
   .featuredInfo { padding: 24px; }
 }
+
+.loadMoreBtn {
+  background: #004D99;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+.loadMoreBtn:hover { background: #003a75; }
+.loadMoreBtn:disabled { opacity: 0.6; cursor: not-allowed; }
