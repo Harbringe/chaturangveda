@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea
 
 export interface SortableItem {
   id: string;
-  [key: string]: unknown;
 }
 
 interface Props<T extends SortableItem> {
