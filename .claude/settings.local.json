@@ -13,7 +13,21 @@
       "Bash(npm run:*)",
       "Bash(./node_modules/.bin/next build:*)",
       "Bash(npm --version)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(cat E:/chaturangaveda/chessv3.0/src/app/api/posts/[slug]/route.ts)",
+      "Bash(cat E:/chaturangaveda/chessv3.0/.env*)",
+      "Bash(find E:/chaturangaveda -name national_winner*)",
+      "Bash(xargs grep:*)",
+      "Bash(ls -la package*.json)",
+      "Bash(npm ls:*)",
+      "Bash(npm list:*)",
+      "Bash(mkdir -p chessv3.0/public/images/achievements)",
+      "Bash(cp national_winner.png chessv3.0/public/images/achievements/national_winner.png)",
+      "Bash(cp national_winner_silver.png chessv3.0/public/images/achievements/national_winner_silver.png)",
+      "Bash(node -e \"require\\(''dotenv''\\)\")",
+      "Bash(git:*)",
+      "Bash(head -40 git -C E:/chaturangaveda show 685ac35:chessv3.0/src/app/api/posts/[slug]/route.ts)",
+      "Bash(node:*)"
     ]
   }
 }
