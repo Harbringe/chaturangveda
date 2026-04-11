@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styles from './TestimonialsSection.module.css';
 
-const testimonials = [
+const FALLBACK_TESTIMONIALS = [
   {
     text: 'My son went from not knowing the rules to winning his first school tournament in just 6 months. The coaches at Chaturangveda are absolutely phenomenal!',
     name: 'Priya Sharma',
@@ -48,7 +48,16 @@ const testimonials = [
   },
 ];
 
-export default function TestimonialsSection() {
+interface TestimonialItem {
+  text: string;
+  name: string;
+  detail: string;
+  initials: string;
+  stars: number;
+}
+
+export default function TestimonialsSection({ testimonials: testimonialsProp }: { testimonials?: TestimonialItem[] }) {
+  const testimonials = testimonialsProp ?? FALLBACK_TESTIMONIALS;
   return (
     <section id="testimonials" className={styles.testimonials}>
       <div className={styles.testimonialsContainer}>

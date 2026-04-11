@@ -72,12 +72,18 @@ export default function BlogsPage() {
   const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/posts?limit=${PAGE_SIZE}&offset=0`)
-      .then((r) => r.json())
-      .then((data) => {
-        const published = (data.posts as Post[]).filter((p) => p.published !== false);
+    Promise.all([
+      fetch(`/api/posts?limit=${PAGE_SIZE}&offset=0`).then((r) => r.json()),
+      fetch('/api/content/featured_post').then((r) => r.json()),
+    ])
+      .then(([postsData, featuredData]) => {
+        const published = (postsData.posts as Post[]).filter((p) => p.published !== false);
+        const pinnedSlug = featuredData.value?.slug;
+        if (pinnedSlug) {
+          published.forEach((p) => { p.featured = p.slug === pinnedSlug; });
+        }
         setPosts(published);
-        setTotal(data.total ?? published.length);
+        setTotal(postsData.total ?? published.length);
         setLoading(false);
       })
       .catch(() => {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
+import { getContent } from "@/lib/content";
 
 export const metadata = {
   title: "World-Class Chess Coaches | Chaturangveda",
@@ -96,7 +97,28 @@ const coaches = [
   },
 ];
 
-export default function CoachesPage() {
+const FALLBACK_COACHES = coaches;
+
+export default async function CoachesPage() {
+  const cmsCoaches = await getContent<Array<{
+    id: string; name: string; title: string; fideRating: string;
+    experience: string; specialties: string; bio: string; photo: string; photoFocus: string;
+  }>>('coaches', []);
+
+  const displayCoaches = cmsCoaches.length > 0
+    ? cmsCoaches.map((c) => ({
+        name: c.name,
+        title: c.title,
+        experience: c.experience,
+        badge: c.fideRating ? `FIDE ${c.fideRating}` : c.title,
+        image: c.photo,
+        objectPosition: c.photoFocus ?? 'center center',
+        bio: c.bio,
+        specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
+        achievements: [] as string[],
+      }))
+    : FALLBACK_COACHES;
+
   return (
     <div className={styles.page}>
       <Navbar />
@@ -111,7 +133,7 @@ export default function CoachesPage() {
       </section>
 
       <div className={styles.coachesSection}>
-        {coaches.map((coach) => (
+        {displayCoaches.map((coach) => (
           <div key={coach.name} className={styles.coachCard}>
             <div className={styles.coachImageWrap}>
               <Image

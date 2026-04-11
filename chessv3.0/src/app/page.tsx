@@ -9,6 +9,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
+import { getContent } from '@/lib/content';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chaturangveda.in';
 
@@ -190,7 +191,32 @@ const websiteSchema = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [achievements, testimonials] = await Promise.all([
+    getContent<Array<{ name: string; achievement: string; event?: string; year?: string; photo?: string; badge?: string }>>('achievements', []),
+    getContent<Array<{ parentName: string; childName?: string; quote: string; rating: number }>>('testimonials', []),
+  ]);
+
+  const mappedAchievements = achievements.length > 0
+    ? achievements.map((a) => ({
+        name: a.name,
+        achievement: a.achievement,
+        detail: [a.event, a.year].filter(Boolean).join(' · ') || a.achievement,
+        image: a.photo ?? '',
+        badge: a.badge ?? '',
+      }))
+    : undefined;
+
+  const mappedTestimonials = testimonials.length > 0
+    ? testimonials.map((t) => ({
+        text: t.quote,
+        name: t.parentName,
+        detail: t.childName ? `Parent of ${t.childName}` : 'Chess Parent',
+        initials: t.parentName.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase(),
+        stars: t.rating,
+      }))
+    : undefined;
+
   return (
     <>
       <JsonLd data={organizationSchema} />
@@ -198,13 +224,13 @@ export default function Home() {
       <JsonLd data={websiteSchema} />
       <Navbar />
       <main>
-        <HeroSection />
+        <HeroSection achievements={mappedAchievements} />
         <AnimatedTextBanner />
         <StatsSection />
         <FeaturesSection />
         <CoursesSection />
         <BenefitsSection />
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={mappedTestimonials} />
         <CTASection />
       </main>
       <Footer />
