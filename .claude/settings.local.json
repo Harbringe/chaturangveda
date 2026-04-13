@@ -27,7 +27,13 @@
       "Bash(node -e \"require\\(''dotenv''\\)\")",
       "Bash(git:*)",
       "Bash(head -40 git -C E:/chaturangaveda show 685ac35:chessv3.0/src/app/api/posts/[slug]/route.ts)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git -C E:/chaturangaveda/.worktrees/admin-cms add \"chessv3.0/src/app/admin/\\(cms\\)/curriculum/page.tsx\")",
+      "Bash(git -C E:/chaturangaveda/.worktrees/admin-cms add \"chessv3.0/src/app/admin/\\(cms\\)/contact/page.tsx\" \"chessv3.0/src/app/admin/\\(cms\\)/featured/\" \"chessv3.0/src/app/admin/\\(cms\\)/become-coach/page.tsx\")",
+      "Bash(npm test:*)",
+      "Bash(gh pr:*)",
+      "Bash(where gh:*)",
+      "Bash(winget list:*)"
     ]
   }
 }

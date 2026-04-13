@@ -1,0 +1,182 @@
+<h2>Admin panel — theme direction</h2>
+<p class="subtitle">You said the admin should match the main website but have good UI. Four options — click your preference.</p>
+
+<div class="split" style="grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div class="mockup" data-choice="A" onclick="toggleSelect(this)" style="cursor:pointer">
+    <div class="mockup-header">Option A — Full light (matches main site exactly)</div>
+    <div class="mockup-body" style="display:flex;gap:0;padding:0;min-height:280px">
+      <div style="width:180px;background:#004D99;padding:1rem;flex-shrink:0">
+        <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">Content</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#fff;background:rgba(255,255,255,0.2);margin-bottom:0.2rem">Blog Posts</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:0.2rem">Coaches</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:0.2rem">Achievements</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:0.2rem">Stats</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.7)">Testimonials</div>
+      </div>
+      <div style="flex:1;background:#F7F9FB;padding:1rem">
+        <div style="font-size:1rem;font-weight:700;color:#1a202c;margin-bottom:0.75rem">Blog Posts</div>
+        <div style="background:#fff;border-radius:8px;border:1px solid #e2e8f0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.5rem 0.75rem;background:#f0f4f8;font-size:0.68rem;color:#718096;text-transform:uppercase">
+            <span>Title</span><span>Status</span><span>Actions</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #e2e8f0;font-size:0.78rem;color:#2d3748;align-items:center">
+            <span>Srinika wins National Silver...</span>
+            <span style="background:#c6f6d5;color:#276749;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#ebf4ff;color:#004D99;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #bee3f8">Edit</span>
+              <span style="background:#fff5f5;color:#c53030;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #fed7d7">Del</span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #e2e8f0;font-size:0.78rem;color:#2d3748;align-items:center">
+            <span>Benefits of Chess for Kids</span>
+            <span style="background:#c6f6d5;color:#276749;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#ebf4ff;color:#004D99;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #bee3f8">Edit</span>
+              <span style="background:#fff5f5;color:#c53030;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #fed7d7">Del</span>
+            </span>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem">
+          <button style="background:#004D99;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;font-size:0.78rem;cursor:pointer">+ New Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup" data-choice="B" onclick="toggleSelect(this)" style="cursor:pointer">
+    <div class="mockup-header">Option B — Dark premium (current style, refined)</div>
+    <div class="mockup-body" style="display:flex;gap:0;padding:0;min-height:280px">
+      <div style="width:180px;background:#0a0e1a;padding:1rem;flex-shrink:0;border-right:1px solid #1e2a3a">
+        <div style="font-size:0.65rem;color:#4a5568;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">Content</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#63b3ed;background:#1a2535;margin-bottom:0.2rem">Blog Posts</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#718096;margin-bottom:0.2rem">Coaches</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#718096;margin-bottom:0.2rem">Achievements</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#718096;margin-bottom:0.2rem">Stats</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#718096">Testimonials</div>
+      </div>
+      <div style="flex:1;background:#0f1117;padding:1rem">
+        <div style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:0.75rem">Blog Posts</div>
+        <div style="background:#1a1f2e;border-radius:8px;border:1px solid #2d3748;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.5rem 0.75rem;background:#252c3d;font-size:0.68rem;color:#718096;text-transform:uppercase">
+            <span>Title</span><span>Status</span><span>Actions</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #2d3748;font-size:0.78rem;color:#e2e8f0;align-items:center">
+            <span>Srinika wins National Silver...</span>
+            <span style="background:#1a4731;color:#68d391;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#2d3748;color:#90cdf4;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem">Edit</span>
+              <span style="background:#c53030;color:#fff;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem">Del</span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #2d3748;font-size:0.78rem;color:#e2e8f0;align-items:center">
+            <span>Benefits of Chess for Kids</span>
+            <span style="background:#1a4731;color:#68d391;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#2d3748;color:#90cdf4;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem">Edit</span>
+              <span style="background:#c53030;color:#fff;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem">Del</span>
+            </span>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem">
+          <button style="background:#2563eb;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;font-size:0.78rem;cursor:pointer">+ New Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup" data-choice="C" onclick="toggleSelect(this)" style="cursor:pointer">
+    <div class="mockup-header">Option C — Navy sidebar + light content (hybrid)</div>
+    <div class="mockup-body" style="display:flex;gap:0;padding:0;min-height:280px">
+      <div style="width:180px;background:linear-gradient(180deg,#004D99 0%,#003a75 100%);padding:1rem;flex-shrink:0">
+        <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">Content</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#fff;background:rgba(255,255,255,0.18);margin-bottom:0.2rem;border-left:3px solid #60a5fa">Blog Posts</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.65);margin-bottom:0.2rem">Coaches</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.65);margin-bottom:0.2rem">Achievements</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.65);margin-bottom:0.2rem">Stats</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(255,255,255,0.65)">Testimonials</div>
+      </div>
+      <div style="flex:1;background:#F7F9FB;padding:1rem">
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem">
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:0.5rem 0.75rem;flex:1;box-shadow:0 1px 2px rgba(0,0,0,0.04)">
+            <div style="font-size:0.65rem;color:#718096;margin-bottom:0.15rem">Total Posts</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#004D99">7</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:0.5rem 0.75rem;flex:1;box-shadow:0 1px 2px rgba(0,0,0,0.04)">
+            <div style="font-size:0.65rem;color:#718096;margin-bottom:0.15rem">Coaches</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#004D99">4</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:0.5rem 0.75rem;flex:1;box-shadow:0 1px 2px rgba(0,0,0,0.04)">
+            <div style="font-size:0.65rem;color:#718096;margin-bottom:0.15rem">Achievements</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#004D99">12</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:8px;border:1px solid #e2e8f0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04)">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.5rem 0.75rem;background:#f0f4f8;font-size:0.68rem;color:#718096;text-transform:uppercase">
+            <span>Title</span><span>Status</span><span>Actions</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #e2e8f0;font-size:0.78rem;color:#2d3748;align-items:center">
+            <span>Srinika wins National Silver...</span>
+            <span style="background:#c6f6d5;color:#276749;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#ebf4ff;color:#004D99;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #bee3f8">Edit</span>
+              <span style="background:#fff5f5;color:#c53030;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #fed7d7">Del</span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid #e2e8f0;font-size:0.78rem;color:#2d3748;align-items:center">
+            <span>Benefits of Chess for Kids</span>
+            <span style="background:#c6f6d5;color:#276749;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:#ebf4ff;color:#004D99;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #bee3f8">Edit</span>
+              <span style="background:#fff5f5;color:#c53030;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid #fed7d7">Del</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup" data-choice="D" onclick="toggleSelect(this)" style="cursor:pointer">
+    <div class="mockup-header">Option D — Deep navy glass (premium dark)</div>
+    <div class="mockup-body" style="display:flex;gap:0;padding:0;min-height:280px;background:#020818">
+      <div style="width:180px;background:rgba(0,77,153,0.15);border-right:1px solid rgba(99,179,237,0.1);padding:1rem;flex-shrink:0">
+        <div style="font-size:0.65rem;color:rgba(99,179,237,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">Content</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:#90cdf4;background:rgba(99,179,237,0.12);margin-bottom:0.2rem;border:1px solid rgba(99,179,237,0.2)">Blog Posts</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(160,174,192,0.7);margin-bottom:0.2rem">Coaches</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(160,174,192,0.7);margin-bottom:0.2rem">Achievements</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(160,174,192,0.7);margin-bottom:0.2rem">Stats</div>
+        <div style="padding:0.4rem 0.7rem;border-radius:5px;font-size:0.8rem;color:rgba(160,174,192,0.7)">Testimonials</div>
+      </div>
+      <div style="flex:1;padding:1rem;background:#020818">
+        <div style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:0.75rem">Blog Posts</div>
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(99,179,237,0.12);overflow:hidden">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(99,179,237,0.06);font-size:0.68rem;color:rgba(160,174,192,0.6);text-transform:uppercase">
+            <span>Title</span><span>Status</span><span>Actions</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid rgba(99,179,237,0.08);font-size:0.78rem;color:#e2e8f0;align-items:center">
+            <span>Srinika wins National Silver...</span>
+            <span style="background:rgba(104,211,145,0.15);color:#68d391;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem;border:1px solid rgba(104,211,145,0.2)">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:rgba(99,179,237,0.1);color:#90cdf4;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid rgba(99,179,237,0.15)">Edit</span>
+              <span style="background:rgba(197,48,48,0.15);color:#fc8181;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid rgba(197,48,48,0.2)">Del</span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;padding:0.6rem 0.75rem;border-top:1px solid rgba(99,179,237,0.08);font-size:0.78rem;color:#e2e8f0;align-items:center">
+            <span>Benefits of Chess for Kids</span>
+            <span style="background:rgba(104,211,145,0.15);color:#68d391;padding:0.1rem 0.5rem;border-radius:999px;font-size:0.65rem;border:1px solid rgba(104,211,145,0.2)">Live</span>
+            <span style="display:flex;gap:0.3rem">
+              <span style="background:rgba(99,179,237,0.1);color:#90cdf4;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid rgba(99,179,237,0.15)">Edit</span>
+              <span style="background:rgba(197,48,48,0.15);color:#fc8181;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.7rem;border:1px solid rgba(197,48,48,0.2)">Del</span>
+            </span>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem">
+          <button style="background:linear-gradient(135deg,#004D99,#1565C0);color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;font-size:0.78rem;cursor:pointer;box-shadow:0 0 12px rgba(0,77,153,0.4)">+ New Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:1.25rem">My recommendation: <strong>C — navy sidebar + light content</strong>. Matches your main website navy exactly, keeps the content area clean and readable, and the stat cards give a useful dashboard feel. Click your preferred option.</p>

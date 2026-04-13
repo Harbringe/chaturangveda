@@ -1,0 +1,106 @@
+<h2>What you're building — scope check</h2>
+<p class="subtitle">This is a large request. Let's confirm the scope before designing anything.</p>
+
+<div class="section">
+  <h3>Group A — Quick wins (small, ship fast)</h3>
+  <div class="options" data-multiselect>
+    <div class="option" data-choice="timestamp" onclick="toggleSelect(this)">
+      <div class="letter">1</div>
+      <div class="content">
+        <h3>Auto-timestamp date field</h3>
+        <p>New posts default to today's date. Already mostly done — just a default value change in the form.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="pagination" onclick="toggleSelect(this)">
+      <div class="letter">2</div>
+      <div class="content">
+        <h3>Load more / pagination on blogs</h3>
+        <p>Show first 6 posts, "Load more" button fetches the next batch. No full page reload.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="imageserver" onclick="toggleSelect(this)">
+      <div class="letter">3</div>
+      <div class="content">
+        <h3>Custom image server for uploads</h3>
+        <p>IMAGE_SERVER_URL env var. Admin uploads POST to that server, get back a URL stored in DB.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Group B — Full site CMS (large, multi-week)</h3>
+  <p class="subtitle">Every hardcoded section becomes admin-editable. New DB tables, new admin pages, image crop UI, markdown editor.</p>
+  <div class="options" data-multiselect>
+    <div class="option" data-choice="coaches" onclick="toggleSelect(this)">
+      <div class="letter">4</div>
+      <div class="content">
+        <h3>Coaches section</h3>
+        <p>Add / edit / remove coaches. Photo, name, title, bio, FIDE rating, specialties.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="achievements" onclick="toggleSelect(this)">
+      <div class="letter">5</div>
+      <div class="content">
+        <h3>Student achievements</h3>
+        <p>The hero panel entries. Name, badge, image, achievement text. Reorder by drag.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="stats" onclick="toggleSelect(this)">
+      <div class="letter">6</div>
+      <div class="content">
+        <h3>Stats / tournament wins numbers</h3>
+        <p>"2000+ Students", "150+ Tournament Wins" etc. Edit the numbers and labels live.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="testimonials" onclick="toggleSelect(this)">
+      <div class="letter">7</div>
+      <div class="content">
+        <h3>Testimonials</h3>
+        <p>Parent quotes. Add / edit / remove. Star rating, name, child's name, photo.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="courses" onclick="toggleSelect(this)">
+      <div class="letter">8</div>
+      <div class="content">
+        <h3>Courses section</h3>
+        <p>Free Trial / Group / Private cards. Title, price, features list, CTA.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="curriculum" onclick="toggleSelect(this)">
+      <div class="letter">9</div>
+      <div class="content">
+        <h3>Curriculum section</h3>
+        <p>Beginner / Intermediate / Advanced levels. Module names, descriptions, schedule.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="contact" onclick="toggleSelect(this)">
+      <div class="letter">10</div>
+      <div class="content">
+        <h3>Contact section info</h3>
+        <p>Phone, WhatsApp, email, location, office hours, FAQs.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="topsection" onclick="toggleSelect(this)">
+      <div class="letter">11</div>
+      <div class="content">
+        <h3>Top story / featured blog picker</h3>
+        <p>Pin a specific blog post as the "featured" card on the blogs page.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="becomecoach" onclick="toggleSelect(this)">
+      <div class="letter">12</div>
+      <div class="content">
+        <h3>Become a coach section</h3>
+        <p>Page copy, requirements list, perks, application form fields.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:#1a2535;border-radius:8px;padding:1.25rem;border-left:3px solid #63b3ed;">
+  <h3 style="margin:0 0 0.5rem;color:#63b3ed;">My recommendation</h3>
+  <p style="margin:0;">Build Group A now (all three are small). Then tackle Group B as a dedicated CMS phase — it needs its own database schema design, a new admin sidebar navigation, image crop infrastructure, and a markdown editor. Trying to do all 12 at once will produce mediocre results on each. Select which ones you want in scope and I'll design them properly.</p>
+</div>
+
+<p class="subtitle" style="margin-top:1.5rem;">Click to select the items you want in scope, then tell me in the terminal.</p>

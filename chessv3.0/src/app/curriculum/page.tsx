@@ -479,7 +479,7 @@ export default function CurriculumPage() {
 
                 <div className={styles.modalPriceLine}>
                   <span className={styles.modalPrice}>
-                    {formatINR(computePrice(selectedLevel, classType, sessionsPerWeek))}
+                    {formatINR(computePrice(selectedLevel, classType!, sessionsPerWeek!))}
                   </span>
                   <span className={styles.modalPriceNote}>
                     · {sessionCount(selectedLevel, sessionsPerWeek)} sessions total
@@ -555,7 +555,7 @@ export default function CurriculumPage() {
                     {modalStatus === 'loading' ? (
                       <><span className={styles.spinner} /> Processing…</>
                     ) : (
-                      <><FaChessKnight /> Pay {formatINR(computePrice(selectedLevel, classType, sessionsPerWeek))} via Razorpay</>
+                      <><FaChessKnight /> Pay {formatINR(computePrice(selectedLevel, classType!, sessionsPerWeek!))} via Razorpay</>
                     )}
                   </button>
 

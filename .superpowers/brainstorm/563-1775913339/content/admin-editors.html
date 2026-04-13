@@ -1,0 +1,210 @@
+<h2>CMS editor patterns</h2>
+<p class="subtitle">The reusable UI building blocks all 9 CMS sections will share. Review and confirm these patterns work for you.</p>
+
+<style>
+  .pattern { background:#fff; border:1px solid #e2e8f0; border-radius:10px; margin-bottom:1.5rem; overflow:hidden; }
+  .pattern-header { background:#f0f4f8; padding:0.6rem 1rem; font-size:0.75rem; font-weight:600; color:#004D99; text-transform:uppercase; letter-spacing:0.06em; border-bottom:1px solid #e2e8f0; }
+  .pattern-body { padding:1.25rem; }
+  .field-label { font-size:0.72rem; font-weight:600; color:#4a5568; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.4rem; }
+  .field-input { width:100%; border:1px solid #e2e8f0; border-radius:6px; padding:0.5rem 0.75rem; font-size:0.85rem; color:#2d3748; background:#fff; box-sizing:border-box; }
+  .field-row { margin-bottom:1rem; }
+  .btn-primary { background:#004D99; color:#fff; border:none; padding:0.45rem 1rem; border-radius:6px; font-size:0.82rem; cursor:pointer; }
+  .btn-secondary { background:#fff; color:#004D99; border:1px solid #bee3f8; padding:0.45rem 1rem; border-radius:6px; font-size:0.82rem; cursor:pointer; }
+  .btn-danger { background:#fff5f5; color:#c53030; border:1px solid #fed7d7; padding:0.35rem 0.8rem; border-radius:6px; font-size:0.78rem; cursor:pointer; }
+</style>
+
+<div class="pattern">
+  <div class="pattern-header">Pattern 1 — Image upload with focus/crop control</div>
+  <div class="pattern-body">
+    <div style="display:grid;grid-template-columns:160px 1fr;gap:1.25rem;align-items:start">
+      <div>
+        <div class="field-label">Photo</div>
+        <div style="width:160px;height:160px;background:linear-gradient(135deg,#e8f0fe,#dbeafe);border:2px dashed #bee3f8;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem">
+          <div style="font-size:1.8rem">🖼</div>
+          <div style="font-size:0.7rem;color:#718096">Click to upload</div>
+          <div style="font-size:0.62rem;color:#a0aec0">or drag &amp; drop</div>
+        </div>
+        <div style="margin-top:0.5rem;display:flex;gap:0.4rem">
+          <button class="btn-secondary" style="font-size:0.7rem;padding:0.3rem 0.6rem;flex:1">Upload</button>
+          <button class="btn-danger" style="font-size:0.7rem;padding:0.3rem 0.6rem">Clear</button>
+        </div>
+      </div>
+      <div>
+        <div class="field-label" style="margin-bottom:0.5rem">Image focus (controls crop in card view)</div>
+        <div style="background:#f0f4f8;border-radius:8px;border:1px solid #e2e8f0;padding:0.75rem;display:inline-block">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.3rem;width:120px">
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">TL</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">TC</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">TR</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">ML</div>
+            <div style="height:28px;border-radius:4px;background:#004D99;border:1px solid #004D99;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#fff;cursor:pointer">MC</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">MR</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">BL</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">BC</div>
+            <div style="height:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#718096;cursor:pointer">BR</div>
+          </div>
+          <div style="font-size:0.68rem;color:#a0aec0;margin-top:0.5rem;max-width:180px">Sets CSS <code style="background:#e2e8f0;padding:0.1rem 0.3rem;border-radius:3px">object-position</code> — no server-side cropping needed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pattern">
+  <div class="pattern-header">Pattern 2 — Markdown editor with live preview</div>
+  <div class="pattern-body">
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;align-items:center">
+      <button class="btn-primary" style="font-size:0.75rem;padding:0.3rem 0.8rem">Write</button>
+      <button class="btn-secondary" style="font-size:0.75rem;padding:0.3rem 0.8rem">Preview</button>
+      <div style="flex:1"></div>
+      <div style="font-size:0.7rem;color:#a0aec0;display:flex;align-items:center;gap:0.75rem">
+        <span style="cursor:pointer;font-weight:700;color:#4a5568">B</span>
+        <span style="cursor:pointer;font-style:italic;color:#4a5568">I</span>
+        <span style="cursor:pointer;color:#4a5568">H2</span>
+        <span style="cursor:pointer;color:#4a5568">• List</span>
+        <span style="cursor:pointer">🔗</span>
+      </div>
+    </div>
+    <textarea class="field-input" style="height:90px;font-family:monospace;font-size:0.8rem;resize:vertical">## About this coach
+
+Arjun has been teaching chess for **10+ years**, specializing in endgame theory.
+
+- FIDE Rating: 2150
+- Specializes in: Endgame, Positional play</textarea>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:0.75rem;margin-top:0.5rem;font-size:0.82rem;color:#2d3748;line-height:1.6">
+      <strong style="font-size:0.95rem;color:#1a202c">About this coach</strong><br><br>
+      Arjun has been teaching chess for <strong>10+ years</strong>, specializing in endgame theory.<br><br>
+      <span style="color:#718096;font-size:0.75rem;font-style:italic">↑ Live preview renders as you type</span>
+    </div>
+  </div>
+</div>
+
+<div class="pattern">
+  <div class="pattern-header">Pattern 3 — Multi-field item form (coach editor example)</div>
+  <div class="pattern-body">
+    <div style="display:grid;grid-template-columns:150px 1fr;gap:1.25rem">
+      <div>
+        <div class="field-label">Photo</div>
+        <div style="width:150px;height:150px;background:linear-gradient(135deg,#004D99,#1565C0);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:3rem">👤</div>
+        <button class="btn-secondary" style="margin-top:0.5rem;width:100%;font-size:0.72rem">Change photo</button>
+      </div>
+      <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <div class="field-row">
+            <div class="field-label">Full name</div>
+            <input class="field-input" value="Arjun Mehta" readonly>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Title / role</div>
+            <input class="field-input" value="Head Coach" readonly>
+          </div>
+          <div class="field-row">
+            <div class="field-label">FIDE Rating</div>
+            <input class="field-input" value="2150" readonly>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Experience</div>
+            <input class="field-input" value="10+ years" readonly>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Specialties (comma separated)</div>
+          <input class="field-input" value="Endgame, Positional play, Junior coaching" readonly>
+        </div>
+        <div class="field-row" style="margin-bottom:0">
+          <div class="field-label">Bio</div>
+          <textarea class="field-input" style="height:52px;font-size:0.8rem;resize:none" readonly>Has coached **150+ students** to podium finishes at national tournaments.</textarea>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #e2e8f0">
+      <button class="btn-danger">Delete</button>
+      <button class="btn-secondary">Cancel</button>
+      <button class="btn-primary">Save coach</button>
+    </div>
+  </div>
+</div>
+
+<div class="pattern">
+  <div class="pattern-header">Pattern 4 — Sortable list (achievements, testimonials, courses)</div>
+  <div class="pattern-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+      <div style="font-size:0.85rem;font-weight:600;color:#2d3748">Student Achievements</div>
+      <button class="btn-primary" style="font-size:0.75rem;padding:0.35rem 0.8rem">+ Add achievement</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.4rem">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:0.6rem 0.9rem;display:flex;align-items:center;gap:0.75rem;box-shadow:0 1px 2px rgba(0,0,0,0.03)">
+        <div style="color:#a0aec0;cursor:grab;font-size:1.1rem;line-height:1;user-select:none">⠿</div>
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#004D99,#1565C0);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem">🥇</div>
+        <div style="flex:1">
+          <div style="font-size:0.82rem;font-weight:600;color:#2d3748">Srinika — National U11 Silver</div>
+          <div style="font-size:0.72rem;color:#718096">2024 All-India U11 Girls</div>
+        </div>
+        <button class="btn-secondary" style="font-size:0.7rem;padding:0.25rem 0.6rem">Edit</button>
+        <button class="btn-danger" style="font-size:0.7rem;padding:0.25rem 0.6rem">Del</button>
+      </div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:0.6rem 0.9rem;display:flex;align-items:center;gap:0.75rem;box-shadow:0 1px 2px rgba(0,0,0,0.03)">
+        <div style="color:#a0aec0;cursor:grab;font-size:1.1rem;line-height:1;user-select:none">⠿</div>
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#276749,#2f855a);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem">🏆</div>
+        <div style="flex:1">
+          <div style="font-size:0.82rem;font-weight:600;color:#2d3748">Rahul — State Champion U14</div>
+          <div style="font-size:0.72rem;color:#718096">2024 Karnataka State Championship</div>
+        </div>
+        <button class="btn-secondary" style="font-size:0.7rem;padding:0.25rem 0.6rem">Edit</button>
+        <button class="btn-danger" style="font-size:0.7rem;padding:0.25rem 0.6rem">Del</button>
+      </div>
+      <div style="background:#f0f4f8;border:2px dashed #bee3f8;border-radius:7px;padding:0.5rem;text-align:center;font-size:0.75rem;color:#a0aec0">Drag rows to reorder</div>
+    </div>
+  </div>
+</div>
+
+<div class="pattern">
+  <div class="pattern-header">Pattern 5 — Inline stat/text editor (stats numbers, contact info)</div>
+  <div class="pattern-body">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
+      <div style="background:#f0f4f8;border-radius:8px;padding:0.75rem;border:1px solid #e2e8f0">
+        <div class="field-label">Number</div>
+        <input class="field-input" value="2000+" readonly style="font-size:1.1rem;font-weight:700;color:#004D99;text-align:center">
+        <div style="margin-top:0.5rem">
+          <div class="field-label" style="margin-bottom:0.3rem">Label</div>
+          <input class="field-input" value="Students Trained" readonly style="text-align:center;font-size:0.8rem">
+        </div>
+      </div>
+      <div style="background:#f0f4f8;border-radius:8px;padding:0.75rem;border:1px solid #e2e8f0">
+        <div class="field-label">Number</div>
+        <input class="field-input" value="150+" readonly style="font-size:1.1rem;font-weight:700;color:#004D99;text-align:center">
+        <div style="margin-top:0.5rem">
+          <div class="field-label" style="margin-bottom:0.3rem">Label</div>
+          <input class="field-input" value="Tournament Wins" readonly style="text-align:center;font-size:0.8rem">
+        </div>
+      </div>
+      <div style="background:#f0f4f8;border-radius:8px;padding:0.75rem;border:1px solid #e2e8f0">
+        <div class="field-label">Number</div>
+        <input class="field-input" value="8+" readonly style="font-size:1.1rem;font-weight:700;color:#004D99;text-align:center">
+        <div style="margin-top:0.5rem">
+          <div class="field-label" style="margin-bottom:0.3rem">Label</div>
+          <input class="field-input" value="Years of Excellence" readonly style="text-align:center;font-size:0.8rem">
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:0.75rem">
+      <button class="btn-primary" style="font-size:0.78rem">Save stats</button>
+    </div>
+  </div>
+</div>
+
+<div style="background:#ebf4ff;border:1px solid #bee3f8;border-radius:8px;padding:1rem 1.25rem">
+  <div style="font-size:0.8rem;font-weight:600;color:#004D99;margin-bottom:0.4rem">How these combine per section</div>
+  <div style="font-size:0.78rem;color:#2d3748;line-height:1.7">
+    <strong>Coaches</strong> — Pattern 1 + 2 + 3 (list of coaches, each expandable to form)<br>
+    <strong>Achievements</strong> — Pattern 1 + 4 (sortable cards)<br>
+    <strong>Stats</strong> — Pattern 5<br>
+    <strong>Testimonials</strong> — Pattern 1 + 4<br>
+    <strong>Courses / Curriculum</strong> — Pattern 2 + 4<br>
+    <strong>Contact</strong> — Pattern 5<br>
+    <strong>Featured post</strong> — single dropdown over existing posts list<br>
+    <strong>Become a Coach</strong> — Pattern 2 (markdown page editor)
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:1.25rem">Do these patterns look right? Any changes before I write the full spec?</p>
