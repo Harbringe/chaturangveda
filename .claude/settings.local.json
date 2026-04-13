@@ -33,7 +33,10 @@
       "Bash(npm test:*)",
       "Bash(gh pr:*)",
       "Bash(where gh:*)",
-      "Bash(winget list:*)"
+      "Bash(winget list:*)",
+      "Bash(ls:*)",
+      "Bash(rm E:/chaturangaveda/chessv3.0/src/app/admin/page.tsx)",
+      "Bash(rm -rf E:/chaturangaveda/chessv3.0/.next)"
     ]
   }
 }

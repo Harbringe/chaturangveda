@@ -482,7 +482,7 @@ export default function CurriculumPage() {
                     {formatINR(computePrice(selectedLevel, classType!, sessionsPerWeek!))}
                   </span>
                   <span className={styles.modalPriceNote}>
-                    · {sessionCount(selectedLevel, sessionsPerWeek)} sessions total
+                    · {sessionCount(selectedLevel, sessionsPerWeek!)} sessions total
                   </span>
                 </div>
 
