@@ -6,6 +6,7 @@ import {
   FaUser, FaEnvelope, FaCalendarAlt,
   FaChessKnight, FaWhatsapp,
 } from 'react-icons/fa';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
@@ -117,7 +118,7 @@ export default function BecomeACoachPage() {
               <a href="https://wa.me/+917569194709" target="_blank" rel="noopener noreferrer" className={`btn-primary ${styles.successBtn}`}>
                 Open WhatsApp
               </a>
-              <a href="/" className={`btn-secondary ${styles.successBtn}`}>Back to Home</a>
+              <Link href="/" className={`btn-secondary ${styles.successBtn}`}>Back to Home</Link>
             </div>
           </div>
         </div>

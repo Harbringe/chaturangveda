@@ -3,12 +3,26 @@ import { getDb, rowToPost } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const limit = parseInt(searchParams.get('limit') ?? '0', 10);
+  const offset = parseInt(searchParams.get('offset') ?? '0', 10);
+
   const db = getDb();
-  const { rows } = await db.query(
-    'SELECT * FROM posts ORDER BY date DESC NULLS LAST'
+  const countResult = await db.query(
+    'SELECT COUNT(*) FROM posts WHERE published = true'
   );
-  return NextResponse.json({ posts: rows.map(rowToPost) });
+  const total = parseInt(countResult.rows[0].count, 10);
+
+  const { rows } =
+    limit > 0
+      ? await db.query(
+          'SELECT * FROM posts WHERE published = true ORDER BY date DESC NULLS LAST LIMIT $1 OFFSET $2',
+          [limit, offset]
+        )
+      : await db.query('SELECT * FROM posts ORDER BY date DESC NULLS LAST');
+
+  return NextResponse.json({ posts: rows.map(rowToPost), total });
 }
 
 export async function POST(req: NextRequest) {
