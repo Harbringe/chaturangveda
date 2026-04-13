@@ -34,7 +34,7 @@ const countries = [
   { code: "nl", name: "Netherlands" },
 ];
 
-const studentAchievements = [
+const FALLBACK_ACHIEVEMENTS = [
   {
     name: "Srinika",
     achievement: "National School Games Silver",
@@ -65,7 +65,16 @@ const studentAchievements = [
   },
 ];
 
-export default function HeroSection() {
+interface Achievement {
+  name: string;
+  achievement: string;
+  detail: string;
+  image: string;
+  badge: string;
+}
+
+export default function HeroSection({ achievements }: { achievements?: Achievement[] }) {
+  const studentAchievements = achievements ?? FALLBACK_ACHIEVEMENTS;
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
