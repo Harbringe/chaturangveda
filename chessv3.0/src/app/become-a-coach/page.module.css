@@ -275,6 +275,12 @@
   gap: 20px;
 }
 
+.fieldRowNamePhone {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  gap: 20px;
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -587,7 +593,8 @@
 
 @media (max-width: 600px) {
   .formCard { padding: 28px 20px; }
-  .fieldRow { grid-template-columns: 1fr; }
+  .fieldRow,
+  .fieldRowNamePhone { grid-template-columns: 1fr; }
   .perksGrid { grid-template-columns: 1fr; }
   .hero { padding: 120px 16px 60px; }
   .infoPanel { padding: 28px 24px; }

@@ -187,7 +187,7 @@ export default function BecomeACoachPage() {
           </div>
 
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <div className={styles.fieldRow}>
+            <div className={styles.fieldRowNamePhone}>
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="name">
                   Full Name <span className={styles.required}>*</span>
