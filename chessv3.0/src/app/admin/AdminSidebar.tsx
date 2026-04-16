@@ -6,6 +6,7 @@ import styles from './admin.module.css';
 import LogoutButton from './LogoutButton';
 
 const NAV = [
+  { href: '/admin/hero', label: 'Hero Settings', icon: '🏠' },
   { href: '/admin', label: 'Blog Posts', icon: '📝' },
   { href: '/admin/coaches', label: 'Coaches', icon: '👤' },
   { href: '/admin/achievements', label: 'Achievements', icon: '🏆' },
