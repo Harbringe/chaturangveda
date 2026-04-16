@@ -95,7 +95,7 @@ export default function HeroSection({
   const otherAchievements = studentAchievements.filter(
     (a) => a.name !== featuredAchievement.name
   );
-  const activePhrasess = heroSettings?.phrases ?? rotatingPhrases;
+  const activePhrases = heroSettings?.phrases ?? rotatingPhrases;
   const activeStats   = heroSettings?.stats   ?? stats;
   const headline1     = heroSettings?.headline1 ?? 'Master Chess.';
   const headline2     = heroSettings?.headline2 ?? 'Master Life.';
@@ -105,10 +105,10 @@ export default function HeroSection({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPhraseIndex((prev) => (prev + 1) % activePhrasess.length);
+      setPhraseIndex((prev) => (prev + 1) % activePhrases.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, [activePhrasess.length]);
+  }, [activePhrases.length]);
 
   return (
     <section id="hero" className={styles.hero}>
@@ -216,7 +216,7 @@ export default function HeroSection({
                 exit={{ y: -30, opacity: 0, filter: "blur(8px)" }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                {activePhrasess[phraseIndex]}
+                {activePhrases[phraseIndex]}
               </motion.span>
             </AnimatePresence>
           </div>
