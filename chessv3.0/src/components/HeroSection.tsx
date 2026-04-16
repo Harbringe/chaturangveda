@@ -73,16 +73,42 @@ interface Achievement {
   badge: string;
 }
 
-export default function HeroSection({ achievements }: { achievements?: Achievement[] }) {
+interface HeroSettings {
+  headline1?: string;
+  headline2?: string;
+  description?: string;
+  phrases?: string[];
+  stats?: Array<{ value: string; label: string }>;
+}
+
+export default function HeroSection({
+  achievements,
+  keyAchievement,
+  heroSettings,
+}: {
+  achievements?: Achievement[];
+  keyAchievement?: Achievement;
+  heroSettings?: HeroSettings;
+}) {
   const studentAchievements = achievements ?? FALLBACK_ACHIEVEMENTS;
+  const featuredAchievement = keyAchievement ?? studentAchievements[0];
+  const otherAchievements = studentAchievements.filter(
+    (a) => a.name !== featuredAchievement.name
+  );
+  const activePhrasess = heroSettings?.phrases ?? rotatingPhrases;
+  const activeStats   = heroSettings?.stats   ?? stats;
+  const headline1     = heroSettings?.headline1 ?? 'Master Chess.';
+  const headline2     = heroSettings?.headline2 ?? 'Master Life.';
+  const description   = heroSettings?.description ??
+    "Expert chess coaching for kids by FIDE-rated coaches. From your child\u2019s first move to tournament glory \u2014 online classes for students across India, USA, UK, Australia, UAE, Netherlands and beyond.";
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPhraseIndex((prev) => (prev + 1) % rotatingPhrases.length);
+      setPhraseIndex((prev) => (prev + 1) % activePhrasess.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [activePhrasess.length]);
 
   return (
     <section id="hero" className={styles.hero}>
@@ -174,9 +200,9 @@ export default function HeroSection({ achievements }: { achievements?: Achieveme
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            Master Chess.
+            {headline1}
             <br />
-            <span className={styles.highlight}>Master Life.</span>
+            <span className={styles.highlight}>{headline2}</span>
           </motion.h1>
 
           <div className={styles.rotatingTextContainer}>
@@ -190,7 +216,7 @@ export default function HeroSection({ achievements }: { achievements?: Achieveme
                 exit={{ y: -30, opacity: 0, filter: "blur(8px)" }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                {rotatingPhrases[phraseIndex]}
+                {activePhrasess[phraseIndex]}
               </motion.span>
             </AnimatePresence>
           </div>
@@ -201,9 +227,7 @@ export default function HeroSection({ achievements }: { achievements?: Achieveme
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.7 }}
           >
-            Expert chess coaching for kids by FIDE-rated coaches. From your
-            child&apos;s first move to tournament glory — online classes for
-            students across India, USA, UK, Australia, UAE, Netherlands and beyond.
+            {description}
           </motion.p>
 
           <motion.div
@@ -241,7 +265,7 @@ export default function HeroSection({ achievements }: { achievements?: Achieveme
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.7 }}
           >
-            {stats.map((stat, i) => (
+            {activeStats.map((stat, i) => (
               <div key={i} className={styles.heroStat}>
                 <span className={styles.heroStatValue}>{stat.value}</span>
                 <span className={styles.heroStatLabel}>{stat.label}</span>
@@ -256,44 +280,58 @@ export default function HeroSection({ achievements }: { achievements?: Achieveme
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Achievement toast */}
-          <motion.div
-            className={styles.toastCard}
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.6 }}
-          >
-            <motion.span
-              className={styles.toastTrophy}
-              animate={{ rotate: [0, -12, 12, -12, 0], scale: [1, 1.1, 1, 1.1, 1] }}
-              transition={{
-                duration: 1.5,
-                delay: 2.5,
-                repeat: Infinity,
-                repeatDelay: 6,
-              }}
-            >
-              🥈
-            </motion.span>
-            <div className={styles.toastBody}>
-              <div className={styles.toastTitle}>National Achievement!</div>
-              <div className={styles.toastSub}>
-                Srinika · U11 National School Games Silver
+          {/* Editorial Key Achievement Card */}
+          <div className={styles.editorialCard}>
+            <div className={styles.editorialTop}>
+              <div className={styles.editorialEyebrow}>⭐ Key Achievement</div>
+              <div className={styles.editorialInner}>
+                <div className={styles.editorialPhoto}>
+                  {featuredAchievement.image ? (
+                    <Image
+                      src={featuredAchievement.image}
+                      alt={featuredAchievement.name}
+                      fill
+                      style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                      sizes="56px"
+                    />
+                  ) : (
+                    <div className={styles.editorialPhotoPlaceholder}>♟</div>
+                  )}
+                </div>
+                <div className={styles.editorialInfo}>
+                  <div className={styles.editorialName}>{featuredAchievement.name}</div>
+                  <div className={styles.editorialAch}>{featuredAchievement.badge} {featuredAchievement.achievement}</div>
+                  <div className={styles.editorialDetail}>{featuredAchievement.detail}</div>
+                </div>
               </div>
             </div>
-            <span className={styles.toastNew}>NEW</span>
-          </motion.div>
-
-          {/* Student Achievements panel */}
-          <div className={styles.coachPanel}>
-            <div className={styles.coachPanelHeader}>
-              <span className={styles.coachPanelTitle}>Student Achievements</span>
-              <Link href="/blogs" className={styles.coachPanelLink}>
+            <div className={styles.editorialBottom}>
+              <div className={styles.editorialMiniStats}>
+                <div className={styles.editorialMiniStat}>
+                  <span className={styles.editorialMiniStatVal}>150+</span>
+                  <span className={styles.editorialMiniStatLbl}>Total Wins</span>
+                </div>
+                <div className={styles.editorialMiniStat}>
+                  <span className={styles.editorialMiniStatVal}>9+</span>
+                  <span className={styles.editorialMiniStatLbl}>Countries</span>
+                </div>
+              </div>
+              <Link href="/blogs" className={styles.editorialReadBtn}>
                 Read Stories →
               </Link>
             </div>
+          </div>
 
-            {studentAchievements.map((s, i) => (
+          {/* More Achievements panel */}
+          <div className={styles.coachPanel}>
+            <div className={styles.coachPanelHeader}>
+              <span className={styles.coachPanelTitle}>More Achievements</span>
+              <Link href="/blogs" className={styles.coachPanelLink}>
+                View all →
+              </Link>
+            </div>
+
+            {otherAchievements.map((s, i) => (
               <motion.div
                 key={s.name}
                 className={styles.coachRow}
