@@ -29,7 +29,6 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: 'Home', href: '/' },
     { label: 'Coaches', href: '/coaches' },
     { label: 'Curriculum', href: '/curriculum' },
     { label: 'Blog', href: '/blogs' },
@@ -49,6 +48,14 @@ export default function Navbar() {
           </Link>
 
           <ul className={styles.navLinks}>
+            <li>
+              <Link
+                href="/"
+                className={`${styles.navLink} ${pathname === '/' ? styles.navLinkActive : ''}`}
+              >
+                Home
+              </Link>
+            </li>
             {/* Services with dropdown */}
             <li
               className={styles.dropdownParent}
