@@ -9,7 +9,7 @@ interface HeroSettings {
   headline1: string;
   headline2: string;
   description: string;
-  phrases: string[];
+  phrases: Array<{ id: string; text: string }>;
   stats: HeroStat[];
 }
 
@@ -19,12 +19,12 @@ const DEFAULTS: HeroSettings = {
   description:
     "Expert chess coaching for kids by FIDE-rated coaches. From your child's first move to tournament glory — online classes for students across India, USA, UK, Australia, UAE, Netherlands and beyond.",
   phrases: [
-    'Strategic Thinking',
-    'Grandmaster Curriculum',
-    'FIDE-Rated Coaches',
-    'Tournament Champions',
-    'Critical Thinkers',
-    'Future Leaders',
+    { id: '1', text: 'Strategic Thinking' },
+    { id: '2', text: 'Grandmaster Curriculum' },
+    { id: '3', text: 'FIDE-Rated Coaches' },
+    { id: '4', text: 'Tournament Champions' },
+    { id: '5', text: 'Critical Thinkers' },
+    { id: '6', text: 'Future Leaders' },
   ],
   stats: [
     { id: '1', value: '2000+', label: 'Students Trained' },
@@ -42,7 +42,18 @@ export default function HeroSettingsAdminPage() {
   useEffect(() => {
     fetch('/api/admin/content/hero-settings')
       .then((r) => r.json())
-      .then((d) => { if (d.value) setSettings({ ...DEFAULTS, ...d.value }); });
+      .then((d) => {
+        if (d.value) {
+          const loaded = { ...DEFAULTS, ...d.value };
+          if (Array.isArray(d.value.phrases) && typeof d.value.phrases[0] === 'string') {
+            loaded.phrases = d.value.phrases.map((text: string, i: number) => ({
+              id: String(i + 1),
+              text,
+            }));
+          }
+          setSettings(loaded);
+        }
+      });
   }, []);
 
   async function save() {
@@ -50,7 +61,12 @@ export default function HeroSettingsAdminPage() {
     await fetch('/api/admin/content/hero-settings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: settings }),
+      body: JSON.stringify({
+        value: {
+          ...settings,
+          phrases: settings.phrases.map((p) => p.text),
+        },
+      }),
     });
     setSaving(false);
     setStatus('Saved');
@@ -58,19 +74,21 @@ export default function HeroSettingsAdminPage() {
   }
 
   function addPhrase() {
-    setSettings((p) => ({ ...p, phrases: [...p.phrases, ''] }));
+    setSettings((p) => ({
+      ...p,
+      phrases: [...p.phrases, { id: Math.random().toString(36).slice(2), text: '' }],
+    }));
   }
 
-  function updatePhrase(i: number, val: string) {
-    setSettings((p) => {
-      const phrases = [...p.phrases];
-      phrases[i] = val;
-      return { ...p, phrases };
-    });
+  function updatePhrase(id: string, val: string) {
+    setSettings((p) => ({
+      ...p,
+      phrases: p.phrases.map((ph) => (ph.id === id ? { ...ph, text: val } : ph)),
+    }));
   }
 
-  function removePhrase(i: number) {
-    setSettings((p) => ({ ...p, phrases: p.phrases.filter((_, idx) => idx !== i) }));
+  function removePhrase(id: string) {
+    setSettings((p) => ({ ...p, phrases: p.phrases.filter((ph) => ph.id !== id) }));
   }
 
   function addStat() {
@@ -144,17 +162,17 @@ export default function HeroSettingsAdminPage() {
           <button onClick={addPhrase} className={`${styles.btn} ${styles.btnSecondary}`}>+ Add Phrase</button>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {settings.phrases.map((phrase, i) => (
-            <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          {settings.phrases.map((phrase) => (
+            <div key={phrase.id} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <input
                 className={styles.input}
-                value={phrase}
-                onChange={(e) => updatePhrase(i, e.target.value)}
+                value={phrase.text}
+                onChange={(e) => updatePhrase(phrase.id, e.target.value)}
                 placeholder="Strategic Thinking"
                 style={{ flex: 1 }}
               />
               <button
-                onClick={() => removePhrase(i)}
+                onClick={() => removePhrase(phrase.id)}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#c53030', fontSize: '1.1rem', lineHeight: 1, padding: '0 4px' }}
               >
                 ×
