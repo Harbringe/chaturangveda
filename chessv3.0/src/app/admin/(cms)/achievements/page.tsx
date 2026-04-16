@@ -15,11 +15,13 @@ interface Achievement {
   photo: string;
   photoFocus: FocusPosition;
   badge: 'gold' | 'silver' | 'bronze' | '';
+  isKey?: boolean;
 }
 
 const EMPTY: Omit<Achievement, 'id'> = {
   name: '', achievement: '', event: '', year: '',
   photo: '', photoFocus: 'center center', badge: '',
+  isKey: false,
 };
 
 const BADGE_COLORS: Record<string, string> = {
@@ -67,6 +69,12 @@ export default function AchievementsAdminPage() {
   function deleteItem(id: string) {
     if (!confirm('Delete this achievement?')) return;
     const updated = items.filter((a) => a.id !== id);
+    setItems(updated);
+    save(updated);
+  }
+
+  function setKeyAchievement(id: string) {
+    const updated = items.map((a) => ({ ...a, isKey: a.id === id }));
     setItems(updated);
     save(updated);
   }
@@ -158,11 +166,32 @@ export default function AchievementsAdminPage() {
         onEdit={(item) => setEditing(item)}
         onDelete={deleteItem}
         renderItem={(item) => (
-          <div>
-            <div style={{ fontWeight: 600, fontSize: '0.88rem', color: '#2d3748' }}>{item.name}</div>
-            <div style={{ fontSize: '0.75rem', color: '#718096' }}>
-              {item.achievement}{item.event ? ` · ${item.event}` : ''}{item.year ? ` (${item.year})` : ''}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '0.88rem', color: '#2d3748' }}>{item.name}</div>
+              <div style={{ fontSize: '0.75rem', color: '#718096' }}>
+                {item.achievement}{item.event ? ` · ${item.event}` : ''}{item.year ? ` (${item.year})` : ''}
+              </div>
             </div>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setKeyAchievement(item.id); }}
+              style={{
+                marginLeft: 'auto',
+                padding: '3px 10px',
+                borderRadius: 6,
+                border: '1.5px solid',
+                cursor: 'pointer',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                background: item.isKey ? '#e9c349' : '#fff',
+                borderColor: item.isKey ? '#e9c349' : '#e2e8f0',
+                color: item.isKey ? '#241a00' : '#718096',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {item.isKey ? '★ Key Achievement' : '☆ Set as Key'}
+            </button>
           </div>
         )}
       />
