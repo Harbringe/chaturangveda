@@ -191,10 +191,29 @@ const websiteSchema = {
   },
 };
 
+const DEFAULT_PHRASES = [
+  "Strategic Thinking", "Grandmaster Curriculum", "FIDE-Rated Coaches",
+  "Tournament Champions", "Critical Thinkers", "Future Leaders",
+];
+
+const DEFAULT_HERO_STATS = [
+  { value: "2000+", label: "Students Trained" },
+  { value: "10+",   label: "Years Experience" },
+  { value: "10",    label: "FIDE-Rated Coaches" },
+  { value: "150+",  label: "Tournament Wins" },
+];
+
 export default async function Home() {
-  const [achievements, testimonials] = await Promise.all([
-    getContent<Array<{ name: string; achievement: string; event?: string; year?: string; photo?: string; badge?: string }>>('achievements', []),
+  const [achievements, testimonials, heroSettingsRaw] = await Promise.all([
+    getContent<Array<{ name: string; achievement: string; event?: string; year?: string; photo?: string; badge?: string; isKey?: boolean }>>('achievements', []),
     getContent<Array<{ parentName: string; childName?: string; quote: string; rating: number }>>('testimonials', []),
+    getContent<{
+      headline1?: string;
+      headline2?: string;
+      description?: string;
+      phrases?: string[];
+      stats?: Array<{ value: string; label: string }>;
+    } | null>('hero-settings', null),
   ]);
 
   const mappedAchievements = achievements.length > 0
@@ -205,6 +224,27 @@ export default async function Home() {
         image: a.photo ?? '',
         badge: a.badge ?? '',
       }))
+    : undefined;
+
+  const keyAch = achievements.find((a) => a.isKey);
+  const mappedKeyAchievement = keyAch
+    ? {
+        name: keyAch.name,
+        achievement: keyAch.achievement,
+        detail: [keyAch.event, keyAch.year].filter(Boolean).join(' · ') || keyAch.achievement,
+        image: keyAch.photo ?? '',
+        badge: keyAch.badge ?? '',
+      }
+    : undefined;
+
+  const heroSettings = heroSettingsRaw
+    ? {
+        headline1:   heroSettingsRaw.headline1,
+        headline2:   heroSettingsRaw.headline2,
+        description: heroSettingsRaw.description,
+        phrases:     heroSettingsRaw.phrases?.length ? heroSettingsRaw.phrases : DEFAULT_PHRASES,
+        stats:       heroSettingsRaw.stats?.length   ? heroSettingsRaw.stats   : DEFAULT_HERO_STATS,
+      }
     : undefined;
 
   const mappedTestimonials = testimonials.length > 0
@@ -224,7 +264,11 @@ export default async function Home() {
       <JsonLd data={websiteSchema} />
       <Navbar />
       <main>
-        <HeroSection achievements={mappedAchievements} />
+        <HeroSection
+          achievements={mappedAchievements}
+          keyAchievement={mappedKeyAchievement}
+          heroSettings={heroSettings}
+        />
         <AnimatedTextBanner />
         <StatsSection />
         <FeaturesSection />
