@@ -117,9 +117,6 @@ export default function Navbar() {
       </nav>
 
       <div className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ''}`}>
-        <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.navLinkActive : ''}`} onClick={() => setMobileOpen(false)}>
-          Home
-        </Link>
         <Link href="/services" className={`${styles.navLink} ${pathname === '/services' ? styles.navLinkActive : ''}`} onClick={() => setMobileOpen(false)}>
           Services
         </Link>
