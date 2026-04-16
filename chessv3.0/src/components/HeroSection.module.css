@@ -6,7 +6,7 @@
   min-height: 700px;
   display: flex;
   align-items: flex-start;
-  overflow: hidden;
+  overflow: clip;
   background: var(--surface);
 }
 
@@ -549,6 +549,24 @@
   border-radius: 2px;
   display: block;
   flex-shrink: 0;
+}
+
+/* Short viewport: reduce top padding so CTA buttons are never clipped */
+@media (max-height: 720px) {
+  .heroLayout {
+    padding-top: 80px;
+    gap: 32px;
+  }
+}
+
+@media (max-height: 600px) {
+  .heroLayout {
+    padding-top: 72px;
+    gap: 20px;
+  }
+  .heroVisual {
+    display: none;
+  }
 }
 
 /* ── Large desktop / TV ───────────────────────────────── */
