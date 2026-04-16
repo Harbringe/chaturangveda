@@ -29,6 +29,7 @@ export default function Navbar() {
   }, []);
 
   const links = [
+    { label: 'Home', href: '/' },
     { label: 'Coaches', href: '/coaches' },
     { label: 'Curriculum', href: '/curriculum' },
     { label: 'Blog', href: '/blogs' },
@@ -99,9 +100,9 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className={`btn-primary ${styles.navCTA}`}>
+              <Link href="/book-free-trial" className={`btn-primary ${styles.navCTA}`}>
                 Book Free Trial
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -133,9 +134,9 @@ export default function Navbar() {
         <a href={LMS_URL} target="_blank" rel="noopener noreferrer" className={styles.lmsBtn} onClick={() => setMobileOpen(false)}>
           Student Login
         </a>
-        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
+        <Link href="/book-free-trial" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
           Book Free Trial
-        </a>
+        </Link>
       </div>
     </>
   );
