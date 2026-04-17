@@ -151,7 +151,7 @@ const localBusinessSchema = {
   sameAs: ['https://wa.me/917569194709'],
   priceRange: '₹₹',
   currenciesAccepted: 'INR',
-  paymentAccepted: 'Cash, Credit Card, Razorpay',
+  paymentAccepted: 'Cash, Credit Card, Bank Transfer',
 };
 
 export default function ContactPage() {

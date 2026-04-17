@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { FaUser, FaMobileAlt, FaEnvelope, FaChessKnight, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaUser, FaMobileAlt, FaEnvelope, FaWhatsapp, FaCheck, FaTimes } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
@@ -96,11 +96,7 @@ interface EnrollForm {
 
 type ModalStatus = 'idle' | 'loading' | 'success' | 'error';
 
-declare global {
-  interface Window {
-    Razorpay: new (options: Record<string, unknown>) => { open(): void };
-  }
-}
+const WA_NUMBER = '917569194709';
 
 function formatINR(amount: number) {
   return '₹' + amount.toLocaleString('en-IN');
@@ -118,17 +114,6 @@ export default function EnrollPage() {
   const [form, setForm] = useState<EnrollForm>({ name: '', email: '', phone: '' });
   const [errors, setErrors] = useState<Partial<EnrollForm>>({});
   const [modalStatus, setModalStatus] = useState<ModalStatus>('idle');
-  const [razorpayReady, setRazorpayReady] = useState(false);
-
-  // Load Razorpay checkout script
-  useEffect(() => {
-    if (document.getElementById('razorpay-script')) { setRazorpayReady(true); return; }
-    const script = document.createElement('script');
-    script.id = 'razorpay-script';
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onload = () => setRazorpayReady(true);
-    document.body.appendChild(script);
-  }, []);
 
   const closeModal = useCallback(() => {
     setSelectedCourse(null);
@@ -162,92 +147,29 @@ export default function EnrollPage() {
     }
   };
 
-  const handleEnroll = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEnroll = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     if (!selectedCourse) return;
 
-    setModalStatus('loading');
-
     const price = selectedCourse.pricing[classType][sessionsPerWeek];
-    const orderPayload = {
-      amount: price * 100, // paise
-      currency: 'INR',
-      receipt: `enroll_${selectedCourse.id}_${Date.now()}`,
-      notes: {
-        course: selectedCourse.title,
-        classType,
-        sessionsPerWeek,
-        studentName: form.name,
-        studentEmail: form.email,
-        studentPhone: form.phone,
-      },
-    };
+    const classLabel = classType === 'individual' ? 'Individual (1-on-1)' : 'Group (4–6 Students)';
+    const msg = [
+      `Hi! I'd like to enroll in the *${selectedCourse.title}* course.`,
+      ``,
+      `• Class type: ${classLabel}`,
+      `• Sessions: ${sessionsPerWeek}× per week`,
+      `• Duration: ${selectedCourse.duration}`,
+      `• Price: ${formatINR(price)}`,
+      ``,
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone}`,
+    ].join('\n');
 
-    let orderId: string;
-    try {
-      const res = await fetch('/api/enroll', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderPayload),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Order creation failed');
-      orderId = data.id;
-    } catch {
-      setModalStatus('error');
-      return;
-    }
-
-    if (!razorpayReady) { setModalStatus('error'); return; }
-
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: price * 100,
-      currency: 'INR',
-      name: 'Chaturangveda',
-      description: `${selectedCourse.title} · ${classType === 'individual' ? 'Individual' : 'Group'} · ${sessionsPerWeek}×/week`,
-      image: '/logo.png',
-      order_id: orderId,
-      handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }) => {
-        try {
-          const vres = await fetch('/api/enroll/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              ...response,
-              studentName: form.name,
-              studentEmail: form.email,
-              studentPhone: form.phone,
-              course: selectedCourse.title,
-              classType,
-              sessionsPerWeek,
-              amount: price,
-            }),
-          });
-          if (!vres.ok) throw new Error('Verification failed');
-          setModalStatus('success');
-        } catch {
-          setModalStatus('error');
-        }
-      },
-      prefill: {
-        name: form.name,
-        email: form.email,
-        contact: form.phone,
-      },
-      theme: { color: '#1565C0' },
-      modal: {
-        ondismiss: () => {
-          if (modalStatus === 'loading') setModalStatus('idle');
-        },
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-    setModalStatus('idle');
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+    setModalStatus('success');
   };
 
   const selectedPrice = selectedCourse
@@ -379,10 +301,9 @@ export default function EnrollPage() {
             {modalStatus === 'success' ? (
               <div className={styles.successState}>
                 <div className={styles.successIcon}>✓</div>
-                <h2 className={styles.successTitle}>Enrollment Confirmed!</h2>
+                <h2 className={styles.successTitle}>WhatsApp Opened!</h2>
                 <p className={styles.successText}>
-                  Welcome to Chaturangveda! A confirmation has been sent to <strong>{form.email}</strong>.
-                  Our team will reach out within 24 hours to schedule your first session.
+                  Your enquiry details have been pre-filled in WhatsApp. Send the message and our team will get back to you within a few hours to confirm enrollment and share payment details.
                 </p>
                 <button className={styles.successBtn} onClick={closeModal}>Done</button>
               </div>
@@ -446,26 +367,15 @@ export default function EnrollPage() {
                     {errors.phone && <span className={styles.errMsg}>{errors.phone}</span>}
                   </div>
 
-                  {modalStatus === 'error' && (
-                    <div className={styles.errBanner}>
-                      Payment failed or could not be verified. Please try again or contact us on WhatsApp.
-                    </div>
-                  )}
-
                   <button
                     type="submit"
                     className={styles.payBtn}
-                    disabled={modalStatus === 'loading'}
                   >
-                    {modalStatus === 'loading' ? (
-                      <><span className={styles.spinner} /> Processing…</>
-                    ) : (
-                      <><FaChessKnight /> Pay {formatINR(selectedPrice)} via Razorpay</>
-                    )}
+                    <FaWhatsapp /> Enquire via WhatsApp
                   </button>
 
                   <p className={styles.modalFootNote}>
-                    Secured by Razorpay · UPI, cards, net banking accepted · GST applicable
+                    We&apos;ll confirm your slot and share payment details over WhatsApp within a few hours.
                   </p>
                 </form>
               </>
