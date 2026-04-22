@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,7 +45,7 @@ const FALLBACK_ACHIEVEMENTS = [
   {
     name: "Samanvith",
     achievement: "State Championship Winner",
-    detail: "Youngest champion · Age 9",
+    detail: "Youngest champion · Age 8",
     image: "/images/2025/01/Samanvith-e1738320920340.png",
     badge: "🏆 State",
   },
@@ -62,6 +62,54 @@ const FALLBACK_ACHIEVEMENTS = [
     detail: "Rapid improvement · 6 months",
     image: "/images/2025/01/ANISH-e1738320951137.png",
     badge: "🥇 District",
+  },
+];
+
+/* Per-champion enrichment: overline, reel tag, quote, 4 stats */
+const CHAMP_ENRICHMENT = [
+  {
+    overline: "Our biggest achievement —",
+    reelTag: "NATIONAL",
+    quote: "Chess taught me to think three moves ahead — in school, in life, everywhere.",
+    reelStats: [
+      { n: "150+", l: "Total Wins" },
+      { n: "9+",   l: "Countries" },
+      { n: "1642", l: "FIDE Rating" },
+      { n: "U-11", l: "Age Group" },
+    ],
+  },
+  {
+    overline: "State champion at",
+    reelTag: "GOLD",
+    quote: "I want to be the youngest Grandmaster from my state — Coach says I'm on track.",
+    reelStats: [
+      { n: "42",    l: "Match Wins" },
+      { n: "Age 8", l: "Youngest" },
+      { n: "1510",  l: "Rating" },
+      { n: "STATE", l: "Champion" },
+    ],
+  },
+  {
+    overline: "Rising from Telangana,",
+    reelTag: "TOP 3",
+    quote: "My coach says I play like I've been doing this for years.",
+    reelStats: [
+      { n: "Top 3", l: "Podium" },
+      { n: "8 mo",  l: "Training" },
+      { n: "U-9",   l: "Division" },
+      { n: "980",   l: "Rating" },
+    ],
+  },
+  {
+    overline: "In just 6 months,",
+    reelTag: "GOLD",
+    quote: "From beginner to gold in six months. One coach. Thousands of hours.",
+    reelStats: [
+      { n: "GOLD",   l: "District" },
+      { n: "6 mo",   l: "Arc" },
+      { n: "Age 10", l: "Year" },
+      { n: "1220",   l: "Rating" },
+    ],
   },
 ];
 
@@ -97,10 +145,11 @@ export default function HeroSection({
   );
   const activePhrases = heroSettings?.phrases ?? rotatingPhrases;
   const activeStats   = heroSettings?.stats   ?? stats;
-  const headline1     = heroSettings?.headline1 ?? 'Master Chess.';
-  const headline2     = heroSettings?.headline2 ?? 'Master Life.';
+  const headline1     = heroSettings?.headline1 ?? "Master Chess.";
+  const headline2     = heroSettings?.headline2 ?? "Master Life.";
   const description   = heroSettings?.description ??
     "Expert chess coaching for kids by FIDE-rated coaches. From your child\u2019s first move to tournament glory \u2014 online classes for students across India, USA, UK, Australia, UAE, Netherlands and beyond.";
+
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
@@ -109,6 +158,44 @@ export default function HeroSection({
     }, 2500);
     return () => clearInterval(interval);
   }, [activePhrases.length]);
+
+  /* ── Champion Reel state ── */
+  const allChamps = [featuredAchievement, ...otherAchievements].slice(0, 4);
+  const champData = allChamps.map((ach, i) => {
+    const enrich = CHAMP_ENRICHMENT[i] ?? CHAMP_ENRICHMENT[0];
+    return {
+      ...ach,
+      initials: ach.name.slice(0, 2).toUpperCase(),
+      overline: enrich.overline,
+      reelTag: enrich.reelTag,
+      quote: enrich.quote,
+      reelStats: enrich.reelStats,
+    };
+  });
+
+  const [champIdx, setChampIdx] = useState(0);
+  const loopRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback((n: number) => {
+    setChampIdx(n);
+  }, []);
+
+  const restartLoop = useCallback(() => {
+    if (loopRef.current) clearInterval(loopRef.current);
+    loopRef.current = setInterval(() => {
+      setChampIdx((prev) => (prev + 1) % champData.length);
+    }, 5000);
+  }, [champData.length]);
+
+  useEffect(() => {
+    restartLoop();
+    return () => { if (loopRef.current) clearInterval(loopRef.current); };
+  }, [restartLoop]);
+
+  const champ = champData[champIdx];
+
+  /* Ticker items: all achievements looped */
+  const tickerAchs = [...studentAchievements, ...studentAchievements];
 
   return (
     <section id="hero" className={styles.hero}>
@@ -183,6 +270,7 @@ export default function HeroSection({
       </div>
 
       <div className={styles.heroLayout}>
+        {/* ── LEFT: Headline + CTAs + Stats ── */}
         <div className={styles.heroContent}>
           <motion.div
             className={styles.badge}
@@ -239,10 +327,7 @@ export default function HeroSection({
             <motion.a
               href="/book-free-trial"
               className="btn-primary"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 8px 30px rgba(21,101,192,0.4)",
-              }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(21,101,192,0.4)" }}
               whileTap={{ scale: 0.97 }}
             >
               Book Free Trial →
@@ -274,106 +359,219 @@ export default function HeroSection({
           </motion.div>
         </div>
 
+        {/* ── RIGHT: Champion Reel V6 ── */}
         <motion.div
           className={styles.heroVisual}
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Editorial Key Achievement Card */}
-          <div className={styles.editorialCard}>
-            <div className={styles.editorialTop}>
-              <div className={styles.editorialEyebrow}>⭐ Key Achievement</div>
-              <div className={styles.editorialInner}>
-                <div className={styles.editorialPhoto}>
-                  {featuredAchievement.image ? (
-                    <Image
-                      src={featuredAchievement.image}
-                      alt={featuredAchievement.name}
-                      fill
-                      style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                      sizes="56px"
-                    />
-                  ) : (
-                    <div className={styles.editorialPhotoPlaceholder}>♟</div>
-                  )}
-                </div>
-                <div className={styles.editorialInfo}>
-                  <div className={styles.editorialName}>{featuredAchievement.name}</div>
-                  <div className={styles.editorialAch}>{featuredAchievement.badge} {featuredAchievement.achievement}</div>
-                  <div className={styles.editorialDetail}>{featuredAchievement.detail}</div>
+          {/* ── V6 Champion Reel Card ── */}
+          <div className={styles.v6Stage}>
+
+            {/* ── LEFT panel: navy blue portrait ── */}
+            <div className={styles.v6Left}>
+              {/* chess grid is ::before pseudo on v6Left — no div needed */}
+
+              {/* top label */}
+              <div className={styles.v6Label}>
+                <span className={styles.v6Bar} />
+                <span>2025 SEASON · REEL {String(champIdx + 1).padStart(2, "0")}/{String(champData.length).padStart(2, "0")}</span>
+              </div>
+
+              {/* portrait */}
+              <div className={styles.v6Portrait}>
+                {/* stripe SVG background */}
+                <svg className={styles.v6PortraitBg} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+                  <defs>
+                    <pattern id="reel-stripe" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                      <rect width="10" height="10" fill="#dfe8f7" />
+                      <rect width="3.5" height="10" fill="#c6d5ee" />
+                    </pattern>
+                    <radialGradient id="reel-grad" cx="50%" cy="45%" r="70%">
+                      <stop offset="0%" stopColor="#eef4ff" />
+                      <stop offset="100%" stopColor="#c6d5ee" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="100" height="100" fill="url(#reel-grad)" />
+                  <rect width="100" height="100" fill="url(#reel-stripe)" opacity="0.7" />
+                </svg>
+
+                {/* photo or initials — dark overlay + shimmer sweep are ::after/::before pseudos */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={champIdx + "-portrait"}
+                    style={{ position: "absolute", inset: 0, zIndex: 1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {champ.image ? (
+                      <Image
+                        src={champ.image}
+                        alt={champ.name}
+                        fill
+                        style={{ objectFit: "cover", objectPosition: "center top" }}
+                        sizes="300px"
+                      />
+                    ) : (
+                      <>
+                        <span className={styles.v6Ini}>{champ.initials}</span>
+                        <span className={styles.v6Note}>PHOTO PLACEHOLDER</span>
+                      </>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* medal bar */}
+                <div className={styles.v6MedalBar}>
+                  <div className={styles.v6MedalCircle}>
+                    {champIdx === 0 ? "I" : champIdx === 1 ? "II" : champIdx === 2 ? "III" : "IV"}
+                  </div>
+                  <div className={styles.v6MedalText}>
+                    {champ.achievement}
+                    <small>{champ.detail}</small>
+                  </div>
+                  <div className={styles.v6Live}>Live</div>
                 </div>
               </div>
+
+              {/* quote */}
+              <AnimatePresence mode="wait">
+                <motion.blockquote
+                  key={champIdx + "-quote"}
+                  className={styles.v6Quote}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  &ldquo;{champ.quote}&rdquo;
+                </motion.blockquote>
+              </AnimatePresence>
             </div>
-            <div className={styles.editorialBottom}>
-              <div className={styles.editorialMiniStats}>
-                <div className={styles.editorialMiniStat}>
-                  <span className={styles.editorialMiniStatVal}>150+</span>
-                  <span className={styles.editorialMiniStatLbl}>Total Wins</span>
+
+            {/* ── RIGHT panel: white editorial ── */}
+            <div className={styles.v6Right}>
+              <div>
+                {/* issue header */}
+                <div className={styles.v6Issue}>
+                  <span>VOL. 10 · ISSUE {String(champIdx + 1).padStart(2, "0")}</span>
+                  <span className={styles.v6Key}>KEY ACHIEVEMENT</span>
                 </div>
-                <div className={styles.editorialMiniStat}>
-                  <span className={styles.editorialMiniStatVal}>9+</span>
-                  <span className={styles.editorialMiniStatLbl}>Countries</span>
+
+                {/* name block */}
+                <div className={styles.v6NameBlock}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={champIdx + "-overline"}
+                      className={styles.v6Overline}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      {champ.overline}
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <AnimatePresence mode="wait">
+                    <motion.h2
+                      key={champIdx + "-name"}
+                      className={styles.v6Name}
+                      initial={{ y: 24, opacity: 0, skewY: -3 }}
+                      animate={{ y: 0, opacity: 1, skewY: 0 }}
+                      exit={{ y: -20, opacity: 0, skewY: 3 }}
+                      transition={{ duration: 0.4, ease: [0.2, 0.9, 0.3, 1.1] }}
+                    >
+                      {champ.name}
+                      <span className={styles.v6NameDot}>.</span>
+                    </motion.h2>
+                  </AnimatePresence>
                 </div>
+
+                {/* achievement line */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={champIdx + "-ach"}
+                    className={styles.v6AchLine}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className={styles.v6Award}>
+                      <span className={styles.v6Tag}>{champ.reelTag}</span>
+                      {champ.achievement}
+                    </div>
+                    <div className={styles.v6Sub}>{champ.detail}</div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <Link href="/blogs" className={styles.editorialReadBtn}>
-                Read Stories →
-              </Link>
-            </div>
-          </div>
 
-          {/* More Achievements panel */}
-          <div className={styles.coachPanel}>
-            <div className={styles.coachPanelHeader}>
-              <span className={styles.coachPanelTitle}>More Achievements</span>
-              <Link href="/blogs" className={styles.coachPanelLink}>
-                View all →
-              </Link>
-            </div>
+              <div>
+                {/* 4-stat grid */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={champIdx + "-stats"}
+                    className={styles.v6StatGrid}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {champ.reelStats.map((s) => (
+                      <div key={s.l} className={styles.v6StatCell}>
+                        <div className={styles.v6StatNum}>{s.n}</div>
+                        <div className={styles.v6StatLbl}>{s.l}</div>
+                      </div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
 
-            {otherAchievements.map((s, i) => (
-              <motion.div
-                key={s.name}
-                className={styles.coachRow}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
-              >
-                <div className={styles.coachAvatar}>
-                  <Image
-                    src={s.image}
-                    alt={s.name}
-                    fill
-                    style={{ objectFit: "cover", objectPosition: "center top" }}
-                    sizes="40px"
-                  />
-                </div>
-                <div className={styles.coachRowInfo}>
-                  <div className={styles.coachRowName}>{s.name}</div>
-                  <div className={styles.coachRowRole}>{s.achievement}</div>
-                  <div className={styles.coachRowTags}>
-                    <span className={styles.coachRowTag}>{s.badge}</span>
-                    <span className={styles.coachRowTag}>{s.detail}</span>
+                {/* footer: CTA + nav dots */}
+                <div className={styles.v6Foot}>
+                  <Link href="/blogs" className={styles.v6Cta}>
+                    Read full story →
+                  </Link>
+                  <div className={styles.v6DotsRow}>
+                    {champData.map((_, i) => (
+                      <button
+                        key={i}
+                        className={`${styles.v6NavDot} ${i === champIdx ? styles.v6NavDotOn : ""}`}
+                        onClick={() => { goTo(i); restartLoop(); }}
+                        aria-label={`Champion ${i + 1}`}
+                      />
+                    ))}
+                    <span className={styles.v6DotCount}>
+                      {String(champIdx + 1).padStart(2, "0")} / {String(champData.length).padStart(2, "0")}
+                    </span>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </div>
           </div>
 
-          {/* Stats strip */}
-          <div className={styles.statsStrip}>
-            {[
-              { val: "150+", label: "Tournament Wins" },
-              { val: "2000+", label: "Students" },
-              { val: "10", label: "Coaches" },
-              { val: "9+", label: "Countries" },
-            ].map((s, i, arr) => (
-              <div key={s.label} className={styles.stripItem}>
-                <span className={styles.stripVal}>{s.val}</span>
-                <span className={styles.stripLabel}>{s.label}</span>
-                {i < arr.length - 1 && <div className={styles.stripDivider} />}
-              </div>
-            ))}
+          {/* ── More Achievements ticker ── */}
+          <div className={styles.moreHead}>
+            <span className={styles.moreTitle}>More Achievements</span>
+            <Link href="/blogs" className={styles.moreLink}>View all →</Link>
+          </div>
+          <div className={styles.ticker}>
+            <div className={styles.tickerTrack}>
+              {tickerAchs.map((a, i) => (
+                <div key={i} className={styles.mini}>
+                  <div className={styles.miniAva}>{a.name.slice(0, 2).toUpperCase()}</div>
+                  <div className={styles.miniInfo}>
+                    <div className={styles.miniName}>{a.name}</div>
+                    <div className={styles.miniAch}>
+                      {a.achievement} · <span className={styles.miniTag}>{a.badge}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Country flags */}
