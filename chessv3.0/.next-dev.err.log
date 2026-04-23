@@ -1,0 +1,9 @@
+⚠ Port 3000 is in use by process 34668, using available port 3001 instead.
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          34668
+- Dir:          E:\chaturangaveda\chessv3.0
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 34668 /F to stop it.

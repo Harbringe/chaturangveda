@@ -66,6 +66,7 @@ interface Form {
   message: string;
 }
 type Errors = Partial<Record<keyof Form, string>>;
+type Status = 'idle' | 'loading' | 'error';
 
 const WHATSAPP_NUMBER = '917569194709';
 
@@ -83,6 +84,7 @@ export default function BookFreeTrial() {
   });
   const [errors, setErrors] = useState<Errors>({});
   const [levelOpen, setLevelOpen] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
   const levelRef = useRef<HTMLDivElement>(null);
 
   // Close level dropdown on outside click
@@ -122,7 +124,7 @@ export default function BookFreeTrial() {
     return e;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
@@ -133,7 +135,27 @@ export default function BookFreeTrial() {
     const countryEntry = countryCodes.find((c) => c.dial === form.countryCode);
     const country = countryEntry ? countryEntry.code : '';
 
-    window.open(buildBookingUrl(form.parentName.trim(), form.email.trim(), fullPhone, country), '_blank');
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          parentName: form.parentName.trim(),
+          childName: form.childName.trim(),
+          email: form.email.trim(),
+          phone: fullPhone,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed');
+
+      setStatus('idle');
+      window.open(buildBookingUrl(form.parentName.trim(), form.email.trim(), fullPhone, country), '_blank');
+    } catch {
+      setStatus('error');
+    }
   };
 
   // WhatsApp fallback
@@ -367,8 +389,18 @@ export default function BookFreeTrial() {
               />
             </div>
 
-            <button type="submit" className={styles.submitBtn}>
-              Open Booking Calendar →
+            {status === 'error' && (
+              <div className={styles.errorBanner}>
+                We could not send the details by email. Please try again or use WhatsApp instead.
+              </div>
+            )}
+
+            <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
+              {status === 'loading' ? (
+                <><span className={styles.spinner} /> Sending Details...</>
+              ) : (
+                <>Open Booking Calendar →</>
+              )}
             </button>
 
             <div className={styles.orDivider}>or</div>

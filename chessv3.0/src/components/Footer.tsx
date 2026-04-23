@@ -54,7 +54,7 @@ export default function Footer() {
               <a href="https://wa.me/+917569194709" className={styles.socialLink} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                 <FaWhatsapp />
               </a>
-              <a href="#" className={styles.socialLink} aria-label="Instagram">
+              <a href="https://www.instagram.com/chaturangvedamanojreddy" className={styles.socialLink} aria-label="Instagram">
                 <FaInstagram />
               </a>
               <a href="#" className={styles.socialLink} aria-label="YouTube">
