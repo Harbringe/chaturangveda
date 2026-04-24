@@ -1,7 +1,13 @@
 'use client';
 
+// ── PLACEHOLDER MODE ──────────────────────────────────────────────────────────
+// Pricing calculator, per-card pricing, and enroll modal are hidden.
+// To restore: remove the PLACEHOLDER blocks and uncomment the ORIGINAL blocks.
+// Search for "PLACEHOLDER" and "ORIGINAL" to find all affected spots.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/* ORIGINAL IMPORTS (uncomment when restoring full flow)
 import { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
 import { FaUser, FaEnvelope, FaWhatsapp, FaTimes } from 'react-icons/fa';
 
 const countryCodes = [
@@ -21,6 +27,10 @@ const countryCodes = [
   { code: 'LK', dial: '+94',  label: 'LK +94'  },
   { code: 'NP', dial: '+977', label: 'NP +977' },
 ];
+*/
+
+import Link from 'next/link';
+import { FaWhatsapp } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
@@ -116,6 +126,7 @@ const levels = [
   },
 ];
 
+/* ORIGINAL TYPES & HELPERS (uncomment when restoring full flow)
 type ClassType = 'individual' | 'group';
 type SessionsPerWeek = 2 | 3;
 
@@ -128,14 +139,12 @@ interface EnrollForm {
 
 type ModalStatus = 'idle' | 'loading' | 'success' | 'error';
 
-const WA_NUMBER = '917569194709';
-
 function formatINR(amount: number) {
   return '₹' + amount.toLocaleString('en-IN');
 }
 
 function computePrice(level: typeof levels[0], classType: ClassType, spw: SessionsPerWeek) {
-  const baseSessions = level.monthsDuration * 4 * 2; // 2×/week baseline
+  const baseSessions = level.monthsDuration * 4 * 2;
   const sessions = baseSessions * (spw / 2);
   return Math.round(sessions * level.perSessionRate[classType]);
 }
@@ -143,8 +152,12 @@ function computePrice(level: typeof levels[0], classType: ClassType, spw: Sessio
 function sessionCount(level: typeof levels[0], spw: SessionsPerWeek) {
   return level.monthsDuration * 4 * spw;
 }
+*/
+
+const WA_NUMBER = '917569194709';
 
 export default function CurriculumPage() {
+  /* ORIGINAL STATE (uncomment when restoring full flow)
   const [classType, setClassType] = useState<ClassType | null>(null);
   const [sessionsPerWeek, setSessionsPerWeek] = useState<SessionsPerWeek | null>(null);
   const priceConfigured = classType !== null && sessionsPerWeek !== null;
@@ -209,6 +222,7 @@ export default function CurriculumPage() {
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
     setModalStatus('success');
   };
+  */
 
   return (
     <div className={styles.page}>
@@ -219,12 +233,12 @@ export default function CurriculumPage() {
         <h1 className={styles.heroTitle}>Structured Path From Beginner to Champion</h1>
         <p className={styles.heroSub}>
           Designed by FIDE-rated coaches — five progressive levels from your first move to international tournament play.
-          Choose your level, pick your schedule, and enroll directly below.
+          Choose your level and reach out to us for pricing and enrollment details.
         </p>
       </section>
 
-      {/* ─── Pricing Calculator ─── */}
-      {/* <div className={styles.pricingCalc}>
+      {/* ── ORIGINAL: Pricing Calculator — uncomment to restore ──────────────────
+      <div className={styles.pricingCalc}>
         <div className={styles.pricingCalcInner}>
           <div className={styles.pricingCalcHeading}>Configure Your Plan</div>
           <p className={styles.pricingCalcSub}>Choose your class type and session frequency to see pricing on each level below.</p>
@@ -262,7 +276,8 @@ export default function CurriculumPage() {
             <p className={styles.calcHint}>↓ Pricing will appear on each level card once you make your selection</p>
           )}
         </div>
-      </div> */}
+      </div>
+      ── END ORIGINAL: Pricing Calculator ────────────────────────────────────── */}
 
       {/* ─── Level Cards ─── */}
       <div className={styles.levelsSection}>
@@ -275,8 +290,10 @@ export default function CurriculumPage() {
 
         <div className={styles.levelsGrid}>
           {levels.map((level) => {
-            const price = priceConfigured ? computePrice(level, classType!, sessionsPerWeek!) : null;
-            const sessions = priceConfigured ? sessionCount(level, sessionsPerWeek!) : level.monthsDuration * 4 * 2;
+            const sessions = level.monthsDuration * 4 * 2;
+            const waMsg = encodeURIComponent(
+              `Hi! I'm interested in *${level.title}* (${level.subtitle}) at Chaturangveda. Could you share pricing and enrollment details?`
+            );
             return (
               <div key={level.num} className={styles.levelCard}>
                 <div className={styles.levelHeader}>
@@ -304,34 +321,46 @@ export default function CurriculumPage() {
                   {level.outcome}
                 </div>
 
+                {/* ── PLACEHOLDER: contact prompt — remove this block to restore pricing ── */}
+                <div className={styles.pricePlaceholder}>
+                  Contact us for pricing &amp; enrollment details
+                </div>
+                <a
+                  href={`https://wa.me/${WA_NUMBER}?text=${waMsg}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.enrollBtn}
+                >
+                  <FaWhatsapp style={{ marginRight: 6, verticalAlign: 'middle' }} />
+                  Contact Us for Details
+                </a>
+                {/* ── END PLACEHOLDER ── */}
+
+                {/* ── ORIGINAL: per-card pricing + enroll button — uncomment to restore ──
                 {priceConfigured && price !== null ? (
                   <div className={styles.cardPricing}>
                     <div className={styles.priceRow}>
-                      {/* <span className={styles.priceAmount}>{formatINR(price)}</span> */}
-                      <span className={styles.priceAmount}>{"TBD"}</span>
+                      <span className={styles.priceAmount}>{formatINR(computePrice(level, classType!, sessionsPerWeek!))}</span>
                       <span className={styles.pricePeriod}>for {level.monthsDuration} months</span>
                     </div>
                     <div className={styles.priceMeta}>
-                      <span>{sessions} sessions · {sessionsPerWeek}×/week</span>
-                      {/* <span className={styles.pricePerSession}>{formatINR(Math.round(price / sessions))}/session</span> */}
-                      <span className={styles.pricePerSession}>{"TBD"}</span>
-                      
+                      <span>{sessionCount(level, sessionsPerWeek!)} sessions · {sessionsPerWeek}×/week</span>
+                      <span className={styles.pricePerSession}>{formatINR(Math.round(computePrice(level, classType!, sessionsPerWeek!) / sessionCount(level, sessionsPerWeek!)))}/session</span>
                     </div>
                   </div>
                 ) : (
                   <div className={styles.pricePlaceholder}>
-                    {/* Select your plan above to see pricing */}
-                    Contact Us for pricing details
+                    Select your plan above to see pricing
                   </div>
                 )}
-
-                {/* <button
+                <button
                   className={styles.enrollBtn}
                   onClick={() => setSelectedLevel(level)}
                   disabled={!priceConfigured}
                 >
                   {priceConfigured ? `Enroll in ${level.title} →` : 'Configure plan to enroll'}
-                </button> */}
+                </button>
+                ── END ORIGINAL: per-card pricing + enroll button ── */}
               </div>
             );
           })}
@@ -373,7 +402,7 @@ export default function CurriculumPage() {
         </div>
       </section>
 
-      {/* ─── Enrollment Modal ─── */}
+      {/* ── ORIGINAL: Enrollment Modal — uncomment to restore ───────────────────
       {selectedLevel && (
         <div
           className={styles.overlay}
@@ -479,7 +508,7 @@ export default function CurriculumPage() {
                   </button>
 
                   <p className={styles.modalFootNote}>
-                    We&apos;ll confirm your slot and share payment details over WhatsApp within a few hours.
+                    We'll confirm your slot and share payment details over WhatsApp within a few hours.
                   </p>
                 </form>
               </>
@@ -487,6 +516,7 @@ export default function CurriculumPage() {
           </div>
         </div>
       )}
+      ── END ORIGINAL: Enrollment Modal ────────────────────────────────────── */}
 
       <Footer />
     </div>
