@@ -5,7 +5,18 @@ let pool: Pool | null = null;
 export function getDb(): Pool {
   if (!pool) {
     if (!process.env.DB_CONN) {
+      console.error('DB_CONN missing in runtime');
       throw new Error('DB_CONN environment variable is not set. Check .env.local.');
+    }
+    try {
+      const dbUrl = new URL(process.env.DB_CONN);
+      console.log('Creating MySQL pool', {
+        host: dbUrl.hostname,
+        database: dbUrl.pathname.replace(/^\//, ''),
+        user: dbUrl.username,
+      });
+    } catch (error) {
+      console.error('Failed to parse DB_CONN', error);
     }
     pool = mysql.createPool({
       uri: process.env.DB_CONN,

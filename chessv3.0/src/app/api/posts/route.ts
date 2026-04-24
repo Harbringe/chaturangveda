@@ -6,16 +6,37 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
+    console.log('api/posts start');
+    console.log('DB_CONN exists:', Boolean(process.env.DB_CONN));
+    if (process.env.DB_CONN) {
+      try {
+        const dbUrl = new URL(process.env.DB_CONN);
+        console.log('api/posts DB target', {
+          host: dbUrl.hostname,
+          database: dbUrl.pathname.replace(/^\//, ''),
+          user: dbUrl.username,
+        });
+      } catch (error) {
+        console.error('api/posts could not parse DB_CONN', error);
+      }
+    }
+
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get('limit') ?? '0', 10);
     const offset = parseInt(searchParams.get('offset') ?? '0', 10);
+    console.log('api/posts params', { limit, offset });
 
     const db = getDb();
+    console.log('api/posts db pool ready');
+
+    console.log('api/posts before count query');
     const [countRows] = await db.query<RowDataPacket[]>(
       'SELECT COUNT(*) as count FROM posts WHERE published = 1'
     );
+    console.log('api/posts after count query', countRows[0]);
     const total = parseInt(String(countRows[0].count), 10);
 
+    console.log('api/posts before posts query');
     const [rows] =
       limit > 0
         ? await db.query<RowDataPacket[]>(
@@ -25,12 +46,21 @@ export async function GET(req: NextRequest) {
         : await db.query<RowDataPacket[]>(
             'SELECT * FROM posts ORDER BY ISNULL(date), date DESC'
           );
+    console.log('api/posts after posts query', { rowCount: rows.length, total });
 
     return NextResponse.json({ posts: rows.map(rowToPost), total });
   } catch (error) {
     console.error('Failed to load posts', error);
+    if (error instanceof Error) {
+      console.error('Failed to load posts message:', error.message);
+      console.error('Failed to load posts stack:', error.stack);
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { error: 'Failed to load posts' },
+      { error: String(error) },
       { status: 500 }
     );
   }
