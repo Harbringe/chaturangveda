@@ -5,27 +5,35 @@ import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const limit = parseInt(searchParams.get('limit') ?? '0', 10);
-  const offset = parseInt(searchParams.get('offset') ?? '0', 10);
+  try {
+    const { searchParams } = new URL(req.url);
+    const limit = parseInt(searchParams.get('limit') ?? '0', 10);
+    const offset = parseInt(searchParams.get('offset') ?? '0', 10);
 
-  const db = getDb();
-  const [countRows] = await db.query<RowDataPacket[]>(
-    'SELECT COUNT(*) as count FROM posts WHERE published = 1'
-  );
-  const total = parseInt(String(countRows[0].count), 10);
+    const db = getDb();
+    const [countRows] = await db.query<RowDataPacket[]>(
+      'SELECT COUNT(*) as count FROM posts WHERE published = 1'
+    );
+    const total = parseInt(String(countRows[0].count), 10);
 
-  const [rows] =
-    limit > 0
-      ? await db.query<RowDataPacket[]>(
-          'SELECT * FROM posts WHERE published = 1 ORDER BY ISNULL(date), date DESC LIMIT ? OFFSET ?',
-          [limit, offset]
-        )
-      : await db.query<RowDataPacket[]>(
-          'SELECT * FROM posts ORDER BY ISNULL(date), date DESC'
-        );
+    const [rows] =
+      limit > 0
+        ? await db.query<RowDataPacket[]>(
+            'SELECT * FROM posts WHERE published = 1 ORDER BY ISNULL(date), date DESC LIMIT ? OFFSET ?',
+            [limit, offset]
+          )
+        : await db.query<RowDataPacket[]>(
+            'SELECT * FROM posts ORDER BY ISNULL(date), date DESC'
+          );
 
-  return NextResponse.json({ posts: rows.map(rowToPost), total });
+    return NextResponse.json({ posts: rows.map(rowToPost), total });
+  } catch (error) {
+    console.error('Failed to load posts', error);
+    return NextResponse.json(
+      { error: 'Failed to load posts' },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req: NextRequest) {

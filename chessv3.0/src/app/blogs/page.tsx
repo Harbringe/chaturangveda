@@ -72,33 +72,61 @@ export default function BlogsPage() {
   const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
-    Promise.all([
-      fetch(`/api/posts?limit=${PAGE_SIZE}&offset=0`).then((r) => r.json()),
-      fetch('/api/content/featured_post').then((r) => r.json()),
-    ])
-      .then(([postsData, featuredData]) => {
-        const published = (postsData.posts as Post[]).filter((p) => p.published !== false);
-        const pinnedSlug = featuredData.value?.slug;
-        if (pinnedSlug) {
-          published.forEach((p) => { p.featured = p.slug === pinnedSlug; });
+    async function loadInitialPosts() {
+      try {
+        const postsRes = await fetch(`/api/posts?limit=${PAGE_SIZE}&offset=0`);
+        if (!postsRes.ok) {
+          throw new Error(`Posts request failed with status ${postsRes.status}`);
         }
+
+        const postsData = await postsRes.json();
+        const published = Array.isArray(postsData.posts)
+          ? (postsData.posts as Post[]).filter((p) => p.published !== false)
+          : [];
+
+        try {
+          const featuredRes = await fetch('/api/content/featured_post');
+          if (featuredRes.ok) {
+            const featuredData = await featuredRes.json();
+            const pinnedSlug = featuredData.value?.slug;
+            if (pinnedSlug) {
+              published.forEach((p) => {
+                p.featured = p.slug === pinnedSlug;
+              });
+            }
+          }
+        } catch (featuredError) {
+          console.error('Failed to load featured post config', featuredError);
+        }
+
         setPosts(published);
-        setTotal(postsData.total ?? published.length);
-        setLoading(false);
-      })
-      .catch(() => {
+        setTotal(typeof postsData.total === 'number' ? postsData.total : published.length);
+      } catch (loadError) {
+        console.error('Failed to load blog listing', loadError);
         setError('Failed to load posts. Please try again.');
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+
+    void loadInitialPosts();
   }, []);
 
   async function loadMore() {
     setLoadingMore(true);
     try {
       const res = await fetch(`/api/posts?limit=${PAGE_SIZE}&offset=${posts.length}`);
+      if (!res.ok) {
+        throw new Error(`Posts request failed with status ${res.status}`);
+      }
       const data = await res.json();
-      const newPosts = (data.posts as Post[]).filter((p) => p.published !== false);
+      const newPosts = Array.isArray(data.posts)
+        ? (data.posts as Post[]).filter((p) => p.published !== false)
+        : [];
       setPosts((prev) => [...prev, ...newPosts]);
+    } catch (loadError) {
+      console.error('Failed to load more posts', loadError);
+      setError('Failed to load more posts. Please try again.');
     } finally {
       setLoadingMore(false);
     }
