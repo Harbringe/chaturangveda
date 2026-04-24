@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, rowToPost } from '@/lib/db';
+import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -13,7 +14,10 @@ function checkAuth(req: NextRequest): boolean {
 export async function GET(_req: NextRequest, { params }: Params) {
   const { slug } = await params;
   const db = getDb();
-  const { rows } = await db.query('SELECT * FROM posts WHERE slug = $1', [slug]);
+  const [rows] = await db.query<RowDataPacket[]>(
+    'SELECT * FROM posts WHERE slug = ?',
+    [slug]
+  );
   if (rows.length === 0) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
@@ -34,21 +38,21 @@ export async function PUT(req: NextRequest, { params }: Params) {
     : undefined;
 
   const db = getDb();
-  const { rowCount } = await db.query(
+  const [result] = await db.query<ResultSetHeader>(
     `UPDATE posts SET
-       title        = COALESCE($1, title),
-       excerpt      = COALESCE($2, excerpt),
-       content      = COALESCE($3, content),
-       author       = COALESCE($4, author),
-       author_image = COALESCE($5, author_image),
-       date         = COALESCE($6, date),
-       image        = COALESCE($7, image),
-       category     = COALESCE($8, category),
-       tags         = COALESCE($9, tags),
-       read_time    = COALESCE($10, read_time),
-       featured     = COALESCE($11, featured),
-       published    = COALESCE($12, published)
-     WHERE slug = $13`,
+       title        = COALESCE(?, title),
+       excerpt      = COALESCE(?, excerpt),
+       content      = COALESCE(?, content),
+       author       = COALESCE(?, author),
+       author_image = COALESCE(?, author_image),
+       date         = COALESCE(?, date),
+       image        = COALESCE(?, image),
+       category     = COALESCE(?, category),
+       tags         = COALESCE(?, tags),
+       read_time    = COALESCE(?, read_time),
+       featured     = COALESCE(?, featured),
+       published    = COALESCE(?, published)
+     WHERE slug = ?`,
     [
       body.title ?? null,
       body.excerpt ?? null,
@@ -58,15 +62,15 @@ export async function PUT(req: NextRequest, { params }: Params) {
       body.date ?? null,
       body.image ?? null,
       body.category ?? null,
-      tags ?? null,
+      tags !== undefined ? JSON.stringify(tags) : null,
       body.readTime ?? null,
-      body.featured ?? null,
-      body.published ?? null,
+      body.featured !== undefined ? (body.featured ? 1 : 0) : null,
+      body.published !== undefined ? (body.published ? 1 : 0) : null,
       slug,
     ]
   );
 
-  if (rowCount === 0) {
+  if (result.affectedRows === 0) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
   return NextResponse.json({ ok: true });
@@ -78,8 +82,11 @@ export async function DELETE(req: NextRequest, { params }: Params) {
   }
   const { slug } = await params;
   const db = getDb();
-  const { rowCount } = await db.query('DELETE FROM posts WHERE slug = $1', [slug]);
-  if (rowCount === 0) {
+  const [result] = await db.query<ResultSetHeader>(
+    'DELETE FROM posts WHERE slug = ?',
+    [slug]
+  );
+  if (result.affectedRows === 0) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
   return NextResponse.json({ ok: true });

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   FaInstagram,
-  FaYoutube,
   FaWhatsapp,
 } from 'react-icons/fa';
 import styles from './Footer.module.css';
@@ -57,9 +56,6 @@ export default function Footer() {
               <a href="https://www.instagram.com/chaturangvedamanojreddy" className={styles.socialLink} aria-label="Instagram">
                 <FaInstagram />
               </a>
-              <a href="#" className={styles.socialLink} aria-label="YouTube">
-                <FaYoutube />
-              </a>
             </div>
           </div>
 
@@ -106,8 +102,8 @@ export default function Footer() {
         <div className={styles.footerBottom}>
           <p>© {currentYear} Chaturangveda. All rights reserved.</p>
           <div className={styles.footerBottomLinks}>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms">Terms of Service</Link>
           </div>
         </div>
       </div>

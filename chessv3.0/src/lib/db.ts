@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import mysql, { Pool, RowDataPacket } from 'mysql2/promise';
 
 let pool: Pool | null = null;
 
@@ -7,9 +7,11 @@ export function getDb(): Pool {
     if (!process.env.DB_CONN) {
       throw new Error('DB_CONN environment variable is not set. Check .env.local.');
     }
-    pool = new Pool({
-      connectionString: process.env.DB_CONN,
-      ssl: { rejectUnauthorized: false },
+    pool = mysql.createPool({
+      uri: process.env.DB_CONN,
+      waitForConnections: true,
+      connectionLimit: 10,
+      dateStrings: true,
     });
   }
   return pool;
@@ -33,9 +35,7 @@ export interface Post {
   created_at?: string;
 }
 
-/** Map a DB row (snake_case) to the Post interface (camelCase) */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function rowToPost(row: Record<string, any>): Post {
+export function rowToPost(row: RowDataPacket): Post {
   return {
     id: row.id,
     slug: row.slug,
@@ -49,8 +49,8 @@ export function rowToPost(row: Record<string, any>): Post {
     category: row.category ?? undefined,
     tags: row.tags ?? [],
     readTime: row.read_time ?? undefined,
-    featured: row.featured ?? false,
-    published: row.published ?? true,
+    featured: Boolean(row.featured),
+    published: Boolean(row.published),
     created_at: row.created_at ?? undefined,
   };
 }

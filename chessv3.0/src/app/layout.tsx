@@ -65,6 +65,13 @@ export const metadata: Metadata = {
   creator: "Chaturangveda",
   publisher: "Chaturangveda",
   category: "Education",
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/chaturangveda_logo.png', type: 'image/png' },
+    ],
+    apple: '/chaturangveda_logo.png',
+  },
   alternates: {
     canonical: SITE_URL,
   },

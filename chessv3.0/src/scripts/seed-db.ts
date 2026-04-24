@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import mysql from 'mysql2/promise';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
@@ -17,28 +17,37 @@ if (existsSync(envLocalPath)) {
   }
 }
 
-const pool = new Pool({
-  connectionString: process.env.DB_CONN,
-  ssl: { rejectUnauthorized: false },
+const pool = mysql.createPool({
+  uri: process.env.DB_CONN,
+  waitForConnections: true,
+  dateStrings: true,
 });
 
-const CREATE_TABLE = `
+const CREATE_POSTS = `
 CREATE TABLE IF NOT EXISTS posts (
-  id           SERIAL PRIMARY KEY,
-  slug         TEXT UNIQUE NOT NULL,
+  id           INT AUTO_INCREMENT PRIMARY KEY,
+  slug         VARCHAR(500) UNIQUE NOT NULL,
   title        TEXT NOT NULL,
   excerpt      TEXT,
-  content      TEXT,
+  content      LONGTEXT,
   author       TEXT,
   author_image TEXT,
   date         DATE,
   image        TEXT,
   category     TEXT,
-  tags         TEXT[],
-  read_time    TEXT,
-  featured     BOOLEAN DEFAULT FALSE,
-  published    BOOLEAN DEFAULT TRUE,
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  tags         JSON,
+  read_time    VARCHAR(50),
+  featured     TINYINT(1) DEFAULT 0,
+  published    TINYINT(1) DEFAULT 1,
+  created_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+`;
+
+const CREATE_SITE_CONTENT = `
+CREATE TABLE IF NOT EXISTS site_content (
+  \`key\`      VARCHAR(255) PRIMARY KEY,
+  value        JSON NOT NULL,
+  updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 `;
 
@@ -87,11 +96,12 @@ const SRINIKA_POST = {
 };
 
 async function seed() {
-  const client = await pool.connect();
+  const conn = await pool.getConnection();
   try {
-    console.log('Creating posts table...');
-    await client.query(CREATE_TABLE);
-    console.log('Table ready.');
+    console.log('Creating tables...');
+    await conn.query(CREATE_POSTS);
+    await conn.query(CREATE_SITE_CONTENT);
+    console.log('Tables ready.');
 
     // Load existing posts from JSON
     const postsPath = join(process.cwd(), 'src', 'data', 'posts.json');
@@ -123,7 +133,7 @@ async function seed() {
       date: p.date ?? null,
       image: p.image ?? null,
       category: p.category ?? null,
-      tags: null,
+      tags: null as string[] | null,
       read_time: p.readTime ?? null,
       featured: p.featured ?? false,
       published: p.published ?? true,
@@ -131,24 +141,24 @@ async function seed() {
 
     let inserted = 0;
     for (const post of allPosts) {
-      const result = await client.query(
-        `INSERT INTO posts
+      const [result] = await conn.query<mysql.ResultSetHeader>(
+        `INSERT IGNORE INTO posts
            (slug, title, excerpt, content, author, author_image, date, image,
             category, tags, read_time, featured, published)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
-         ON CONFLICT (slug) DO NOTHING`,
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [
           post.slug, post.title, post.excerpt, post.content, post.author,
           post.author_image, post.date, post.image, post.category,
-          post.tags, post.read_time, post.featured, post.published,
+          post.tags ? JSON.stringify(post.tags) : null,
+          post.read_time, post.featured ? 1 : 0, post.published ? 1 : 0,
         ]
       );
-      if (result.rowCount && result.rowCount > 0) inserted++;
+      if (result.affectedRows > 0) inserted++;
     }
 
     console.log(`Seeded ${inserted}/${allPosts.length} posts (skipped existing).`);
   } finally {
-    client.release();
+    conn.release();
     await pool.end();
   }
 }

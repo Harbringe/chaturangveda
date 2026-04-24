@@ -1,11 +1,12 @@
 import { getDb, rowToPost, Post } from '@/lib/db';
 import { getContent } from '@/lib/content';
 import FeaturedForm from './FeaturedForm';
+import { RowDataPacket } from 'mysql2/promise';
 
 async function getPublishedPosts(): Promise<Post[]> {
   const db = getDb();
-  const { rows } = await db.query(
-    'SELECT slug, title, date FROM posts WHERE published = true ORDER BY date DESC NULLS LAST'
+  const [rows] = await db.query<RowDataPacket[]>(
+    'SELECT slug, title, date FROM posts WHERE published = 1 ORDER BY ISNULL(date), date DESC'
   );
   return rows.map(rowToPost);
 }

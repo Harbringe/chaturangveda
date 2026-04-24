@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { getDb, rowToPost } from '@/lib/db';
+import { RowDataPacket } from 'mysql2/promise';
 import styles from './page.module.css';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chaturangveda.in';
@@ -31,7 +32,7 @@ type Params = { params: Promise<{ slug: string }> };
 
 async function getAllPosts(): Promise<Post[]> {
   const db = getDb();
-  const { rows } = await db.query('SELECT * FROM posts ORDER BY date DESC NULLS LAST');
+  const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM posts ORDER BY ISNULL(date), date DESC');
   return rows.map(rowToPost) as Post[];
 }
 

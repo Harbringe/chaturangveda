@@ -2,11 +2,12 @@ import Link from 'next/link';
 import { getDb, rowToPost, Post } from '@/lib/db';
 import styles from '../admin.module.css';
 import DeleteButton from '../DeleteButton';
+import { RowDataPacket } from 'mysql2/promise';
 
 async function getPosts(): Promise<Post[]> {
   const db = getDb();
-  const { rows } = await db.query(
-    'SELECT id, slug, title, date, category, published, featured FROM posts ORDER BY date DESC NULLS LAST'
+  const [rows] = await db.query<RowDataPacket[]>(
+    'SELECT id, slug, title, date, category, published, featured FROM posts ORDER BY ISNULL(date), date DESC'
   );
   return rows.map(rowToPost);
 }

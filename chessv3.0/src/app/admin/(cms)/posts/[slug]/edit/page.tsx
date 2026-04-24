@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
 import { getDb, rowToPost, Post } from '@/lib/db';
 import EditPostForm from './EditPostForm';
+import { RowDataPacket } from 'mysql2/promise';
 
 type Params = { params: Promise<{ slug: string }> };
 
 async function getPost(slug: string): Promise<Post | null> {
   const db = getDb();
-  const { rows } = await db.query('SELECT * FROM posts WHERE slug = $1', [slug]);
+  const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM posts WHERE slug = ?', [slug]);
   if (rows.length === 0) return null;
   return rowToPost(rows[0]);
 }

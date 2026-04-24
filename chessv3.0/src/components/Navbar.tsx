@@ -40,7 +40,21 @@ export default function Navbar() {
       <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.navContent}>
           <Link href="/" className={styles.logo}>
-            <Image src="/logo.png" alt="Chaturangveda" width={45} height={45} className={styles.logoImage} />
+            <div style={{
+              width: 45, height: 45, borderRadius: 10,
+              background: 'var(--primary-fixed)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+            }}>
+              <div style={{
+                width: 33, height: 33, borderRadius: 6,
+                background: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                <Image src="/chaturangveda_logo.png" alt="Chaturangveda" width={28} height={28} style={{ objectFit: 'contain' }} />
+              </div>
+            </div>
             <div className={styles.logoText}>
               <span className={styles.logoTitle}>Chaturangveda</span>
               <span className={styles.logoSubtitle}>New Era in Teaching Chess</span>
