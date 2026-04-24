@@ -224,7 +224,7 @@ export default function CurriculumPage() {
       </section>
 
       {/* ─── Pricing Calculator ─── */}
-      <div className={styles.pricingCalc}>
+      {/* <div className={styles.pricingCalc}>
         <div className={styles.pricingCalcInner}>
           <div className={styles.pricingCalcHeading}>Configure Your Plan</div>
           <p className={styles.pricingCalcSub}>Choose your class type and session frequency to see pricing on each level below.</p>
@@ -262,7 +262,7 @@ export default function CurriculumPage() {
             <p className={styles.calcHint}>↓ Pricing will appear on each level card once you make your selection</p>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* ─── Level Cards ─── */}
       <div className={styles.levelsSection}>
@@ -307,27 +307,31 @@ export default function CurriculumPage() {
                 {priceConfigured && price !== null ? (
                   <div className={styles.cardPricing}>
                     <div className={styles.priceRow}>
-                      <span className={styles.priceAmount}>{formatINR(price)}</span>
+                      {/* <span className={styles.priceAmount}>{formatINR(price)}</span> */}
+                      <span className={styles.priceAmount}>{"TBD"}</span>
                       <span className={styles.pricePeriod}>for {level.monthsDuration} months</span>
                     </div>
                     <div className={styles.priceMeta}>
                       <span>{sessions} sessions · {sessionsPerWeek}×/week</span>
-                      <span className={styles.pricePerSession}>{formatINR(Math.round(price / sessions))}/session</span>
+                      {/* <span className={styles.pricePerSession}>{formatINR(Math.round(price / sessions))}/session</span> */}
+                      <span className={styles.pricePerSession}>{"TBD"}</span>
+                      
                     </div>
                   </div>
                 ) : (
                   <div className={styles.pricePlaceholder}>
-                    Select your plan above to see pricing
+                    {/* Select your plan above to see pricing */}
+                    Contact Us for pricing details
                   </div>
                 )}
 
-                <button
+                {/* <button
                   className={styles.enrollBtn}
                   onClick={() => setSelectedLevel(level)}
                   disabled={!priceConfigured}
                 >
                   {priceConfigured ? `Enroll in ${level.title} →` : 'Configure plan to enroll'}
-                </button>
+                </button> */}
               </div>
             );
           })}
