@@ -325,13 +325,13 @@ export default function CurriculumPage() {
                   </div>
                 )}
 
-                <button
+                {/* <button
                   className={styles.enrollBtn}
                   onClick={() => setSelectedLevel(level)}
                   disabled={!priceConfigured}
                 >
                   {priceConfigured ? `Enroll in ${level.title} →` : 'Configure plan to enroll'}
-                </button>
+                </button> */}
               </div>
             );
           })}
