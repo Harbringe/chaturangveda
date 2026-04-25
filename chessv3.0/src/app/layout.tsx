@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Fraunces, JetBrains_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import OrganizationSchema from "@/components/OrganizationSchema";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chaturangveda.in';
@@ -68,9 +69,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/chaturangveda_logo.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: '/chaturangveda_logo.png',
+    apple: { url: '/chaturangveda_logo.png', type: 'image/png' },
+    shortcut: '/favicon.svg',
   },
   alternates: {
     canonical: SITE_URL,
@@ -129,6 +131,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <OrganizationSchema />
+      </head>
       <body>
         {children}
         <SpeedInsights />
