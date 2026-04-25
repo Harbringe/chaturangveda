@@ -9,7 +9,8 @@ export async function getContent<T>(key: string, fallback: T): Promise<T> {
       [key]
     );
     if (rows.length === 0) return fallback;
-    return rows[0].value as T;
+    const raw = rows[0].value;
+    return (typeof raw === 'string' ? JSON.parse(raw) : raw) as T;
   } catch {
     return fallback;
   }
