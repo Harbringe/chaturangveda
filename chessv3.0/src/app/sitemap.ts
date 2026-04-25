@@ -15,10 +15,16 @@ const staticRoutes = [
   { path: '/become-a-coach',  priority: 0.5,  changeFreq: 'yearly'  as const, lastMod: '2026-04-24' },
 ];
 
+function safeDate(val: unknown): Date {
+  if (!val) return new Date();
+  const d = new Date(val as string | number | Date);
+  return isNaN(d.getTime()) ? new Date() : d;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const statics = staticRoutes.map(({ path, priority, changeFreq, lastMod }) => ({
     url: `${SITE_URL}${path}`,
-    lastModified: new Date(lastMod),
+    lastModified: safeDate(lastMod),
     changeFrequency: changeFreq,
     priority,
   }));
@@ -31,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
     blogPosts = rows.map((row) => ({
       url: `${SITE_URL}/blogs/${row.slug}`,
-      lastModified: row.date ? new Date(row.date) : new Date(row.created_at ?? Date.now()),
+      lastModified: safeDate(row.date ?? row.created_at),
       changeFrequency: 'never' as const,
       priority: 0.65,
     }));
