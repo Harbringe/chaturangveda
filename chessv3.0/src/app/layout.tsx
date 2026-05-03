@@ -61,6 +61,23 @@ export const metadata: Metadata = {
     "chess academy online",
     "chess for kids USA",
     "online chess school",
+    "chess coaching for children India",
+    "best chess coach online",
+    "chess classes for kids online India",
+    "chess tutor for kids",
+    "chess coaching Bangalore",
+    "chess coaching Mumbai",
+    "chess coaching Delhi",
+    "chess coaching Chennai",
+    "chess coaching Pune",
+    "chess training online",
+    "chess lessons children",
+    "private chess coach online",
+    "group chess classes online",
+    "FIDE chess coach India",
+    "chess school online India",
+    "chess coaching for beginners",
+    "chess camp online",
   ],
   authors: [{ name: "Chaturangveda", url: SITE_URL }],
   creator: "Chaturangveda",
@@ -76,6 +93,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
+    languages: {
+      'en-IN': SITE_URL,
+      'en-US': SITE_URL,
+      'en-GB': SITE_URL,
+      'en-AU': SITE_URL,
+      'en-AE': SITE_URL,
+      'en-SG': SITE_URL,
+      'x-default': SITE_URL,
+    },
   },
   formatDetection: {
     telephone: false,
@@ -93,9 +119,9 @@ export const metadata: Metadata = {
       "FIDE-rated coaches. Structured 5-level curriculum. Students in 9+ countries. Book your free trial class today.",
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/chaturangveda_logo.png",
+        width: 512,
+        height: 512,
         alt: "Chaturangveda — Online Chess Coaching for Kids",
       },
     ],
@@ -105,7 +131,7 @@ export const metadata: Metadata = {
     title: "Chaturangveda — Online Chess Coaching for Kids",
     description:
       "FIDE-rated coaches. Structured 5-level curriculum. Students in 9+ countries. Book your free trial class today.",
-    images: ["/og-image.jpg"],
+    images: ["/chaturangveda_logo.png"],
   },
   robots: {
     index: true,
@@ -119,8 +145,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your Google Search Console verification token here
-    // google: "YOUR_VERIFICATION_TOKEN",
+    google: "23yurv9wtPV3WqP3IWvfNE0Ty7So8iAM-U0J-droOto",
   },
 };
 
@@ -130,7 +155,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en-IN" className={`${inter.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
       <head>
         <OrganizationSchema />
       </head>

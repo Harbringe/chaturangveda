@@ -28,7 +28,7 @@ const organizationSchema = {
     width: 200,
     height: 200,
   },
-  image: `${SITE_URL}/og-image.jpg`,
+  image: `${SITE_URL}/chaturangveda_logo.png`,
   description:
     'Expert online chess coaching for kids by FIDE-rated coaches. Structured 5-level curriculum from beginner to FIDE-rated player. Students across India, USA, UK, UAE, Australia, New Zealand, Netherlands and more.',
   foundingLocation: {
@@ -191,6 +191,77 @@ const websiteSchema = {
   },
 };
 
+const homeFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much does online chess coaching for kids cost in India?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'At Chaturangveda, group chess classes start from ₹550 per session and private 1-on-1 coaching starts from ₹1,100 per session. A free 45-minute trial class is available at absolutely no cost, with no obligation to continue.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What age can children start online chess coaching?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Children from age 5 and above can join Chaturangveda. The Foundation level curriculum is designed to be engaging and age-appropriate for young learners, adapting to each child's pace and cognitive level.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are online chess classes effective for children?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Yes. Chaturangveda's online chess classes are conducted live via Zoom with FIDE-rated coaches. Over 2,000 students have been trained with 150+ tournament wins. Students across India, USA, UK, UAE, Australia and more participate successfully in national and international tournaments.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does it take to learn chess with proper coaching?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "With Chaturangveda's structured 5-level curriculum, students progress from absolute beginner to FIDE-rated tournament readiness in approximately 21 months (attending 2–3 classes per week). Many students compete at district and state tournaments within 6–12 months of starting.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What makes Chaturangveda different from other online chess coaching academies?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Chaturangveda offers FIDE-rated coaches, a structured 5-level curriculum from beginner to FIDE-rated level, small batch sizes (maximum 5 students per group), 10+ years of coaching experience, students in 9+ countries, and a completely free 45-minute trial class. The academy was founded in Hyderabad and has trained 2,000+ students with 150+ tournament wins.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I book a free chess trial class for my child?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Visit chaturangveda.in/book-free-trial or WhatsApp +91 75691 94709. The free trial is a full 45-minute live session with a FIDE-rated coach — includes level assessment, fundamentals coaching, and personalised feedback. Completely free with no obligation to continue.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you offer chess coaching in group or individual format?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Both formats are available. Group classes have a maximum of 5 students per batch, offering peer learning and healthy competition. Private 1-on-1 classes give your child 100% undivided coach attention with a fully customised curriculum and flexible scheduling. Both are available at all 5 curriculum levels.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can children outside India join Chaturangveda chess coaching?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Chaturangveda teaches students from India, USA, UK, UAE, Australia, Singapore, New Zealand, Netherlands, Canada and more. All classes are conducted online via Zoom, so children from any country with a stable internet connection can join.',
+      },
+    },
+  ],
+};
+
 const DEFAULT_PHRASES = [
   "Strategic Thinking", "Grandmaster Curriculum", "FIDE-Rated Coaches",
   "Tournament Champions", "Critical Thinkers", "Future Leaders",
@@ -257,11 +328,31 @@ export default async function Home() {
       }))
     : undefined;
 
+  const reviewCount = testimonials.length;
+  const avgRating =
+    reviewCount > 0
+      ? Math.round((testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount) * 10) / 10
+      : null;
+
+  const dynamicOrganizationSchema = {
+    ...organizationSchema,
+    ...(avgRating !== null && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: avgRating.toFixed(1),
+        reviewCount,
+        bestRating: '5',
+        worstRating: '1',
+      },
+    }),
+  };
+
   return (
     <>
-      <JsonLd data={organizationSchema} />
+      <JsonLd data={dynamicOrganizationSchema} />
       <JsonLd data={coachesSchema} />
       <JsonLd data={websiteSchema} />
+      <JsonLd data={homeFaqSchema} />
       <Navbar />
       <main>
         <HeroSection

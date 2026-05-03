@@ -109,7 +109,7 @@ const localBusinessSchema = {
   alternateName: 'Chaturangveda Chess Academy',
   url: SITE_URL_CONTACT,
   logo: `${SITE_URL_CONTACT}/logo.png`,
-  image: `${SITE_URL_CONTACT}/og-image.jpg`,
+  image: `${SITE_URL_CONTACT}/chaturangveda_logo.png`,
   description: 'Expert online chess coaching for kids by FIDE-rated coaches. Students across India, USA, UK, UAE, Australia and more.',
   telephone: '+91-75691-94709',
   address: {
