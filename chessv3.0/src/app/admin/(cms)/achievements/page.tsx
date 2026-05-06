@@ -36,6 +36,7 @@ export default function AchievementsAdminPage() {
   const [editing, setEditing] = useState<Achievement | null>(null);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content/achievements')
@@ -45,14 +46,21 @@ export default function AchievementsAdminPage() {
 
   async function save(list: Achievement[]) {
     setSaving(true);
-    await fetch('/api/admin/content/achievements', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: list }),
-    });
-    setSaving(false);
-    setStatus('Saved');
-    setTimeout(() => setStatus(''), 2000);
+    setSaveError('');
+    try {
+      const res = await fetch('/api/admin/content/achievements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: list }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved');
+      setTimeout(() => setStatus(''), 2000);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   function commitEdit() {
@@ -85,6 +93,7 @@ export default function AchievementsAdminPage() {
         <h1 className={styles.pageTitle}>Student Achievements</h1>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+          {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
           <button
             onClick={() => setEditing({ id: Math.random().toString(36).slice(2), ...EMPTY })}
             className={`${styles.btn} ${styles.btnPrimary}`}

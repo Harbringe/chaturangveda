@@ -22,6 +22,7 @@ export default function CoursesAdminPage() {
   const [editing, setEditing] = useState<Course | null>(null);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content/courses')
@@ -38,18 +39,25 @@ export default function CoursesAdminPage() {
 
   async function save(list: Course[]) {
     setSaving(true);
+    setSaveError('');
     const toSave = list.map((c) => ({
       ...c,
       features: c.features.split('\n').map((f) => f.trim()).filter(Boolean),
     }));
-    await fetch('/api/admin/content/courses', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: toSave }),
-    });
-    setSaving(false);
-    setStatus('Saved');
-    setTimeout(() => setStatus(''), 2000);
+    try {
+      const res = await fetch('/api/admin/content/courses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: toSave }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved');
+      setTimeout(() => setStatus(''), 2000);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   function commitEdit() {
@@ -76,6 +84,7 @@ export default function CoursesAdminPage() {
         <h1 className={styles.pageTitle}>Courses</h1>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+          {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
           <button
             onClick={() => setEditing({ id: Math.random().toString(36).slice(2), ...EMPTY })}
             className={`${styles.btn} ${styles.btnPrimary}`}

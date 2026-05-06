@@ -26,7 +26,6 @@ export default function NewPostPage() {
     readTime: '',
     featured: false,
     published: true,
-    password: '',
   });
 
   function set(field: string, value: string | boolean) {
@@ -50,10 +49,7 @@ export default function NewPostPage() {
 
     const res = await fetch('/api/posts', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-admin-password': form.password,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         slug: form.slug,
         title: form.title,
@@ -154,11 +150,6 @@ export default function NewPostPage() {
             <input type="checkbox" checked={form.published} onChange={(e) => set('published', e.target.checked)} />
             Published
           </label>
-        </div>
-
-        <div className={styles.formGroup} style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #2d3748' }}>
-          <label className={styles.label}>Admin Password *</label>
-          <input type="password" className={styles.input} value={form.password} onChange={(e) => set('password', e.target.value)} required />
         </div>
 
         {error && <p className={styles.error}>{error}</p>}

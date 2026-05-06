@@ -110,7 +110,7 @@ export default function BenefitsSection() {
                 </span>
               </div>
               <div className={styles.benefitCardContent}>
-                <h4 className={styles.benefitCardTitle}>{card.title}</h4>
+                <p className={styles.benefitCardTitle}>{card.title}</p>
                 <p className={styles.benefitCardDesc}>{card.desc}</p>
               </div>
             </motion.div>

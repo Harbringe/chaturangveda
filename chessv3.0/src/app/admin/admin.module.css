@@ -106,6 +106,9 @@
 .btnPrimary {
   background: #3182ce;
   color: #fff;
+}
+
+.loginCard .btnPrimary {
   width: 100%;
   justify-content: center;
 }

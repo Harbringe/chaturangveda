@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, rowToPost } from '@/lib/db';
+import { getAdminSession } from '@/lib/session';
 import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
 export const dynamic = 'force-dynamic';
@@ -67,12 +68,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const password = req.headers.get('x-admin-password');
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  if (!adminPassword) {
-    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 });
-  }
-  if (password !== adminPassword) {
+  const session = await getAdminSession();
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

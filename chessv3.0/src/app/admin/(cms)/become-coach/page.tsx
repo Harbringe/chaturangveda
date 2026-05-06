@@ -16,6 +16,7 @@ export default function BecomeCoachAdminPage() {
   const [form, setForm] = useState<BecomeCoachContent>(DEFAULT);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content/become_coach')
@@ -26,11 +27,19 @@ export default function BecomeCoachAdminPage() {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await fetch('/api/admin/content/become_coach', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: form }),
-    });
-    setSaving(false); setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    setSaveError('');
+    try {
+      const res = await fetch('/api/admin/content/become_coach', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: form }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -38,6 +47,7 @@ export default function BecomeCoachAdminPage() {
       <div className={styles.pageHeader}>
         <h1 className={styles.pageTitle}>Become a Coach</h1>
         {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+        {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
       </div>
       <form onSubmit={save} className={styles.form}>
         <MarkdownEditor label="Introduction / Hero text" value={form.intro} onChange={(v) => setForm({ ...form, intro: v })} rows={5} />

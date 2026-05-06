@@ -26,7 +26,6 @@ export default function EditPostForm({ post }: { post: Post }) {
     readTime: post.readTime || '',
     featured: post.featured || false,
     published: post.published ?? true,
-    password: '',
   });
 
   function set(field: string, value: string | boolean) {
@@ -40,10 +39,7 @@ export default function EditPostForm({ post }: { post: Post }) {
 
     const res = await fetch(`/api/posts/${post.slug}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-admin-password': form.password,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: form.title,
         excerpt: form.excerpt,
@@ -148,11 +144,6 @@ export default function EditPostForm({ post }: { post: Post }) {
             <input type="checkbox" checked={form.published} onChange={(e) => set('published', e.target.checked)} />
             Published
           </label>
-        </div>
-
-        <div className={styles.formGroup} style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #2d3748' }}>
-          <label className={styles.label}>Admin Password *</label>
-          <input type="password" className={styles.input} value={form.password} onChange={(e) => set('password', e.target.value)} required />
         </div>
 
         {error && <p className={styles.error}>{error}</p>}

@@ -38,6 +38,7 @@ export default function HeroSettingsAdminPage() {
   const [settings, setSettings] = useState<HeroSettings>(DEFAULTS);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content/hero-settings')
@@ -58,19 +59,26 @@ export default function HeroSettingsAdminPage() {
 
   async function save() {
     setSaving(true);
-    await fetch('/api/admin/content/hero-settings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        value: {
-          ...settings,
-          phrases: settings.phrases.map((p) => p.text),
-        },
-      }),
-    });
-    setSaving(false);
-    setStatus('Saved');
-    setTimeout(() => setStatus(''), 2500);
+    setSaveError('');
+    try {
+      const res = await fetch('/api/admin/content/hero-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          value: {
+            ...settings,
+            phrases: settings.phrases.map((p) => p.text),
+          },
+        }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved');
+      setTimeout(() => setStatus(''), 2500);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   function addPhrase() {
@@ -115,6 +123,7 @@ export default function HeroSettingsAdminPage() {
         <h1 className={styles.pageTitle}>Hero Settings</h1>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+          {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
           <button onClick={save} disabled={saving} className={`${styles.btn} ${styles.btnPrimary}`}>
             {saving ? 'Saving…' : 'Save All'}
           </button>

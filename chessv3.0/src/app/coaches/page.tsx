@@ -106,17 +106,20 @@ export default async function CoachesPage() {
   }>>('coaches', []);
 
   const displayCoaches = cmsCoaches.length > 0
-    ? cmsCoaches.map((c) => ({
-        name: c.name,
-        title: c.title,
-        experience: c.experience,
-        badge: c.fideRating ? `FIDE ${c.fideRating}` : c.title,
-        image: c.photo,
-        objectPosition: c.photoFocus ?? 'center center',
-        bio: c.bio,
-        specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
-        achievements: [] as string[],
-      }))
+    ? cmsCoaches.map((c) => {
+        const fallback = FALLBACK_COACHES.find((f) => f.name === c.name);
+        return {
+          name: c.name,
+          title: c.title,
+          experience: c.experience,
+          badge: c.fideRating ? `FIDE ${c.fideRating}` : c.title,
+          image: c.photo,
+          objectPosition: c.photoFocus ?? 'center center',
+          bio: c.bio,
+          specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
+          achievements: fallback?.achievements ?? [],
+        };
+      })
     : FALLBACK_COACHES;
 
   return (

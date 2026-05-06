@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import sanitizeHtml from 'sanitize-html';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -158,6 +159,7 @@ export default async function BlogPostPage({ params }: Params) {
                     alt={post.author}
                     fill
                     style={{ objectFit: 'cover' }}
+                    sizes="48px"
                   />
                 </div>
               )}
@@ -174,6 +176,7 @@ export default async function BlogPostPage({ params }: Params) {
             alt={post.title}
             fill
             style={{ objectFit: 'cover', objectPosition: post.imagePosition || 'center' }}
+            sizes="100vw"
             priority
           />
         )}
@@ -182,7 +185,16 @@ export default async function BlogPostPage({ params }: Params) {
       <article className={styles.article}>
         <div
           className={styles.articleBody}
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{
+            __html: sanitizeHtml(post.content, {
+              allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'figcaption', 'h1', 'h2', 'h3', 'h4', 'details', 'summary']),
+              allowedAttributes: {
+                ...sanitizeHtml.defaults.allowedAttributes,
+                img: ['src', 'alt', 'width', 'height', 'style'],
+                '*': ['class', 'id', 'style'],
+              },
+            }),
+          }}
         />
 
         <div className={styles.postNav}>

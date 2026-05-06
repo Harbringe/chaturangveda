@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, Playfair_Display, Fraunces, JetBrains_Mono, Space_Grotesk, Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import OrganizationSchema from "@/components/OrganizationSchema";
 import "./globals.css";
@@ -33,15 +33,29 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "Chaturangveda",
   title: {
-    default: "Chaturangveda — Online Chess Coaching for Kids | FIDE-Rated Coaches",
+    default: "Chaturangveda — Chess Coaching for Kids | FIDE-Rated",
     template: "%s | Chaturangveda",
   },
   description:
-    "Expert online chess coaching for kids by FIDE-rated coaches. Structured curriculum from beginner to tournament level. Students across India, USA, UK, UAE, Australia & more. Book a free 45-min trial class today.",
+    "FIDE-rated online chess coaching for kids. Beginner to tournament level. Students across India, USA, UK, UAE, Australia & more. Book a free 45-min trial class today.",
   keywords: [
     "online chess coaching for kids",
     "chess classes for children",
@@ -94,6 +108,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
     languages: {
+      'en': SITE_URL,
       'en-IN': SITE_URL,
       'en-US': SITE_URL,
       'en-GB': SITE_URL,
@@ -155,7 +170,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en-IN" className={`${inter.variable} ${playfair.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} ${manrope.variable}`}>
       <head>
         <OrganizationSchema />
       </head>

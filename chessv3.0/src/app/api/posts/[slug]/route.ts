@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, rowToPost } from '@/lib/db';
+import { getAdminSession } from '@/lib/session';
 import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
 type Params = { params: Promise<{ slug: string }> };
-
-function checkAuth(req: NextRequest): boolean {
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  if (!adminPassword) return false;
-  const password = req.headers.get('x-admin-password');
-  return password === adminPassword;
-}
 
 export async function GET(_req: NextRequest, { params }: Params) {
   const { slug } = await params;
@@ -25,7 +19,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PUT(req: NextRequest, { params }: Params) {
-  if (!checkAuth(req)) {
+  const session = await getAdminSession();
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { slug } = await params;
@@ -77,7 +72,8 @@ export async function PUT(req: NextRequest, { params }: Params) {
 }
 
 export async function DELETE(req: NextRequest, { params }: Params) {
-  if (!checkAuth(req)) {
+  const session = await getAdminSession();
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { slug } = await params;

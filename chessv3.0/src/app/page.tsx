@@ -1,15 +1,18 @@
+import dynamic from 'next/dynamic';
+import { unstable_cache } from 'next/cache';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
-import AnimatedTextBanner from '@/components/AnimatedTextBanner';
-import StatsSection from '@/components/StatsSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import CoursesSection from '@/components/CoursesSection';
-import BenefitsSection from '@/components/BenefitsSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import CTASection from '@/components/CTASection';
-import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { getContent } from '@/lib/content';
+
+const AnimatedTextBanner = dynamic(() => import('@/components/AnimatedTextBanner'));
+const StatsSection       = dynamic(() => import('@/components/StatsSection'));
+const FeaturesSection    = dynamic(() => import('@/components/FeaturesSection'));
+const CoursesSection     = dynamic(() => import('@/components/CoursesSection'));
+const BenefitsSection    = dynamic(() => import('@/components/BenefitsSection'));
+const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'));
+const CTASection         = dynamic(() => import('@/components/CTASection'));
+const Footer             = dynamic(() => import('@/components/Footer'));
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chaturangveda.in';
 
@@ -262,6 +265,19 @@ const homeFaqSchema = {
   ],
 };
 
+const getHomeData = unstable_cache(
+  async () => Promise.all([
+    getContent<Array<{ name: string; achievement: string; event?: string; year?: string; photo?: string; badge?: string; isKey?: boolean }>>('achievements', []),
+    getContent<Array<{ parentName: string; childName?: string; quote: string; rating: number }>>('testimonials', []),
+    getContent<{
+      headline1?: string; headline2?: string; description?: string;
+      phrases?: string[]; stats?: Array<{ value: string; label: string }>;
+    } | null>('hero-settings', null),
+  ]),
+  ['home-page-data'],
+  { revalidate: 300 }
+);
+
 const DEFAULT_PHRASES = [
   "Strategic Thinking", "Grandmaster Curriculum", "FIDE-Rated Coaches",
   "Tournament Champions", "Critical Thinkers", "Future Leaders",
@@ -275,17 +291,7 @@ const DEFAULT_HERO_STATS = [
 ];
 
 export default async function Home() {
-  const [achievements, testimonials, heroSettingsRaw] = await Promise.all([
-    getContent<Array<{ name: string; achievement: string; event?: string; year?: string; photo?: string; badge?: string; isKey?: boolean }>>('achievements', []),
-    getContent<Array<{ parentName: string; childName?: string; quote: string; rating: number }>>('testimonials', []),
-    getContent<{
-      headline1?: string;
-      headline2?: string;
-      description?: string;
-      phrases?: string[];
-      stats?: Array<{ value: string; label: string }>;
-    } | null>('hero-settings', null),
-  ]);
+  const [achievements, testimonials, heroSettingsRaw] = await getHomeData();
 
   const mappedAchievements = achievements.length > 0
     ? achievements.map((a) => ({
