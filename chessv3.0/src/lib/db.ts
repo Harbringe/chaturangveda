@@ -18,11 +18,16 @@ export function getDb(): Pool {
     } catch (error) {
       console.error('Failed to parse DB_CONN', error);
     }
+    // Strip ssl-mode query param (not understood by mysql2) and enable SSL manually if present
+    const rawUri = process.env.DB_CONN;
+    const needsSsl = rawUri.includes('ssl-mode=');
+    const cleanUri = rawUri.replace(/[?&]ssl-mode=[^&]*/g, '').replace(/[?&]$/, '');
     pool = mysql.createPool({
-      uri: process.env.DB_CONN,
+      uri: cleanUri,
       waitForConnections: true,
       connectionLimit: 10,
       dateStrings: true,
+      ...(needsSsl && { ssl: { rejectUnauthorized: false } }),
     });
   }
   return pool;
