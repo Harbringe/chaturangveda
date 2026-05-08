@@ -98,7 +98,10 @@ export const metadata: Metadata = {
   publisher: "Chaturangveda",
   category: "Education",
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/chaturangveda_logo.png', type: 'image/png' },
+    ],
     apple: { url: '/chaturangveda_logo.png', type: 'image/png' },
     shortcut: '/favicon.svg',
   },

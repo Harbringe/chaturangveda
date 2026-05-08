@@ -99,6 +99,13 @@ const coaches = [
 
 const FALLBACK_COACHES = coaches;
 
+const ACHIEVEMENTS_BY_ID: Record<string, string[]> = {
+  'manoj-reddy-maram':   coaches[0].achievements,
+  'uttham-naresh-patti': coaches[1].achievements,
+  'rajdip':              coaches[2].achievements,
+  'subham-prasad':       coaches[3].achievements,
+};
+
 export default async function CoachesPage() {
   const cmsCoaches = await getContent<Array<{
     id: string; name: string; title: string; fideRating: string;
@@ -106,20 +113,17 @@ export default async function CoachesPage() {
   }>>('coaches', []);
 
   const displayCoaches = cmsCoaches.length > 0
-    ? cmsCoaches.map((c) => {
-        const fallback = FALLBACK_COACHES.find((f) => f.name === c.name);
-        return {
-          name: c.name,
-          title: c.title,
-          experience: c.experience,
-          badge: c.fideRating ? `FIDE ${c.fideRating}` : c.title,
-          image: c.photo,
-          objectPosition: c.photoFocus ?? 'center center',
-          bio: c.bio,
-          specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
-          achievements: fallback?.achievements ?? [],
-        };
-      })
+    ? cmsCoaches.map((c) => ({
+        name: c.name,
+        title: c.title,
+        experience: c.experience,
+        badge: c.fideRating ? `FIDE ${c.fideRating}` : c.title,
+        image: c.photo,
+        objectPosition: c.photoFocus ?? 'center center',
+        bio: c.bio,
+        specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
+        achievements: ACHIEVEMENTS_BY_ID[c.id] ?? [],
+      }))
     : FALLBACK_COACHES;
 
   return (
