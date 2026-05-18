@@ -225,6 +225,7 @@ export default function BlogsPage() {
                       alt={featured.author}
                       fill
                       style={{ objectFit: 'cover' }}
+                      sizes="48px"
                     />
                   </div>
                 )}
@@ -269,6 +270,7 @@ export default function BlogsPage() {
                           alt={post.author}
                           fill
                           style={{ objectFit: 'cover' }}
+                          sizes="48px"
                         />
                       </div>
                     )}

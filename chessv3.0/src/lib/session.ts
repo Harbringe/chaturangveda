@@ -2,7 +2,8 @@ import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
 const COOKIE_NAME = 'cv-admin-session';
-const SECRET = new TextEncoder().encode(process.env.SESSION_SECRET ?? 'fallback-dev-secret-32-chars-min!!');
+if (!process.env.SESSION_SECRET) throw new Error('SESSION_SECRET environment variable is not set');
+const SECRET = new TextEncoder().encode(process.env.SESSION_SECRET);
 
 export interface SessionPayload {
   isAdmin: boolean;

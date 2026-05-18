@@ -23,15 +23,15 @@ const stats = [
 ];
 
 const countries = [
-  { code: "in", name: "India" },
-  { code: "us", name: "USA" },
-  { code: "gb", name: "UK" },
-  { code: "ca", name: "Canada" },
-  { code: "ae", name: "UAE" },
-  { code: "sg", name: "Singapore" },
-  { code: "au", name: "Australia" },
-  { code: "nz", name: "New Zealand" },
-  { code: "nl", name: "Netherlands" },
+  { flag: "🇮🇳", name: "India" },
+  { flag: "🇺🇸", name: "USA" },
+  { flag: "🇬🇧", name: "UK" },
+  { flag: "🇨🇦", name: "Canada" },
+  { flag: "🇦🇪", name: "UAE" },
+  { flag: "🇸🇬", name: "Singapore" },
+  { flag: "🇦🇺", name: "Australia" },
+  { flag: "🇳🇿", name: "New Zealand" },
+  { flag: "🇳🇱", name: "Netherlands" },
 ];
 
 const FALLBACK_ACHIEVEMENTS = [
@@ -282,16 +282,11 @@ export default function HeroSection({
             Free Trial Available
           </motion.div>
 
-          <motion.h1
-            className={styles.heroTitle}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <h1 className={styles.heroTitle}>
             {headline1}
             <br />
             <span className={styles.highlight}>{headline2}</span>
-          </motion.h1>
+          </h1>
 
           <div className={styles.rotatingTextContainer}>
             <span className={styles.rotatingLabel}>We Build → </span>
@@ -578,13 +573,7 @@ export default function HeroSection({
           <div className={styles.flagsRow}>
             {countries.map((c) => (
               <span key={c.name} className={styles.flagChip}>
-                <img
-                  src={`https://flagcdn.com/w20/${c.code}.png`}
-                  alt={c.name}
-                  width={16}
-                  height={12}
-                  className={styles.flagImg}
-                />
+                <span className={styles.flagImg} aria-hidden="true">{c.flag}</span>
                 {c.name}
               </span>
             ))}

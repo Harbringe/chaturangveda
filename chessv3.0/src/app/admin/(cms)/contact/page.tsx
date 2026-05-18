@@ -23,6 +23,7 @@ export default function ContactAdminPage() {
   const [form, setForm] = useState<ContactInfo>(DEFAULT);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content/contact')
@@ -33,11 +34,19 @@ export default function ContactAdminPage() {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await fetch('/api/admin/content/contact', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: form }),
-    });
-    setSaving(false); setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    setSaveError('');
+    try {
+      const res = await fetch('/api/admin/content/contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: form }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   const fields: (keyof ContactInfo)[] = ['phone', 'whatsapp', 'email', 'location', 'hours'];
@@ -47,6 +56,7 @@ export default function ContactAdminPage() {
       <div className={styles.pageHeader}>
         <h1 className={styles.pageTitle}>Contact Info</h1>
         {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+        {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
       </div>
       <form onSubmit={save} className={styles.form} style={{ maxWidth: 600 }}>
         {fields.map((field) => (

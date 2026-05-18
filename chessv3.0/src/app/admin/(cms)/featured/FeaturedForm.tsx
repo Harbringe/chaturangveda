@@ -8,15 +8,24 @@ export default function FeaturedForm({ posts, currentSlug }: { posts: Post[]; cu
   const [slug, setSlug] = useState(currentSlug);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await fetch('/api/admin/content/featured_post', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value: { slug } }),
-    });
-    setSaving(false); setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    setSaveError('');
+    try {
+      const res = await fetch('/api/admin/content/featured_post', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: { slug } }),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      setStatus('Saved'); setTimeout(() => setStatus(''), 2000);
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -24,6 +33,7 @@ export default function FeaturedForm({ posts, currentSlug }: { posts: Post[]; cu
       <div className={styles.pageHeader}>
         <h1 className={styles.pageTitle}>Featured Post</h1>
         {status && <span style={{ fontSize: '0.85rem', color: '#276749' }}>{status}</span>}
+        {saveError && <span style={{ fontSize: '0.85rem', color: '#c53030' }}>{saveError}</span>}
       </div>
       <p style={{ color: '#718096', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
         The featured post appears prominently at the top of the blog page.

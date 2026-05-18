@@ -99,6 +99,13 @@ const coaches = [
 
 const FALLBACK_COACHES = coaches;
 
+const ACHIEVEMENTS_BY_ID: Record<string, string[]> = {
+  'manoj-reddy-maram':   coaches[0].achievements,
+  'uttham-naresh-patti': coaches[1].achievements,
+  'rajdip':              coaches[2].achievements,
+  'subham-prasad':       coaches[3].achievements,
+};
+
 export default async function CoachesPage() {
   const cmsCoaches = await getContent<Array<{
     id: string; name: string; title: string; fideRating: string;
@@ -115,7 +122,7 @@ export default async function CoachesPage() {
         objectPosition: c.photoFocus ?? 'center center',
         bio: c.bio,
         specialties: c.specialties ? c.specialties.split(',').map((s: string) => s.trim()).filter(Boolean) : [],
-        achievements: [] as string[],
+        achievements: ACHIEVEMENTS_BY_ID[c.id] ?? [],
       }))
     : FALLBACK_COACHES;
 
