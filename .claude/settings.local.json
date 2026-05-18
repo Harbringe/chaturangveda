@@ -36,7 +36,13 @@
       "Bash(winget list:*)",
       "Bash(ls:*)",
       "Bash(rm E:/chaturangaveda/chessv3.0/src/app/admin/page.tsx)",
-      "Bash(rm -rf E:/chaturangaveda/chessv3.0/.next)"
+      "Bash(rm -rf E:/chaturangaveda/chessv3.0/.next)",
+      "Bash(Get-ChildItem -Path \"e:\\\\chaturangaveda\\\\chessv3.0\" -Directory)",
+      "Bash(Select-Object Name)",
+      "PowerShell(ls -Path \"e:\\\\chaturangaveda\\\\chessv3.0\\\\src\" -Recurse -Force | Where-Object {$_.Extension -eq \".sql\" -or $_.Name -match \"migration|seed|schema|database\"})",
+      "PowerShell(ls -Path \"e:\\\\chaturangaveda\\\\chessv3.0\\\\src\" -Recurse -Force | Where-Object {$_.Extension -eq \".sql\" -or $_.Extension -eq \".ts\" -or $_.Name -match \"schema\"}  | Select-Object FullName)",
+      "Bash(npx tsx *)",
+      "Bash(npx next *)"
     ]
   }
 }
