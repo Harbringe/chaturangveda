@@ -42,7 +42,10 @@
       "PowerShell(ls -Path \"e:\\\\chaturangaveda\\\\chessv3.0\\\\src\" -Recurse -Force | Where-Object {$_.Extension -eq \".sql\" -or $_.Name -match \"migration|seed|schema|database\"})",
       "PowerShell(ls -Path \"e:\\\\chaturangaveda\\\\chessv3.0\\\\src\" -Recurse -Force | Where-Object {$_.Extension -eq \".sql\" -or $_.Extension -eq \".ts\" -or $_.Name -match \"schema\"}  | Select-Object FullName)",
       "Bash(npx tsx *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(curl -sI \"https://chaturangveda.in/_next/static/chunks/0ht-82uxa0rhb.css\")",
+      "Bash(curl -s \"https://chaturangveda.in/_next/static/chunks/0ht-82uxa0rhb.css\")",
+      "Bash(curl -sI \"https://chaturangveda.in/_next/static/chunks/0yb2wil16uz6h.js\")"
     ]
   }
 }
