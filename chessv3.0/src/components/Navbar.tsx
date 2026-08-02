@@ -15,6 +15,7 @@ const serviceDropdownItems = [
 
 const LMS_URL = 'https://chaturangveda.wise.live';
 const BOOK_URL = 'https://chaturangveda.wise.live/book/consultation';
+const STUDENT_LOGIN_ENABLED = false; // TODO: flip to true once the LMS link is ready
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -116,7 +117,14 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <a href={LMS_URL} target="_blank" rel="noopener noreferrer" className={styles.lmsBtn}>
+              <a
+                href={STUDENT_LOGIN_ENABLED ? LMS_URL : undefined}
+                target={STUDENT_LOGIN_ENABLED ? '_blank' : undefined}
+                rel={STUDENT_LOGIN_ENABLED ? 'noopener noreferrer' : undefined}
+                aria-disabled={!STUDENT_LOGIN_ENABLED}
+                className={styles.lmsBtn}
+                onClick={(e) => { if (!STUDENT_LOGIN_ENABLED) e.preventDefault(); }}
+              >
                 Student Login
               </a>
             </li>
@@ -149,7 +157,17 @@ export default function Navbar() {
         <Link href="/become-a-coach" className={styles.navLink} onClick={() => setMobileOpen(false)}>
           Become a Coach
         </Link>
-        <a href={LMS_URL} target="_blank" rel="noopener noreferrer" className={styles.lmsBtn} onClick={() => setMobileOpen(false)}>
+        <a
+          href={STUDENT_LOGIN_ENABLED ? LMS_URL : undefined}
+          target={STUDENT_LOGIN_ENABLED ? '_blank' : undefined}
+          rel={STUDENT_LOGIN_ENABLED ? 'noopener noreferrer' : undefined}
+          aria-disabled={!STUDENT_LOGIN_ENABLED}
+          className={styles.lmsBtn}
+          onClick={(e) => {
+            if (!STUDENT_LOGIN_ENABLED) { e.preventDefault(); return; }
+            setMobileOpen(false);
+          }}
+        >
           Student Login
         </a>
         <Link href="/book-free-trial" className={styles.mobileCTA} onClick={() => setMobileOpen(false)}>
